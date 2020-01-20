@@ -47,11 +47,10 @@ class Clsglobal extends CI_Model {
 
 	}
 
-	public function get_data($table,$key,$value)
+	public function get_data($table,$condition)
 	{
-		if ( $this->check_availability($table,$key,$value) == 2 ) {
-			$this->db->where($key,$value);
-			return $this->db->get($table)->result_array()[0];
+		if ( $this->check_availability($table,$condition) == 2 ) {
+			return $this->db->get_where($table,$condition)->result_array()[0];
 		} else {
 			return 3;
 		}

@@ -67,6 +67,11 @@ class Kategori_soal_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
+    public function get_kategori($id_kategori)
+    {
+        return $this->Clsglobal->get_data($this->table,["id_kategori" => $id_kategori]);
+    }
+
     public function insert_kategori($data)
     {
     	$insert = $this->db->insert($this->table,$data);
@@ -86,5 +91,35 @@ class Kategori_soal_model extends CI_Model {
     	} else {
     		return 1;
     	}
+    }
+
+    public function update_kategori($data)
+    {
+        $multiple = false;
+
+        $check = $this->Clsglobal->check_availability($this->table,["nama_kategori" => $data['nama_kategori']]);
+        if ( $check == 2 ) {
+            $get = $this->Clsglobal->get_data($this->table,["nama_kategori" => $data['nama_kategori']]);
+            if ( $get['id_kategori'] == $data['id_kategori'] ) {
+                $multiple = false;
+            } else {
+                $multiple = true;
+            }
+        } else {
+            $multiple = false;
+        }
+
+        if ( $multiple == false ) {
+            $this->db->set("nama_kategori", $data['nama_kategori']);
+            $this->db->where("id_kategori", $data['id_kategori']);
+            $update = $this->db->update($this->table);
+            if ( $update > 0 ) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return 2;
+        }
     }
 }

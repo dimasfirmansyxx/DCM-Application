@@ -88,6 +88,35 @@
   </div>
 </div>
 
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Kategori</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="frmedit">
+          <div class="form-group">
+            <label>Nama Kategori</label>
+            <input type="text" name="nama_kategori" class="form-control txtnamakategoriedit" required autocomplete="off">
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+            Tutup
+          </button>
+          <button type="submit" class="btn btn-primary btn-sm btnsave">
+            Simpan
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function() {
     var base_url = "<?= base_url() ?>";
@@ -123,6 +152,16 @@
     function unsetButton(attribute,word) {
       $(attribute).removeAttr("disabled");
       $(attribute).html(word);
+    }
+
+    function setTxt(attribute,word) {
+      $(attribute).attr("disabled","disabled");
+      $(attribute).val(word);
+    }
+
+    function unsetTxt(attribute,word) {
+      $(attribute).removeAttr("disabled");
+      $(attribute).val(word);
     }
 
     $(".btntambah").on("click",function(){
@@ -187,6 +226,50 @@
         }
       });
       unsetButton(".btnhapus","Hapus");
+    });
+
+    var id_kategori;
+    $("#data_table").on("click",".btnedit",function(){
+      id_kategori = $(this).attr("data-id");
+      setTxt(".txtnamakategoriedit","Loading...");
+      $("#editmodal").modal("show");
+      $.ajax({
+        url : base_url + "soal/get_kategori_by_id",
+        data : { id_kategori : id_kategori },
+        type : "post",
+        dataType : "json",
+        success : function(result) {
+          unsetTxt(".txtnamakategoriedit",result.nama_kategori);
+        }
+      });
+    });
+
+    $("#frmedit").on("submit",function(e){
+      e.preventDefault();
+      setButton(".btnsave","Menyimpan...");
+      var data = new FormData(this);
+      data.append("id_kategori",id_kategori);
+      $.ajax({
+        url : base_url + "soal/update_kategori",
+        data : data,
+        processData : false,
+        cache : false,
+        contentType : false,
+        type : "post",
+        dataType : "text",
+        success : function(result) {
+          if ( result == 0 ) {
+            swal("Sukses","Sukses mengubah kategori","success");
+            $("#editmodal").modal("hide");
+            reloadData();
+          } else if ( result == 2 ) {
+            swal("Gagal","Kategori sudah ada","warning");
+          } else {
+            swal("Error","Kesalahan pada server","error");
+          }
+          unsetButton(".btnsave","Simpan");
+        }
+      });
     });
 
   });

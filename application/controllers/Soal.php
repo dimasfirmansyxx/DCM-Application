@@ -43,6 +43,18 @@ class Soal extends CI_Controller {
         echo json_encode($output);
 	}
 
+	public function get_kategori_by_id()
+	{
+		$id_kategori = $this->input->post("id_kategori",true);
+		if ( $this->Clsglobal->check_availability("tblkategorisoal",["id_kategori" => $id_kategori]) == 2 ) {
+			$output = $this->kategori_soal->get_kategori($id_kategori);
+		} else {
+			$output = 3;
+		}
+
+		echo json_encode($output);
+	}
+
 	public function insert_kategori()
 	{
 		$data = [
@@ -65,5 +77,17 @@ class Soal extends CI_Controller {
 		$delete = $this->kategori_soal->delete_kategori($id_kategori);
 
 		echo $delete;
+	}
+
+	public function update_kategori()
+	{
+		$data = [
+			"id_kategori" => $this->input->post("id_kategori",true),
+			"nama_kategori" => ucwords($this->input->post("nama_kategori",true))
+		];
+
+		$update = $this->kategori_soal->update_kategori($data);
+
+		echo $update;
 	}
 }
