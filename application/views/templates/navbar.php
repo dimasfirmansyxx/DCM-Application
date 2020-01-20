@@ -163,8 +163,10 @@
 
 <script>
   $(document).ready(function(){
-    $(".nav-item").on("click",function(){
-      $(".loading-area").addClass("execute-loading");
+    $(".main-sidebar .nav-link").on("click",function(){
+      if ( !($(this).attr("href") == "#") ) {
+        $(".loading-area").addClass("execute-loading");
+      }
     });
   });
 </script>
