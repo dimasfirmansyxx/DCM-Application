@@ -53,7 +53,7 @@ class Soal extends CI_Controller {
 		$data = [
 			"soal" => ucwords($this->input->post("soal",true)),
 			"id_kategori" => $this->input->post("kategori",true),
-			"jenis" => ucwords($this->input->post("jenis",true))
+			"jenis" => $this->input->post("jenis",true)
 		];
 
 		if ( $this->Clsglobal->check_availability("tblsoal",$data) == 3 ) {
@@ -64,6 +64,40 @@ class Soal extends CI_Controller {
 		}
 
 		echo $output;
+	}
+
+	public function delete_soal()
+	{
+		$no_soal = $this->input->post("no_soal",true);
+		$delete = $this->soal->delete_soal($no_soal);
+
+		echo $delete;
+	}
+
+	public function get_soal_by_id()
+	{
+		$no_soal = $this->input->post("no_soal",true);
+		if ( $this->Clsglobal->check_availability("tblsoal",["no_soal" => $no_soal]) == 2 ) {
+			$output = $this->soal->get_soal($no_soal);
+		} else {
+			$output = 3;
+		}
+
+		echo json_encode($output);
+	}
+
+	public function update_kategori()
+	{
+		$data = [
+			"no_soal" => $this->input->post("no_soal"),
+			"soal" => ucwords($this->input->post("soal",true)),
+			"id_kategori" => $this->input->post("kategori",true),
+			"jenis" => $this->input->post("jenis",true)
+		];
+
+		$update = $this->soal->update_soal($data);
+
+		echo $update;
 	}
 
 	public function kategori()

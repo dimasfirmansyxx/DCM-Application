@@ -67,6 +67,11 @@ class Soal_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
+    public function get_soal($no_soal)
+    {
+        return $this->Clsglobal->get_data($this->table,["no_soal" => $no_soal]);
+    }
+
     public function insert_soal($data)
     {
         $insert = $this->db->insert($this->table,$data);
@@ -74,6 +79,51 @@ class Soal_model extends CI_Model {
             return 0;
         } else {
             return 1;
+        }
+    }
+
+    public function delete_soal($no_soal)
+    {
+        $this->db->where("no_soal",$no_soal);
+        $delete = $this->db->delete($this->table);
+        if ( $delete > 0 ) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public function update_soal($data)
+    {
+        $multiple = false;
+        $condition = [
+            "soal" => $data['soal'],
+            "id_kategori" => $data['id_kategori']
+        ];
+
+        $check = $this->Clsglobal->check_availability($this->table,$condition);
+        if ( $check == 2 ) {
+            $get = $this->Clsglobal->get_data($this->table,$condition);
+            if ( $get['no_soal'] == $data['no_soal'] ) {
+                $multiple = false;
+            } else {
+                $multiple = true;
+            }
+        } else {
+            $multiple = false;
+        }
+
+        if ( $multiple == false ) {
+            $this->db->set("nama_kategori", $data['nama_kategori']);
+            $this->db->where("id_kategori", $data['id_kategori']);
+            $update = $this->db->update($this->table);
+            if ( $update > 0 ) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return 2;
         }
     }
 }

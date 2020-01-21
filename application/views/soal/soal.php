@@ -108,7 +108,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Kategori</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Soal</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -116,8 +116,23 @@
       <div class="modal-body">
         <form id="frmedit">
           <div class="form-group">
-            <label>Nama Kategori</label>
-            <input type="text" name="nama_kategori" class="form-control txtnamakategoriedit" required autocomplete="off">
+            <label>Kategori</label>
+            <select class="form-control cmbkategoriedit" name="kategori" required>
+              <?php foreach ($kategori_soal as $kategori): ?>
+                <option value="<?= $kategori['id_kategori'] ?>"><?= $kategori['nama_kategori'] ?></option>
+              <?php endforeach ?>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Soal</label>
+            <textarea class="form-control txtsoaledit" required name="soal"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Jenis</label>
+            <select class="form-control cmbjenisedit" name="jenis" required>
+              <option value="check">Check</option>
+              <option value="essay">Essay</option>
+            </select>
           </div>
       </div>
       <div class="modal-footer">
@@ -216,7 +231,7 @@
       setButton(this,"Menghapus ...");
       swal({
         title : "Yakin ?",
-        text : "Yakin ingin menghapus kategori soal ini ?",
+        text : "Yakin ingin menghapus soal ini ?",
         icon : "warning",
         buttons : [
           "Batal",
@@ -226,13 +241,13 @@
       }).then(function(confirm) {
         if ( confirm ) {
           $.ajax({
-            url : base_url + "soal/delete_kategori",
-            data : { id_kategori : id },
+            url : base_url + "soal/delete_soal",
+            data : { no_soal : id },
             type : "post",
             dataType : "text",
             success : function(result) {
               if ( result == 0 ) {
-                swal("Sukses","Sukses menghapus kategori","success");
+                swal("Sukses","Sukses menghapus soal","success");
                 reloadData();
               } else {
                 swal("Error","Kesalahan pada server","error");
@@ -244,18 +259,22 @@
       unsetButton(".btnhapus","Hapus");
     });
 
-    var id_kategori;
+    var no_soal;
     $("#data_table").on("click",".btnedit",function(){
-      id_kategori = $(this).attr("data-id");
-      setTxt(".txtnamakategoriedit","Loading...");
+      no_soal = $(this).attr("data-id");
+      setTxt(".cmbkategoriedit","Loading...");
+      setTxt(".txtsoaledit","Loading...");
+      setTxt(".cmbjenisedit","Loading...");
       $("#editmodal").modal("show");
       $.ajax({
-        url : base_url + "soal/get_kategori_by_id",
-        data : { id_kategori : id_kategori },
+        url : base_url + "soal/get_soal_by_id",
+        data : { no_soal : no_soal },
         type : "post",
         dataType : "json",
         success : function(result) {
-          unsetTxt(".txtnamakategoriedit",result.nama_kategori);
+          unsetTxt(".txtsoaledit",result.soal);
+          unsetTxt(".cmbkategoriedit",result.id_kategori);
+          unsetTxt(".cmbjenisedit",result.jenis);
         }
       });
     });
@@ -264,9 +283,9 @@
       e.preventDefault();
       setButton(".btnsave","Menyimpan...");
       var data = new FormData(this);
-      data.append("id_kategori",id_kategori);
+      data.append("no_soal",no_soal);
       $.ajax({
-        url : base_url + "soal/update_kategori",
+        url : base_url + "soal/update_soal",
         data : data,
         processData : false,
         cache : false,
@@ -275,11 +294,11 @@
         dataType : "text",
         success : function(result) {
           if ( result == 0 ) {
-            swal("Sukses","Sukses mengubah kategori","success");
+            swal("Sukses","Sukses mengubah soal","success");
             $("#editmodal").modal("hide");
             reloadData();
           } else if ( result == 2 ) {
-            swal("Gagal","Kategori sudah ada","warning");
+            swal("Gagal","Soal sudah ada","warning");
           } else {
             swal("Error","Kesalahan pada server","error");
           }
