@@ -23,7 +23,7 @@
           <button class="btn btn-primary btn-sm btntambah">
             <i class="fas fa-plus"></i> Tambah Soal
           </button>
-          <button class="btn btn-success btn-sm btntambah">
+          <button class="btn btn-success btn-sm btnfromexcel">
             <i class="fas fa-arrow-down"></i> Import Soal dari Excel
           </button>
         </div>
@@ -144,6 +144,47 @@
           </button>
           <button type="submit" class="btn btn-primary btn-sm btnsave">
             Simpan
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="excelmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Impor dari Excel</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Cara Penggunaan : </p>
+        <ul>
+          <li>Download template dengan menekan tombol download dibawah</li>
+          <li>Isi data hanya pada bagian PENGISIAN SOAL</li>
+          <li>Isi nomor soal berurutan</li>
+          <li>Isi kolom id_kategori mengikuti kategori(id_kategori) yang ada di bagian KATEGORI</li>
+          <li>Isi kolom jenis hanya dengan dua nilai (check, essay)</li>
+          <li>Save lalu load pada Form dibawah, lalu tekan tombol Upload</li>
+        </ul>
+        <div class="alert alert-danger" role="alert">
+          <strong>Perhatian!</strong> melakukan import soal dari excel, akan menghapus soal sebelumnya yang telah di-input
+        </div>
+        <a href="<?= base_url() ?>soal/download_format_excel" class="btn btn-success btn-sm">
+          <i class="fas fa-arrow-down"></i> Download Template
+        </a>
+        <form id="frmuploadexcel">
+
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+            Tutup
+          </button>
+          <button type="submit" class="btn btn-primary btn-sm btnsave">
+            Upload
           </button>
         </form>
       </div>
@@ -308,6 +349,11 @@
           unsetButton(".btnsave","Simpan");
         }
       });
+    });
+
+    $(".btnfromexcel").on("click",function(){
+      $("#frmuploadexcel").trigger("reset");
+      $("#excelmodal").modal("show");
     });
 
   });

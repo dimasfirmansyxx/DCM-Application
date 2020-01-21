@@ -100,6 +100,13 @@ class Soal extends CI_Controller {
 		echo $update;
 	}
 
+	public function download_format_excel()
+	{
+		$data['filename'] = "Format Pengisian Soal - DCM App";
+		$data['kategori_soal'] = $this->kategori_soal->get_all_kategori();
+		$this->load->view("soal/format_excel",$data);
+	}
+
 	public function kategori()
 	{
 		$data['pagetitle'] = "Kategori Soal";
