@@ -1,7 +1,8 @@
 <?php 
 
 class Beranda extends CI_Controller {
-	public function index() {
+	public function index() 
+	{
 		$data['pagetitle'] = "Beranda";
 		$this->load->view("templates/head",$data);
 		$this->load->view("templates/header");
