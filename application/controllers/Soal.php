@@ -5,6 +5,46 @@ class Soal extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model("Kategori_soal_model","kategori_soal");
+		$this->load->model("Soal_model","soal");
+	}
+
+	public function index()
+	{
+		$data['pagetitle'] = "Manajemen Soal";
+		$this->load->view("templates/head",$data);
+		$this->load->view("templates/header");
+		$this->load->view("templates/navbar");
+		$this->load->view("soal/soal");
+		$this->load->view("templates/footer");
+	}
+
+	public function get_soal()
+	{
+		$list = $this->soal->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $field) {
+        	$get_kategori = $this->kategori_soal->get_kategori($field->id_kategori);
+            $row = array();
+            $row[] = $field->no_soal;
+            $row[] = $get_kategori['nama_kategori'];
+            $row[] = $field->soal;
+            $row[] = ucwords($field->jenis);
+            $row[] = "
+            	<button class='btn btn-success btn-sm btnedit' data-id='$field->no_soal'>Edit</button>
+            	<button class='btn btn-danger btn-sm btnhapus' data-id='$field->no_soal'>Hapus</button>
+            	";
+ 
+            $data[] = $row;
+        }
+ 
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->soal->count_all(),
+            "recordsFiltered" => $this->soal->count_filtered(),
+            "data" => $data,
+        );
+        echo json_encode($output);
 	}
 
 	public function kategori()
@@ -23,7 +63,6 @@ class Soal extends CI_Controller {
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $field) {
-            $no++;
             $row = array();
             $row[] = $field->id_kategori;
             $row[] = $field->nama_kategori;
