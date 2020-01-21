@@ -110,9 +110,11 @@ class Soal extends CI_Controller {
 
 	public function import_soal_from_excel()
 	{
-		$filename = $this->Clsglobal->upload_files("excelfiles","excel_files",["xls"]);
-		if ( $filename == 4 ) {
-			# code...
+		$filename = $this->Clsglobal->upload_files("excelfiles","excel_files",["xls"])[0];
+		if ( $filename == 5 ) {
+			echo 5;
+		} else {
+			echo json_encode($this->soal->import_soal($filename));
 		}
 	}
 
