@@ -49,7 +49,7 @@ class Clsglobal extends CI_Model {
 
 				if ( in_array($extension, $allow_extension) ) {
 					$newName = uniqid() . "." . $extension;
-					$dir = "./assets/" . $directory;
+					$dir = "./assets/" . $directory . "/";
 					move_uploaded_file($tmp, $dir . $newName);
 
 					array_push($returnName, $newName);
