@@ -38,7 +38,7 @@ class Clsglobal extends CI_Model {
 
 						array_push($returnName, $newName);
 					} else {
-						return 4;
+						return 5;
 					}
 				}
 			} else {
@@ -54,7 +54,7 @@ class Clsglobal extends CI_Model {
 
 					array_push($returnName, $newName);
 				} else {
-					return 4;
+					return 5;
 				}
 			}
 
