@@ -86,7 +86,7 @@ class Soal extends CI_Controller {
 		echo json_encode($output);
 	}
 
-	public function update_kategori()
+	public function update_soal()
 	{
 		$data = [
 			"no_soal" => $this->input->post("no_soal"),

@@ -114,9 +114,13 @@ class Soal_model extends CI_Model {
         }
 
         if ( $multiple == false ) {
-            $this->db->set("nama_kategori", $data['nama_kategori']);
-            $this->db->where("id_kategori", $data['id_kategori']);
-            $update = $this->db->update($this->table);
+            $dataupdate = [
+                "soal" => $data['soal'],
+                "id_kategori" => $data['id_kategori'],
+                "jenis" => $data['jenis']
+            ];
+            $this->db->where("no_soal", $data['no_soal']);
+            $update = $this->db->update($this->table,$dataupdate);
             if ( $update > 0 ) {
                 return 0;
             } else {
