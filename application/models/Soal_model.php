@@ -142,15 +142,55 @@ class Soal_model extends CI_Model {
 
         $numrow = 1;
         foreach($sheet as $row){
-            if($numrow > 1){
+            if($numrow > 2){
                 array_push($data, array(
-                    'nama_dosen' => $row['A'],
-                    'email'      => $row['B'],
+                    'no_soal' => $row['D'],
+                    'id_kategori' => $row['E'],
+                    'soal' => $row['F'],
+                    'jenis' => $row['G'],
                 ));
             }
             $numrow++;
         }
 
-        return $data;
+        $this->db->truncate($this->table);
+
+
+        $output = 0;
+        foreach ($data as $row) {
+            if ( !($row['jenis'] == "check") ) {
+                if ( !($row['jenis'] == "essay") ) {
+                    $this->db->truncate($this->table);
+                    unlink('./assets/excel_files/' . $filename);
+                    return 4;
+                } else {
+                    $output = 0;
+                }
+            }
+
+            if ( $output == 0 ) {
+                $condition = ["id_kategori" => $row['id_kategori']];
+                if ( $this->Clsglobal->check_availability("tblkategorisoal",$condition) == 3 ) {
+                    $this->db->truncate($this->table);
+                    unlink('./assets/excel_files/' . $filename);
+                    return 4;
+                } else {
+                    $output = 0;
+                }
+            }
+
+            if ( $output == 0 ) {
+                $insert = $this->db->insert($this->table,$row);
+                if ( $insert > 0 ) {
+                    $output = 0;
+                } else {
+                    $output = 1;
+                }
+            }
+        }
+
+        unlink('./assets/excel_files/' . $filename);
+
+        return $output;
     }
 }

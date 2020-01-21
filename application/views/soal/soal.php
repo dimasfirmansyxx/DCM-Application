@@ -374,14 +374,14 @@
           if ( result == 0 ) {
             swal("Sukses","Sukses mengunggah soal","success");
             $("#excelmodal").modal("hide");
-            reloadData();
           } else if ( result == 5 ) {
-            swal("Gagal","Format file harus *.xls","error");
+            swal("Gagal","Format file harus *.xlsx","error");
           } else if ( result == 4 ) {
             swal("Gagal","Pastikan data yang dimasukkan dengan benar. Lihat instruksi diatas","warning");
           } else {
             swal("Error","Kesalahan pada server","error");
           }
+          reloadData();
           unsetButton(".btnsave","Upload");
         }
       });

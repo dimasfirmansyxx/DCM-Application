@@ -102,10 +102,8 @@ class Soal extends CI_Controller {
 
 	public function download_format_excel()
 	{
-		// $data['filename'] = "Format Pengisian Soal - DCM App";
-		$kategori_soal = $this->kategori_soal->get_all_kategori();
-		// $this->load->view("soal/format_excel",$data);
 		include APPPATH.'third_party/PHPExcel/PHPExcel.php';
+		$kategori_soal = $this->kategori_soal->get_all_kategori();
 		$excel = new PHPExcel;
  
 		$excel->getProperties()->setCreator("Dimas Firmansyah");
@@ -156,7 +154,7 @@ class Soal extends CI_Controller {
 		if ( $filename == 5 ) {
 			echo 5;
 		} else {
-			echo json_encode($this->soal->import_soal($filename));
+			echo $this->soal->import_soal($filename);
 		}
 	}
 
