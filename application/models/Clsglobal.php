@@ -24,9 +24,26 @@ class Clsglobal extends CI_Model {
 			$total = count($_FILES[$key]['name']);
 			$returnName = array();
 
-			for ($i=0; $i < $total; $i++) { 
-				$name = $_FILES[$key]['name'][$i];
-				$tmp = $_FILES[$key]['tmp_name'][$i];
+			if ( $total > 1 ) {
+				for ($i=0; $i < $total; $i++) { 
+					$name = $_FILES[$key]['name'][$i];
+					$tmp = $_FILES[$key]['tmp_name'][$i];
+					$explodename = explode(".", $name);
+					$extension = strtolower(end($explodename));
+
+					if ( in_array($extension, $allow_extension) ) {
+						$newName = uniqid() . "." . $extension;
+						$dir = "./assets/" . $directory . "/";
+						move_uploaded_file($tmp, $dir . $newName);
+
+						array_push($returnName, $newName);
+					} else {
+						return 4;
+					}
+				}
+			} else {
+				$name = $_FILES[$key]['name'];
+				$tmp = $_FILES[$key]['tmp_name'];
 				$explodename = explode(".", $name);
 				$extension = strtolower(end($explodename));
 

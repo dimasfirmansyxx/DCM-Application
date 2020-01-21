@@ -176,8 +176,11 @@
         <a href="<?= base_url() ?>soal/download_format_excel" class="btn btn-success btn-sm">
           <i class="fas fa-arrow-down"></i> Download Template
         </a>
-        <form id="frmuploadexcel">
-
+        <form id="frmuploadexcel" enctype="multipart/form-data" class="mt-3">
+          <div class="form-group">
+            <input type="file" name="excelfiles" class="form-control" required>
+            <small>File yang diizinkan berformat *.xls</small>
+          </div>
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
@@ -354,6 +357,34 @@
     $(".btnfromexcel").on("click",function(){
       $("#frmuploadexcel").trigger("reset");
       $("#excelmodal").modal("show");
+    });
+
+    $("#frmuploadexcel").on("submit",function(e){
+      e.preventDefault();
+      setButton(".btnsave","Uploading...");
+      $.ajax({
+        url : base_url + "soal/import_soal_from_excel",
+        data : new FormData(this),
+        processData : false,
+        contentType : false,
+        cache : false,
+        type : "post",
+        dataType : "text",
+        success : function(result) {
+          if ( result == 0 ) {
+            swal("Sukses","Sukses mengunggah soal","success");
+            $("#excelmodal").modal("hide");
+            reloadData();
+          } else if ( result == 5 ) {
+            swal("Gagal","Format file harus *.xls","error");
+          } else if ( result == 4 ) {
+            swal("Gagal","Pastikan data yang dimasukkan dengan benar. Lihat instruksi diatas","warning");
+          } else {
+            swal("Error","Kesalahan pada server","error");
+          }
+          unsetButton(".btnsave","Upload");
+        }
+      });
     });
 
   });

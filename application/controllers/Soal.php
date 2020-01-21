@@ -6,6 +6,7 @@ class Soal extends CI_Controller {
 		parent::__construct();
 		$this->load->model("Kategori_soal_model","kategori_soal");
 		$this->load->model("Soal_model","soal");
+		$this->load->library("PHPExcel");
 	}
 
 	public function index()
@@ -105,6 +106,12 @@ class Soal extends CI_Controller {
 		$data['filename'] = "Format Pengisian Soal - DCM App";
 		$data['kategori_soal'] = $this->kategori_soal->get_all_kategori();
 		$this->load->view("soal/format_excel",$data);
+	}
+
+	public function import_soal_from_excel()
+	{
+		$filename = $this->Clsglobal->upload_files("excelfiles","excel_files",["xls","gggg"]);
+		var_dump($filename);
 	}
 
 	public function kategori()
