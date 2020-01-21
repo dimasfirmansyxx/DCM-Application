@@ -23,6 +23,9 @@
           <button class="btn btn-primary btn-sm btntambah">
             <i class="fas fa-plus"></i> Tambah Soal
           </button>
+          <button class="btn btn-success btn-sm btntambah">
+            <i class="fas fa-arrow-down"></i> Import Soal dari Excel
+          </button>
         </div>
       </div>
 
