@@ -9,7 +9,8 @@ class Soal extends CI_Controller {
 
 	public function kategori()
 	{
-		$this->load->view("templates/head");
+		$data['pagetitle'] = "Kategori Soal";
+		$this->load->view("templates/head",$data);
 		$this->load->view("templates/header");
 		$this->load->view("templates/navbar");
 		$this->load->view("soal/kategori");
