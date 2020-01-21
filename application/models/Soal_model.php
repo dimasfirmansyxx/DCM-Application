@@ -133,35 +133,24 @@ class Soal_model extends CI_Model {
 
     public function import_soal($filename)
     {
-        $inputFileName = './assets/excel_files/' . $filename;
-        try {
-            $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
-            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
-            $objPHPExcel = $objReader->load($inputFileName);
-        } catch (Exception $e) {
-            die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME) . '": ' . $e->getMessage());
+        include APPPATH.'third_party/PHPExcel/PHPExcel.php';
+        $excelreader = new PHPExcel_Reader_Excel2007();
+        $loadexcel = $excelreader->load('./assets/excel_files/' . $filename);
+        $sheet = $loadexcel->getActiveSheet()->toArray(null, true, true ,true);
+
+        $data = array();
+
+        $numrow = 1;
+        foreach($sheet as $row){
+            if($numrow > 1){
+                array_push($data, array(
+                    'nama_dosen' => $row['A'],
+                    'email'      => $row['B'],
+                ));
+            }
+            $numrow++;
         }
 
-        $sheet = $objPHPExcel->getSheet(0);
-        $highestRow = $sheet->getHighestRow();
-        $highestColumn = $sheet->getHighestColumn();
-
-        $ret = [];
-
-        for ($row = 2; $row <= $highestRow; $row++) {
-            $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
-            
-            $data = [
-                "nama" => $rowData[0][1],
-                "alamat" => $rowData[0][2],
-                "kontak" => $rowData[0][3]
-            ];
-            
-            // $insert = $this->db->insert("data_orang", $data);                   // Sesuaikan nama dengan nama tabel untuk melakukan insert data
-            // delete_files($media['file_path']);                                  // menghapus semua file .xls yang diupload
-            array_push($ret, $data);
-        }
-
-        return $ret;
+        return $data;
     }
 }

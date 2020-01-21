@@ -179,7 +179,7 @@
         <form id="frmuploadexcel" enctype="multipart/form-data" class="mt-3">
           <div class="form-group">
             <input type="file" name="excelfiles" class="form-control" required>
-            <small>File yang diizinkan berformat *.xls</small>
+            <small>File yang diizinkan berformat *.xlsx</small>
           </div>
       </div>
       <div class="modal-footer">

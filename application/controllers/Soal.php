@@ -6,7 +6,6 @@ class Soal extends CI_Controller {
 		parent::__construct();
 		$this->load->model("Kategori_soal_model","kategori_soal");
 		$this->load->model("Soal_model","soal");
-		$this->load->library("PHPExcel");
 	}
 
 	public function index()
@@ -103,14 +102,57 @@ class Soal extends CI_Controller {
 
 	public function download_format_excel()
 	{
-		$data['filename'] = "Format Pengisian Soal - DCM App";
-		$data['kategori_soal'] = $this->kategori_soal->get_all_kategori();
-		$this->load->view("soal/format_excel",$data);
+		// $data['filename'] = "Format Pengisian Soal - DCM App";
+		$kategori_soal = $this->kategori_soal->get_all_kategori();
+		// $this->load->view("soal/format_excel",$data);
+		include APPPATH.'third_party/PHPExcel/PHPExcel.php';
+		$excel = new PHPExcel;
+ 
+		$excel->getProperties()->setCreator("Dimas Firmansyah");
+		$excel->getProperties()->setLastModifiedBy("Dimas Firmansyah");
+		$excel->getProperties()->setTitle("Format Pengisian Soal - DCM App");
+		$excel->removeSheetByIndex(0);
+		 
+		 
+		$sheet = $excel->createSheet();
+		$sheet->setTitle('SOAL');
+		$sheet->setCellValue("A1", "KATEGORI");
+		$sheet->setCellValue("D1", "PENGISIAN SOAL");
+		$sheet->setCellValue("A2", "id_kategori");
+		$sheet->setCellValue("B2", "nama_kategori");
+		$sheet->setCellValue("D2", "no_soal");
+		$sheet->setCellValue("E2", "id_kategori");
+		$sheet->setCellValue("F2", "soal");
+		$sheet->setCellValue("G2", "jenis");
+
+		$iteration = 3;
+		foreach ($kategori_soal as $kategori) {
+			$sheet->setCellValue("A" . $iteration, $kategori['id_kategori']);
+			$sheet->setCellValue("B" . $iteration, $kategori['nama_kategori']);
+			$iteration++;
+		}
+
+		$excel->getActiveSheet()->setTitle('Format Pengisian Soal - DCM App');
+		$excel->setActiveSheetIndex(0)->mergeCells("A1:B1");
+		$excel->setActiveSheetIndex(0)->mergeCells("D1:G1");
+
+		foreach (range('A', $excel->getActiveSheet()->getHighestDataColumn()) as $col) {
+	        $excel->getActiveSheet()
+	                ->getColumnDimension($col)
+	                ->setAutoSize(true);
+	    } 
+
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="Format Pengisian Soal - DCM App.xlsx"');
+		header('Cache-Control: max-age=0');
+		 
+		$objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+		$objWriter->save('php://output');
 	}
 
 	public function import_soal_from_excel()
 	{
-		$filename = $this->Clsglobal->upload_files("excelfiles","excel_files",["xls"])[0];
+		$filename = $this->Clsglobal->upload_files("excelfiles","excel_files",["xlsx"])[0];
 		if ( $filename == 5 ) {
 			echo 5;
 		} else {
