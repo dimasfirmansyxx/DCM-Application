@@ -67,6 +67,11 @@ class Kategori_soal_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
+    public function get_all_kategori()
+    {
+        return $this->db->get($this->table)->result_array();
+    }
+
     public function get_kategori($id_kategori)
     {
         return $this->Clsglobal->get_data($this->table,["id_kategori" => $id_kategori]);

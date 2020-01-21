@@ -66,4 +66,14 @@ class Soal_model extends CI_Model {
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
+
+    public function insert_soal($data)
+    {
+        $insert = $this->db->insert($this->table,$data);
+        if ( $insert > 0 ) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }

@@ -64,7 +64,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Kategori</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Soal</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -72,8 +72,23 @@
       <div class="modal-body">
         <form id="frmtambah">
           <div class="form-group">
-            <label>Nama Kategori</label>
-            <input type="text" name="nama_kategori" class="form-control" required autocomplete="off">
+            <label>Kategori</label>
+            <select class="form-control" name="kategori" required>
+              <?php foreach ($kategori_soal as $kategori): ?>
+                <option value="<?= $kategori['id_kategori'] ?>"><?= $kategori['nama_kategori'] ?></option>
+              <?php endforeach ?>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Soal</label>
+            <textarea class="form-control" required name="soal"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Jenis</label>
+            <select class="form-control" name="jenis" required>
+              <option value="check">Check</option>
+              <option value="essay">Essay</option>
+            </select>
           </div>
       </div>
       <div class="modal-footer">
@@ -174,7 +189,7 @@
       e.preventDefault();
       setButton(".btnsave","Menyimpan...");
       $.ajax({
-        url : base_url + "soal/insert_kategori",
+        url : base_url + "soal/insert_soal",
         data : new FormData(this),
         processData : false,
         contentType : false,
@@ -183,11 +198,11 @@
         dataType : "text",
         success : function(result) {
           if ( result == 0 ) {
-            swal("Sukses","Sukses menambah kategori","success");
+            swal("Sukses","Sukses menambah soal","success");
             reloadData();
             $("#frmtambah").trigger("reset");
           } else if ( result == 2 ) {
-            swal("Gagal!","Kategori Sudah Ada","warning");
+            swal("Gagal!","Soal Sudah Ada","warning");
           } else {
             swal("Error","Kesalahan pada server","error");
           }

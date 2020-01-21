@@ -11,6 +11,7 @@ class Soal extends CI_Controller {
 	public function index()
 	{
 		$data['pagetitle'] = "Manajemen Soal";
+		$data['kategori_soal'] = $this->kategori_soal->get_all_kategori();
 		$this->load->view("templates/head",$data);
 		$this->load->view("templates/header");
 		$this->load->view("templates/navbar");
@@ -45,6 +46,24 @@ class Soal extends CI_Controller {
             "data" => $data,
         );
         echo json_encode($output);
+	}
+
+	public function insert_soal()
+	{
+		$data = [
+			"soal" => ucwords($this->input->post("soal",true)),
+			"id_kategori" => $this->input->post("kategori",true),
+			"jenis" => ucwords($this->input->post("jenis",true))
+		];
+
+		if ( $this->Clsglobal->check_availability("tblsoal",$data) == 3 ) {
+			$data["no_soal"] = $this->Clsglobal->get_new_id("tblsoal","no_soal");
+			$output = $this->soal->insert_soal($data);
+		} else {
+			$output = 2;
+		}
+
+		echo $output;
 	}
 
 	public function kategori()
@@ -98,11 +117,11 @@ class Soal extends CI_Controller {
 	public function insert_kategori()
 	{
 		$data = [
-			"id_kategori" => $this->Clsglobal->get_new_id("tblkategorisoal","id_kategori"),
 			"nama_kategori" => ucwords($this->input->post("nama_kategori",true))
 		];
 
 		if ( $this->Clsglobal->check_availability("tblkategorisoal",$data) == 3 ) {
+			$data["id_kategori"] = $this->Clsglobal->get_new_id("tblkategorisoal","id_kategori");
 			$output = $this->kategori_soal->insert_kategori($data);
 		} else {
 			$output = 2;

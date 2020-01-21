@@ -11,9 +11,8 @@ class Clsglobal extends CI_Model {
 		}
 	}
 
-	public function num_rows($table,$key,$value)
+	public function num_rows($table)
 	{
-		$this->db->where($key,$value);
 		return $this->db->get($table)->num_rows();
 	}
 
@@ -73,8 +72,13 @@ class Clsglobal extends CI_Model {
 
 	public function get_new_id($table,$key)
 	{
-		$this->db->order_by($key,"desc");
-		$get = $this->db->get($table)->result_array();
-		return $get[0][$key] + 1;
+		if ( $this->num_rows($table) > 0 ) {
+			$this->db->order_by($key,"desc");
+			$get = $this->db->get($table)->result_array();
+
+			return $get[0][$key] + 1; 
+		} else {
+			return 1;
+		}
 	}
 }
