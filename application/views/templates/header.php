@@ -4,7 +4,7 @@
       <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <span class="navbar-text">SMPN 10 BATAM</span>
+      <span class="navbar-text"><?= $this->Clsglobal->site_info("nama_sekolah") ?></span>
     </li>
   </ul>
 </nav>
