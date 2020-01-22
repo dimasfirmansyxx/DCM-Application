@@ -93,6 +93,11 @@ class Kelas_model extends CI_Model {
         return $this->Clsglobal->get_data($this->table,["id_kelas" => $id_kelas]);
     }
 
+    public function get_all_kelas()
+    {
+        return $this->db->get($this->table)->result_array();
+    }
+
     public function update_kelas($data)
     {
         $multiple = false;

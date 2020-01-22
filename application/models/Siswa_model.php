@@ -72,15 +72,15 @@ class Siswa_model extends CI_Model {
     //     return $this->Clsglobal->get_data($this->table,["no_soal" => $no_soal]);
     // }
 
-    // public function insert_soal($data)
-    // {
-    //     $insert = $this->db->insert($this->table,$data);
-    //     if ( $insert > 0 ) {
-    //         return 0;
-    //     } else {
-    //         return 1;
-    //     }
-    // }
+    public function insert_siswa($data)
+    {
+        $insert = $this->db->insert($this->table,$data);
+        if ( $insert > 0 ) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 
     // public function delete_soal($no_soal)
     // {
