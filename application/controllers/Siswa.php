@@ -11,6 +11,7 @@ class Siswa extends CI_Controller {
 	public function index() 
 	{
 		$data['pagetitle'] = "Siswa";
+		$data['kelas'] = $this->kelas->get_all_kelas();
 		$this->load->view("templates/head",$data);
 		$this->load->view("templates/header");
 		$this->load->view("templates/navbar");
@@ -31,8 +32,8 @@ class Siswa extends CI_Controller {
             $row[] = $kelas['kelas'];
             $row[] = ucwords($field->jenis_kelamin);
             $row[] = "
-            	<button class='btn btn-success btn-sm btnedit' data-id='$field->id_kelas'>Edit</button>
-            	<button class='btn btn-danger btn-sm btnhapus' data-id='$field->id_kelas'>Hapus</button>
+            	<button class='btn btn-success btn-sm btnedit' data-id='$field->id_siswa'>Edit</button>
+            	<button class='btn btn-danger btn-sm btnhapus' data-id='$field->id_siswa'>Hapus</button>
             	";
  
             $data[] = $row;
@@ -63,41 +64,51 @@ class Siswa extends CI_Controller {
 	{
 		$data = [
 			"nama_siswa" => strtoupper($this->input->post("nama_siswa",true)),
-			"id_kelas" => $this->input->post("id_kelas",true),
+			"id_kelas" => $this->input->post("kelas",true),
 			"jenis_kelamin" => $this->input->post("jenis_kelamin",true)
+		];
+
+		$userdata = [
+			"username" => strtolower($this->input->post("username",true))
 		];
 
 		if ( $this->Clsglobal->check_availability("tblsiswa",$data) == 3 ) {
 			$data["id_siswa"] = $this->Clsglobal->get_new_id("tblsiswa","id_siswa");
-			$output = $this->soal->insert_siswa($data);
+
+			if ( $this->Clsglobal->check_availability("tbluser",$userdata) == 3 ) {
+				$userdata["password"] = password_hash($this->input->post("password"), PASSWORD_DEFAULT);
+				$output = $this->siswa->insert_siswa($data,$userdata);
+			} else {
+				$output = 202;
+			}
 		} else {
-			$output = 2;
+			$output = 201;
 		}
 
 		echo $output;
 	}
 
-	// public function delete_soal()
-	// {
-	// 	$no_soal = $this->input->post("no_soal",true);
-	// 	$delete = $this->soal->delete_soal($no_soal);
+	public function delete_siswa()
+	{
+		$id_siswa = $this->input->post("id_siswa",true);
+		$delete = $this->siswa->delete_siswa($id_siswa);
 
-	// 	echo $delete;
-	// }
+		echo $delete;
+	}
 
-	// public function update_soal()
-	// {
-	// 	$data = [
-	// 		"no_soal" => $this->input->post("no_soal"),
-	// 		"soal" => ucwords($this->input->post("soal",true)),
-	// 		"id_kategori" => $this->input->post("kategori",true),
-	// 		"jenis" => $this->input->post("jenis",true)
-	// 	];
+	public function update_siswa()
+	{
+		$data = [
+			"id_siswa" => $this->input->post("id_siswa"),
+			"id_kelas" => $this->input->post("kelas",true),
+			"nama_siswa" => strtoupper($this->input->post("nama_siswa",true)),
+			"jenis_kelamin" => strtolower($this->input->post("jenis_kelamin",true))
+		];
 
-	// 	$update = $this->soal->update_soal($data);
+		$update = $this->siswa->update_siswa($data);
 
-	// 	echo $update;
-	// }
+		echo $update;
+	}
 
 	// public function download_format_excel()
 	// {

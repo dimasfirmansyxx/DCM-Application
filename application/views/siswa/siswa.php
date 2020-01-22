@@ -67,7 +67,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Soal</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Siswa</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -75,23 +75,33 @@
       <div class="modal-body">
         <form id="frmtambah">
           <div class="form-group">
-            <label>Kategori</label>
-            <select class="form-control" name="kategori" required>
-              <?php foreach ($kategori_soal as $kategori): ?>
-                <option value="<?= $kategori['id_kategori'] ?>"><?= $kategori['nama_kategori'] ?></option>
+            <label>Kelas</label>
+            <select class="form-control" name="kelas" required>
+              <?php foreach ($kelas as $row): ?>
+                <option value="<?= $row['id_kelas'] ?>"><?= $row['kelas'] ?></option>
               <?php endforeach ?>
             </select>
           </div>
           <div class="form-group">
-            <label>Soal</label>
-            <textarea class="form-control" required name="soal"></textarea>
+            <label>Nama</label>
+            <input type="text" name="nama_siswa" class="form-control" required autocomplete="off">
           </div>
           <div class="form-group">
-            <label>Jenis</label>
-            <select class="form-control" name="jenis" required>
-              <option value="check">Check</option>
-              <option value="essay">Essay</option>
+            <label>Jenis Kelamin</label>
+            <select class="form-control" name="jenis_kelamin" required>
+              <option value="pria">Pria</option>
+              <option value="wanita">Wanita</option>
             </select>
+          </div>
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" required autocomplete="off" maxlength="16">
+            <small>Maksimal 16 Karakter</small>
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required maxlength="16">
+            <small>Maksimal 16 Karakter</small>
           </div>
       </div>
       <div class="modal-footer">
@@ -111,7 +121,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Soal</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit Siswa</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -119,22 +129,22 @@
       <div class="modal-body">
         <form id="frmedit">
           <div class="form-group">
-            <label>Kategori</label>
-            <select class="form-control cmbkategoriedit" name="kategori" required>
-              <?php foreach ($kategori_soal as $kategori): ?>
-                <option value="<?= $kategori['id_kategori'] ?>"><?= $kategori['nama_kategori'] ?></option>
+            <label>Kelas</label>
+            <select class="form-control cmbkelasedit" name="kelas" required>
+              <?php foreach ($kelas as $row): ?>
+                <option value="<?= $row['id_kelas'] ?>"><?= $row['kelas'] ?></option>
               <?php endforeach ?>
             </select>
           </div>
           <div class="form-group">
-            <label>Soal</label>
-            <textarea class="form-control txtsoaledit" required name="soal"></textarea>
+            <label>Nama</label>
+            <input type="text" name="nama_siswa" class="form-control txtnamaedit" required autocomplete="off">
           </div>
           <div class="form-group">
-            <label>Jenis</label>
-            <select class="form-control cmbjenisedit" name="jenis" required>
-              <option value="check">Check</option>
-              <option value="essay">Essay</option>
+            <label>Jenis Kelamin</label>
+            <select class="form-control cmbjkedit" name="jenis_kelamin" required>
+              <option value="pria">Pria</option>
+              <option value="wanita">Wanita</option>
             </select>
           </div>
       </div>
@@ -251,7 +261,7 @@
       e.preventDefault();
       setButton(".btnsave","Menyimpan...");
       $.ajax({
-        url : base_url + "soal/insert_soal",
+        url : base_url + "siswa/insert_siswa",
         data : new FormData(this),
         processData : false,
         contentType : false,
@@ -260,11 +270,13 @@
         dataType : "text",
         success : function(result) {
           if ( result == 0 ) {
-            swal("Sukses","Sukses menambah soal","success");
+            swal("Sukses","Sukses menambah siswa","success");
             reloadData();
             $("#frmtambah").trigger("reset");
-          } else if ( result == 2 ) {
-            swal("Gagal!","Soal Sudah Ada","warning");
+          } else if ( result == 201 ) {
+            swal("Gagal!","Siswa Sudah Ada","warning");
+          }  else if ( result == 202 ) {
+            swal("Gagal!","Username Sudah Ada","warning");
           } else {
             swal("Error","Kesalahan pada server","error");
           }
@@ -277,8 +289,8 @@
       var id = $(this).attr("data-id");
       setButton(this,"Menghapus ...");
       swal({
-        title : "Yakin ?",
-        text : "Yakin ingin menghapus soal ini ?",
+        title : "Yakin ingin menghapus siswa ini ?",
+        text : "Dengan menghapus, laporan siswa juga akan terhapus",
         icon : "warning",
         buttons : [
           "Batal",
@@ -288,13 +300,13 @@
       }).then(function(confirm) {
         if ( confirm ) {
           $.ajax({
-            url : base_url + "soal/delete_soal",
-            data : { no_soal : id },
+            url : base_url + "siswa/delete_siswa",
+            data : { id_siswa : id },
             type : "post",
             dataType : "text",
             success : function(result) {
               if ( result == 0 ) {
-                swal("Sukses","Sukses menghapus soal","success");
+                swal("Sukses","Sukses menghapus siswa","success");
                 reloadData();
               } else {
                 swal("Error","Kesalahan pada server","error");
@@ -306,22 +318,22 @@
       unsetButton(".btnhapus","Hapus");
     });
 
-    var no_soal;
+    var id_siswa;
     $("#data_table").on("click",".btnedit",function(){
-      no_soal = $(this).attr("data-id");
-      setTxt(".cmbkategoriedit","Loading...");
-      setTxt(".txtsoaledit","Loading...");
-      setTxt(".cmbjenisedit","Loading...");
+      id_siswa = $(this).attr("data-id");
+      setTxt(".cmbkelasedit","Loading...");
+      setTxt(".txtnamaedit","Loading...");
+      setTxt(".cmbjkedit","Loading...");
       $("#editmodal").modal("show");
       $.ajax({
-        url : base_url + "soal/get_soal_by_id",
-        data : { no_soal : no_soal },
+        url : base_url + "siswa/get_siswa_by_id",
+        data : { id_siswa : id_siswa },
         type : "post",
         dataType : "json",
         success : function(result) {
-          unsetTxt(".txtsoaledit",result.soal);
-          unsetTxt(".cmbkategoriedit",result.id_kategori);
-          unsetTxt(".cmbjenisedit",result.jenis);
+          unsetTxt(".cmbkelasedit",result.id_kelas);
+          unsetTxt(".txtnamaedit",result.nama_siswa);
+          unsetTxt(".cmbjkedit",result.jenis_kelamin);
         }
       });
     });
@@ -330,9 +342,9 @@
       e.preventDefault();
       setButton(".btnsave","Menyimpan...");
       var data = new FormData(this);
-      data.append("no_soal",no_soal);
+      data.append("id_siswa",id_siswa);
       $.ajax({
-        url : base_url + "soal/update_soal",
+        url : base_url + "siswa/update_siswa",
         data : data,
         processData : false,
         cache : false,
@@ -341,11 +353,11 @@
         dataType : "text",
         success : function(result) {
           if ( result == 0 ) {
-            swal("Sukses","Sukses mengubah soal","success");
+            swal("Sukses","Sukses mengubah siswa","success");
             $("#editmodal").modal("hide");
             reloadData();
           } else if ( result == 2 ) {
-            swal("Gagal","Soal sudah ada","warning");
+            swal("Gagal","Siswa sudah ada","warning");
           } else {
             swal("Error","Kesalahan pada server","error");
           }

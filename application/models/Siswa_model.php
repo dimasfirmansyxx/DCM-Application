@@ -67,13 +67,22 @@ class Siswa_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    // public function get_soal($no_soal)
-    // {
-    //     return $this->Clsglobal->get_data($this->table,["no_soal" => $no_soal]);
-    // }
-
-    public function insert_siswa($data)
+    public function get_siswa($id_siswa)
     {
+        return $this->Clsglobal->get_data($this->table,["id_siswa" => $id_siswa]);
+    }
+
+    public function insert_siswa($data,$userdata)
+    {
+        $createuser = [
+            "nama" => $data['nama_siswa'],
+            "username" => $userdata['username'],
+            "password" => $userdata['password'],
+            "privilege" => "siswa",
+            "id_siswa" => $data['id_siswa'],
+            "profile_photo" => "noava.png"
+        ];
+        $this->db->insert("tbluser",$createuser);
         $insert = $this->db->insert($this->table,$data);
         if ( $insert > 0 ) {
             return 0;
@@ -82,54 +91,57 @@ class Siswa_model extends CI_Model {
         }
     }
 
-    // public function delete_soal($no_soal)
-    // {
-    //     $this->db->where("no_soal",$no_soal);
-    //     $delete = $this->db->delete($this->table);
-    //     if ( $delete > 0 ) {
-    //         return 0;
-    //     } else {
-    //         return 1;
-    //     }
-    // }
+    public function delete_siswa($id_siswa)
+    {
+        $this->db->where("id_siswa",$id_siswa);
+        $this->db->delete("tbluser");
 
-    // public function update_soal($data)
-    // {
-    //     $multiple = false;
-    //     $condition = [
-    //         "soal" => $data['soal'],
-    //         "id_kategori" => $data['id_kategori']
-    //     ];
+        $this->db->where("id_siswa",$id_siswa);
+        $delete = $this->db->delete($this->table);
+        if ( $delete > 0 ) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 
-    //     $check = $this->Clsglobal->check_availability($this->table,$condition);
-    //     if ( $check == 2 ) {
-    //         $get = $this->Clsglobal->get_data($this->table,$condition);
-    //         if ( $get['no_soal'] == $data['no_soal'] ) {
-    //             $multiple = false;
-    //         } else {
-    //             $multiple = true;
-    //         }
-    //     } else {
-    //         $multiple = false;
-    //     }
+    public function update_siswa($data)
+    {
+        $multiple = false;
+        $condition = [
+            "id_kelas" => $data['id_kelas'],
+            "nama_siswa" => $data['nama_siswa']
+        ];
 
-    //     if ( $multiple == false ) {
-    //         $dataupdate = [
-    //             "soal" => $data['soal'],
-    //             "id_kategori" => $data['id_kategori'],
-    //             "jenis" => $data['jenis']
-    //         ];
-    //         $this->db->where("no_soal", $data['no_soal']);
-    //         $update = $this->db->update($this->table,$dataupdate);
-    //         if ( $update > 0 ) {
-    //             return 0;
-    //         } else {
-    //             return 1;
-    //         }
-    //     } else {
-    //         return 2;
-    //     }
-    // }
+        $check = $this->Clsglobal->check_availability($this->table,$condition);
+        if ( $check == 2 ) {
+            $get = $this->Clsglobal->get_data($this->table,$condition);
+            if ( $get['id_siswa'] == $data['id_siswa'] ) {
+                $multiple = false;
+            } else {
+                $multiple = true;
+            }
+        } else {
+            $multiple = false;
+        }
+
+        if ( $multiple == false ) {
+            $dataupdate = [
+                "id_kelas" => $data['id_kelas'],
+                "nama_siswa" => $data['nama_siswa'],
+                "jenis_kelamin" => $data['jenis_kelamin']
+            ];
+            $this->db->where("id_siswa", $data['id_siswa']);
+            $update = $this->db->update($this->table,$dataupdate);
+            if ( $update > 0 ) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            return 2;
+        }
+    }
 
     // public function import_soal($filename)
     // {
