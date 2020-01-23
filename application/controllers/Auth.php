@@ -5,7 +5,9 @@ class Auth extends CI_Controller {
 	{
 		parent::__construct();
 		if ( $this->session->user_logged === true ) {
-			redirect( base_url() . "beranda" );
+			if ( !($this->uri->segment(2) == "logout") ) {
+				redirect( base_url() . "beranda" );
+			}
 		}
 
 		$this->load->model("Auth_model","auth");
@@ -38,5 +40,12 @@ class Auth extends CI_Controller {
 		$data['pagetitle'] = "Registrasi";
 		$this->load->view("templates/head",$data);
 		$this->load->view("session/registrasi");
+	}
+
+	public function logout()
+	{
+		$this->session->unset_userdata("user_logged");
+		$this->session->unset_userdata("user_id");
+		redirect( base_url() . "auth/login" );
 	}
 }
