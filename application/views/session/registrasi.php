@@ -5,8 +5,8 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <div class="alert" role="alert">
-        #alertarea
+      <div class="alert alert-danger" role="alert">
+        <strong>Gagal!</strong> Username/Password salah
       </div>
       <p class="login-box-msg">Masuk untuk memulai sesi</p>
       <form id="frmlogin">
@@ -59,45 +59,11 @@
       $(attribute).html(word);
     }
 
-    function do_alert(msg,type){
-      $(".alert").html(msg);
-      $(".alert").addClass("alert-"+type);
-      $(".alert").css("display","block");
-    }
-
-    function hide_alert(){
-      $(".alert").removeClass("alert-success");
-      $(".alert").removeClass("alert-danger");
-      $(".alert").css("display","none");
-    }
-
-    hide_alert();
-
     $("#frmlogin").on("submit",function(e){
       e.preventDefault();
       setButton(".btnlogin","Cek Data ...");
-      hide_alert();
       $.ajax({
-        url : base_url + "auth/login_check",
-        data : new FormData(this),
-        processData : false,
-        contentType : false,
-        cache : false,
-        type : "post",
-        dataType : "text",
-        success : function(result) {
-          if ( result == 0 ) {
-            do_alert("Login sukses!, anda akan dialihkan...","success");
-            setTimeout(function(){
-              window.location = base_url + "beranda";
-            });
-          } else if ( result == 4 ) {
-            do_alert("Gagal!, username/password salah","danger");
-          } else {
-            swal("Error","Kesalahan pada server","error");
-          }
-          unsetButton(".btnlogin","Masuk");
-        }
+        
       });
     });
   });
