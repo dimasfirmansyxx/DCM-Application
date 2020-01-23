@@ -71,19 +71,22 @@ class Siswa extends CI_Controller {
 		if ( $this->Clsglobal->check_availability("tblsiswa",$data) == 3 ) {
 			$data["id_siswa"] = $this->Clsglobal->get_new_id("tblsiswa","id_siswa");
 			$data["no_urut"] = $this->input->post("no_urut",true);
-			
+			$data["tempat_lahir"] = "";
+			$data["tgl_lahir"] = "01/01/2019";
+			$data["verification"] = "not";
+
 			$cekabsen = [
 				"no_urut" => $data['no_urut'],
 				"id_kelas" => $data['id_kelas']
-			]
+			];
 
 			if ( $this->Clsglobal->check_availability("tblsiswa",$cekabsen) == 3 ) {
-				$output = $this->siswa->insert_siswa($data,$userdata);
+				$output = $this->siswa->insert_siswa($data);
 			} else {
-				$output = 202;
+				$output = 2;
 			}
 		} else {
-			$output = 201;
+			$output = 2;
 		}
 
 		echo $output;

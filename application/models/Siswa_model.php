@@ -72,7 +72,7 @@ class Siswa_model extends CI_Model {
         return $this->Clsglobal->get_data($this->table,["id_siswa" => $id_siswa]);
     }
 
-    public function insert_siswa($data,$userdata)
+    public function insert_siswa($data)
     {
         $insert = $this->db->insert($this->table,$data);
         if ( $insert > 0 ) {

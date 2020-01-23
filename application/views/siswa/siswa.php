@@ -97,16 +97,6 @@
               <option value="wanita">Wanita</option>
             </select>
           </div>
-          <div class="form-group">
-            <label>Username</label>
-            <input type="text" name="username" class="form-control" required autocomplete="off" maxlength="16">
-            <small>Maksimal 16 Karakter</small>
-          </div>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" name="password" class="form-control" required maxlength="16">
-            <small>Maksimal 16 Karakter</small>
-          </div>
       </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
