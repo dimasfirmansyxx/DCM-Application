@@ -174,16 +174,16 @@
         <p>Cara Penggunaan : </p>
         <ul>
           <li>Download template dengan menekan tombol download dibawah</li>
-          <li>Isi data hanya pada bagian PENGISIAN SOAL</li>
-          <li>Isi nomor soal berurutan</li>
-          <li>Isi kolom id_kategori mengikuti kategori(id_kategori) yang ada di bagian KATEGORI</li>
-          <li>Isi kolom jenis hanya dengan dua nilai (check, essay)</li>
+          <li>Isi data hanya pada bagian PENGISIAN SISWA</li>
+          <li>Isi nomor urut siswa berurutan</li>
+          <li>Isi kolom 'Kelas (id_kelas)' mengikuti kelas(id_kelas) yang ada di bagian KELAS</li>
+          <li>Isi kolom jenis hanya dengan dua nilai (pria, wanita)</li>
           <li>Save lalu load pada Form dibawah, lalu tekan tombol Upload</li>
         </ul>
         <div class="alert alert-danger" role="alert">
-          <strong>Perhatian!</strong> melakukan import soal dari excel, akan menghapus soal sebelumnya yang telah di-input
+          <strong>Perhatian!</strong> melakukan import siswa dari excel, akan menghapus siswa sebelumnya yang telah di-input
         </div>
-        <a href="<?= base_url() ?>soal/download_format_excel" class="btn btn-success btn-sm">
+        <a href="<?= base_url() ?>siswa/download_format_excel" class="btn btn-success btn-sm">
           <i class="fas fa-arrow-down"></i> Download Template
         </a>
         <form id="frmuploadexcel" enctype="multipart/form-data" class="mt-3">
@@ -375,7 +375,7 @@
       e.preventDefault();
       setButton(".btnsave","Uploading...");
       $.ajax({
-        url : base_url + "soal/import_soal_from_excel",
+        url : base_url + "siswa/import_siswa_from_excel",
         data : new FormData(this),
         processData : false,
         contentType : false,
@@ -384,7 +384,7 @@
         dataType : "text",
         success : function(result) {
           if ( result == 0 ) {
-            swal("Sukses","Sukses mengunggah soal","success");
+            swal("Sukses","Sukses mengunggah siswa","success");
             $("#excelmodal").modal("hide");
           } else if ( result == 5 ) {
             swal("Gagal","Format file harus *.xlsx","error");

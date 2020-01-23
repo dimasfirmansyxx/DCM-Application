@@ -110,61 +110,61 @@ class Siswa extends CI_Controller {
 		echo $update;
 	}
 
-	// public function download_format_excel()
-	// {
-	// 	include APPPATH.'third_party/PHPExcel/PHPExcel.php';
-	// 	$kategori_soal = $this->kategori_soal->get_all_kategori();
-	// 	$excel = new PHPExcel;
+	public function download_format_excel()
+	{
+		include APPPATH.'third_party/PHPExcel/PHPExcel.php';
+		$kelas = $this->kelas->get_all_kelas();
+		$excel = new PHPExcel;
  
-	// 	$excel->getProperties()->setCreator("Dimas Firmansyah");
-	// 	$excel->getProperties()->setLastModifiedBy("Dimas Firmansyah");
-	// 	$excel->getProperties()->setTitle("Format Pengisian Soal - DCM App");
-	// 	$excel->removeSheetByIndex(0);
+		$excel->getProperties()->setCreator("Dimas Firmansyah");
+		$excel->getProperties()->setLastModifiedBy("Dimas Firmansyah");
+		$excel->getProperties()->setTitle("Format Pengisian Siswa - DCM App");
+		$excel->removeSheetByIndex(0);
 		 
 		 
-	// 	$sheet = $excel->createSheet();
-	// 	$sheet->setTitle('SOAL');
-	// 	$sheet->setCellValue("A1", "KATEGORI");
-	// 	$sheet->setCellValue("D1", "PENGISIAN SOAL");
-	// 	$sheet->setCellValue("A2", "id_kategori");
-	// 	$sheet->setCellValue("B2", "nama_kategori");
-	// 	$sheet->setCellValue("D2", "no_soal");
-	// 	$sheet->setCellValue("E2", "id_kategori");
-	// 	$sheet->setCellValue("F2", "soal");
-	// 	$sheet->setCellValue("G2", "jenis");
+		$sheet = $excel->createSheet();
+		$sheet->setTitle('SOAL');
+		$sheet->setCellValue("A1", "KELAS");
+		$sheet->setCellValue("D1", "PENGISIAN SISWA");
+		$sheet->setCellValue("A2", "id_kelas");
+		$sheet->setCellValue("B2", "kelas");
+		$sheet->setCellValue("D2", "Nomor Urut");
+		$sheet->setCellValue("E2", "Nama Siswa");
+		$sheet->setCellValue("F2", "Kelas (id_kelas)");
+		$sheet->setCellValue("G2", "Jenis Kelamin");
 
-	// 	$iteration = 3;
-	// 	foreach ($kategori_soal as $kategori) {
-	// 		$sheet->setCellValue("A" . $iteration, $kategori['id_kategori']);
-	// 		$sheet->setCellValue("B" . $iteration, $kategori['nama_kategori']);
-	// 		$iteration++;
-	// 	}
+		$iteration = 3;
+		foreach ($kelas as $row) {
+			$sheet->setCellValue("A" . $iteration, $row['id_kelas']);
+			$sheet->setCellValue("B" . $iteration, $row['kelas']);
+			$iteration++;
+		}
 
-	// 	$excel->getActiveSheet()->setTitle('Format Pengisian Soal - DCM App');
-	// 	$excel->setActiveSheetIndex(0)->mergeCells("A1:B1");
-	// 	$excel->setActiveSheetIndex(0)->mergeCells("D1:G1");
+		$excel->getActiveSheet()->setTitle('Siswa - DCM App');
+		$excel->setActiveSheetIndex(0)->mergeCells("A1:B1");
+		$excel->setActiveSheetIndex(0)->mergeCells("D1:G1");
 
-	// 	foreach (range('A', $excel->getActiveSheet()->getHighestDataColumn()) as $col) {
-	//         $excel->getActiveSheet()
-	//                 ->getColumnDimension($col)
-	//                 ->setAutoSize(true);
-	//     } 
+		foreach (range('A', $excel->getActiveSheet()->getHighestDataColumn()) as $col) {
+	        $excel->getActiveSheet()
+	                ->getColumnDimension($col)
+	                ->setAutoSize(true);
+	    } 
 
-	// 	header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-	// 	header('Content-Disposition: attachment;filename="Format Pengisian Soal - DCM App.xlsx"');
-	// 	header('Cache-Control: max-age=0');
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="Format Pengisian Siswa - DCM App.xlsx"');
+		header('Cache-Control: max-age=0');
 		 
-	// 	$objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
-	// 	$objWriter->save('php://output');
-	// }
+		$objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+		$objWriter->save('php://output');
+	}
 
-	// public function import_soal_from_excel()
-	// {
-	// 	$filename = $this->Clsglobal->upload_files("excelfiles","excel_files",["xlsx"])[0];
-	// 	if ( $filename == 5 ) {
-	// 		echo 5;
-	// 	} else {
-	// 		echo $this->soal->import_soal($filename);
-	// 	}
-	// }
+	public function import_siswa_from_excel()
+	{
+		$filename = $this->Clsglobal->upload_files("excelfiles","excel_files",["xlsx"])[0];
+		if ( $filename == 5 ) {
+			echo 5;
+		} else {
+			echo $this->siswa->import_siswa($filename);
+		}
+	}
 }

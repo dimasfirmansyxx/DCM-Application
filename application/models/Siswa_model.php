@@ -143,66 +143,66 @@ class Siswa_model extends CI_Model {
         }
     }
 
-    // public function import_soal($filename)
-    // {
-    //     include APPPATH.'third_party/PHPExcel/PHPExcel.php';
-    //     $excelreader = new PHPExcel_Reader_Excel2007();
-    //     $loadexcel = $excelreader->load('./assets/excel_files/' . $filename);
-    //     $sheet = $loadexcel->getActiveSheet()->toArray(null, true, true ,true);
+    public function import_siswa($filename)
+    {
+        include APPPATH.'third_party/PHPExcel/PHPExcel.php';
+        $excelreader = new PHPExcel_Reader_Excel2007();
+        $loadexcel = $excelreader->load('./assets/excel_files/' . $filename);
+        $sheet = $loadexcel->getActiveSheet()->toArray(null, true, true ,true);
 
-    //     $data = array();
+        $data = array();
 
-    //     $numrow = 1;
-    //     foreach($sheet as $row){
-    //         if($numrow > 2){
-    //             array_push($data, array(
-    //                 'no_soal' => $row['D'],
-    //                 'id_kategori' => $row['E'],
-    //                 'soal' => $row['F'],
-    //                 'jenis' => $row['G'],
-    //             ));
-    //         }
-    //         $numrow++;
-    //     }
+        $numrow = 1;
+        foreach($sheet as $row){
+            if($numrow > 2){
+                array_push($data, array(
+                    'id_siswa' => $row['D'],
+                    'nama_siswa' => strtoupper($row['E']),
+                    'id_kelas' => $row['F'],
+                    'jenis_kelamin' => strtolower($row['G']),
+                ));
+            }
+            $numrow++;
+        }
 
-    //     $this->db->truncate($this->table);
+        $this->db->truncate($this->table);
 
 
-    //     $output = 0;
-    //     foreach ($data as $row) {
-    //         if ( !($row['jenis'] == "check") ) {
-    //             if ( !($row['jenis'] == "essay") ) {
-    //                 $this->db->truncate($this->table);
-    //                 unlink('./assets/excel_files/' . $filename);
-    //                 return 4;
-    //             } else {
-    //                 $output = 0;
-    //             }
-    //         }
+        $output = 0;
+        foreach ($data as $row) {
+            if ( !($row['jenis_kelamin'] == "pria") ) {
+                if ( !($row['jenis_kelamin'] == "wanita") ) {
+                    $this->db->truncate($this->table);
+                    unlink('./assets/excel_files/' . $filename);
+                    return 4;
+                } else {
+                    $output = 0;
+                }
+            }
 
-    //         if ( $output == 0 ) {
-    //             $condition = ["id_kategori" => $row['id_kategori']];
-    //             if ( $this->Clsglobal->check_availability("tblkategorisoal",$condition) == 3 ) {
-    //                 $this->db->truncate($this->table);
-    //                 unlink('./assets/excel_files/' . $filename);
-    //                 return 4;
-    //             } else {
-    //                 $output = 0;
-    //             }
-    //         }
+            if ( $output == 0 ) {
+                $condition = ["id_kelas" => $row['id_kelas']];
+                if ( $this->Clsglobal->check_availability("tblkelas",$condition) == 3 ) {
+                    $this->db->truncate($this->table);
+                    unlink('./assets/excel_files/' . $filename);
+                    return 4;
+                } else {
+                    $output = 0;
+                }
+            }
 
-    //         if ( $output == 0 ) {
-    //             $insert = $this->db->insert($this->table,$row);
-    //             if ( $insert > 0 ) {
-    //                 $output = 0;
-    //             } else {
-    //                 $output = 1;
-    //             }
-    //         }
-    //     }
+            if ( $output == 0 ) {
+                $insert = $this->db->insert($this->table,$row);
+                if ( $insert > 0 ) {
+                    $output = 0;
+                } else {
+                    $output = 1;
+                }
+            }
+        }
 
-    //     unlink('./assets/excel_files/' . $filename);
+        unlink('./assets/excel_files/' . $filename);
 
-    //     return $output;
-    // }
+        return $output;
+    }
 }
