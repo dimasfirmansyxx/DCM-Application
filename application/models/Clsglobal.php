@@ -87,6 +87,12 @@ class Clsglobal extends CI_Model {
 		return $this->db->get("tblinfosekolah")->result_array()[0]['value'];
 	}
 
+	public function user_info($id_user)
+	{
+		$this->db->where("id_user",$id_user);
+		return $this->db->get("tbluser")->result_array()[0];
+	}
+
 	public function get_new_id($table,$key)
 	{
 		if ( $this->num_rows($table) > 0 ) {

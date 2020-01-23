@@ -4,6 +4,13 @@ class Siswa extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		if ( !$this->session->user_logged ) {
+			redirect( base_url() . "auth/login" );
+		}
+
+		if ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "siswa" ) {
+			redirect( base_url() . "beranda" );
+		}
 		$this->load->model("Siswa_model","siswa");
 		$this->load->model("Kelas_model","kelas");
 	}
