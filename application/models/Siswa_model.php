@@ -100,7 +100,6 @@ class Siswa_model extends CI_Model {
     {
         $multiple = false;
         $condition = [
-            "id_kelas" => $data['id_kelas'],
             "nama_siswa" => $data['nama_siswa']
         ];
 
@@ -118,7 +117,6 @@ class Siswa_model extends CI_Model {
 
         if ( $multiple == false ) {
             $dataupdate = [
-                "id_kelas" => $data['id_kelas'],
                 "nama_siswa" => $data['nama_siswa'],
                 "jenis_kelamin" => $data['jenis_kelamin']
             ];
@@ -147,10 +145,13 @@ class Siswa_model extends CI_Model {
         foreach($sheet as $row){
             if($numrow > 2){
                 array_push($data, array(
-                    'id_siswa' => $row['D'],
+                    'no_urut' => $row['D'],
                     'nama_siswa' => strtoupper($row['E']),
                     'id_kelas' => $row['F'],
                     'jenis_kelamin' => strtolower($row['G']),
+                    'tempat_lahir' => "",
+                    'tgl_lahir' => "01/01/2020",
+                    'verification' => "not"
                 ));
             }
             $numrow++;

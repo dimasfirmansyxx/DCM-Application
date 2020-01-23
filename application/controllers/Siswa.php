@@ -27,7 +27,9 @@ class Siswa extends CI_Controller {
         foreach ($list as $field) {
         	$kelas = $this->kelas->get_kelas($field->id_kelas);
             $row = array();
-            $row[] = $field->id_siswa;
+            $no++;
+            $row[] = $no;
+            $row[] = $field->no_urut;
             $row[] = $field->nama_siswa;
             $row[] = $kelas['kelas'];
             $row[] = ucwords($field->jenis_kelamin);
@@ -72,7 +74,7 @@ class Siswa extends CI_Controller {
 			$data["id_siswa"] = $this->Clsglobal->get_new_id("tblsiswa","id_siswa");
 			$data["no_urut"] = $this->input->post("no_urut",true);
 			$data["tempat_lahir"] = "";
-			$data["tgl_lahir"] = "01/01/2019";
+			$data["tgl_lahir"] = "01/01/2020";
 			$data["verification"] = "not";
 
 			$cekabsen = [
@@ -83,10 +85,10 @@ class Siswa extends CI_Controller {
 			if ( $this->Clsglobal->check_availability("tblsiswa",$cekabsen) == 3 ) {
 				$output = $this->siswa->insert_siswa($data);
 			} else {
-				$output = 2;
+				$output = 202;
 			}
 		} else {
-			$output = 2;
+			$output = 201;
 		}
 
 		echo $output;
@@ -104,7 +106,6 @@ class Siswa extends CI_Controller {
 	{
 		$data = [
 			"id_siswa" => $this->input->post("id_siswa"),
-			"id_kelas" => $this->input->post("kelas",true),
 			"nama_siswa" => strtoupper($this->input->post("nama_siswa",true)),
 			"jenis_kelamin" => strtolower($this->input->post("jenis_kelamin",true))
 		];
@@ -132,7 +133,7 @@ class Siswa extends CI_Controller {
 		$sheet->setCellValue("D1", "PENGISIAN SISWA");
 		$sheet->setCellValue("A2", "id_kelas");
 		$sheet->setCellValue("B2", "kelas");
-		$sheet->setCellValue("D2", "Nomor Urut");
+		$sheet->setCellValue("D2", "Nomor Absen");
 		$sheet->setCellValue("E2", "Nama Siswa");
 		$sheet->setCellValue("F2", "Kelas (id_kelas)");
 		$sheet->setCellValue("G2", "Jenis Kelamin");

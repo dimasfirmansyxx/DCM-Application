@@ -39,7 +39,8 @@
               <table class="table table-bordered table-hover" id="data_table">
                 <thead>
                   <tr>
-                    <th>No. Urut</th>
+                    <th>#</th>
+                    <th width="100">No. Absen</th>
                     <th>Nama</th>
                     <th>Kelas</th>
                     <th>Jenis Kelamin</th>
@@ -122,14 +123,6 @@
       </div>
       <div class="modal-body">
         <form id="frmedit">
-          <div class="form-group">
-            <label>Kelas</label>
-            <select class="form-control cmbkelasedit" name="kelas" required>
-              <?php foreach ($kelas as $row): ?>
-                <option value="<?= $row['id_kelas'] ?>"><?= $row['kelas'] ?></option>
-              <?php endforeach ?>
-            </select>
-          </div>
           <div class="form-group">
             <label>Nama</label>
             <input type="text" name="nama_siswa" class="form-control txtnamaedit" required autocomplete="off">
@@ -270,7 +263,7 @@
           } else if ( result == 201 ) {
             swal("Gagal!","Siswa Sudah Ada","warning");
           }  else if ( result == 202 ) {
-            swal("Gagal!","Username Sudah Ada","warning");
+            swal("Gagal!","Nomor Absen Sudah Ada Di kelas Ini","warning");
           } else {
             swal("Error","Kesalahan pada server","error");
           }
