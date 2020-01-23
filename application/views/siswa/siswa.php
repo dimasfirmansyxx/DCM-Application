@@ -75,6 +75,10 @@
       <div class="modal-body">
         <form id="frmtambah">
           <div class="form-group">
+            <label>Nomor Absen</label>
+            <input type="number" name="no_urut" class="form-control" required autocomplete="off">
+          </div>
+          <div class="form-group">
             <label>Kelas</label>
             <select class="form-control" name="kelas" required>
               <?php foreach ($kelas as $row): ?>

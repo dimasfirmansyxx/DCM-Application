@@ -74,15 +74,6 @@ class Siswa_model extends CI_Model {
 
     public function insert_siswa($data,$userdata)
     {
-        $createuser = [
-            "nama" => $data['nama_siswa'],
-            "username" => $userdata['username'],
-            "password" => $userdata['password'],
-            "privilege" => "siswa",
-            "id_siswa" => $data['id_siswa'],
-            "profile_photo" => "noava.png"
-        ];
-        $this->db->insert("tbluser",$createuser);
         $insert = $this->db->insert($this->table,$data);
         if ( $insert > 0 ) {
             return 0;

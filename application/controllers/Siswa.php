@@ -68,15 +68,16 @@ class Siswa extends CI_Controller {
 			"jenis_kelamin" => $this->input->post("jenis_kelamin",true)
 		];
 
-		$userdata = [
-			"username" => strtolower($this->input->post("username",true))
-		];
-
 		if ( $this->Clsglobal->check_availability("tblsiswa",$data) == 3 ) {
 			$data["id_siswa"] = $this->Clsglobal->get_new_id("tblsiswa","id_siswa");
+			$data["no_urut"] = $this->input->post("no_urut",true);
+			
+			$cekabsen = [
+				"no_urut" => $data['no_urut'],
+				"id_kelas" => $data['id_kelas']
+			]
 
-			if ( $this->Clsglobal->check_availability("tbluser",$userdata) == 3 ) {
-				$userdata["password"] = password_hash($this->input->post("password"), PASSWORD_DEFAULT);
+			if ( $this->Clsglobal->check_availability("tblsiswa",$cekabsen) == 3 ) {
 				$output = $this->siswa->insert_siswa($data,$userdata);
 			} else {
 				$output = 202;
