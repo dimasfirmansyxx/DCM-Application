@@ -29,7 +29,6 @@
             <div class="icon">
               <i class="fas fa-users"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -43,7 +42,6 @@
             <div class="icon">
               <i class="fas fa-building"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -57,7 +55,6 @@
             <div class="icon">
               <i class="fas fa-tasks"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
@@ -71,7 +68,6 @@
             <div class="icon">
               <i class="fas fa-check"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
 
