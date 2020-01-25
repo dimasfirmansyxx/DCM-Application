@@ -7,6 +7,10 @@ class Beranda extends CI_Controller {
 		if ( !$this->session->user_logged ) {
 			redirect( base_url() . "auth/login" );
 		}
+		
+		if ( $this->Clsglobal->check_verification() == 4 ) {
+			redirect( base_url() . "auth/verification" );
+		}
 	}
 
 	public function index() 

@@ -40,6 +40,23 @@ class Auth_model extends CI_Model {
 		}
 	}
 
+	public function verification($data)
+	{
+		$user = $this->Clsglobal->user_info($data['id_user']);
+
+		$this->db->set("verification","verif");
+		$this->db->set("tempat_lahir",$data['tempat_lahir']);
+		$this->db->set("tgl_lahir",$data['tgl_lahir']);
+		$this->db->where("id_siswa",$user['id_siswa']);
+		$update = $this->db->update("tblsiswa");
+
+		if ( $update > 0 ) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
 	public function get_siswa($data)
 	{
 		return $this->Clsglobal->get_data("tblsiswa",$data);

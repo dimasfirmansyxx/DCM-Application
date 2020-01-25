@@ -4,8 +4,9 @@ class Auth extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$url = $this->uri->segment(2);
 		if ( $this->session->user_logged === true ) {
-			if ( !($this->uri->segment(2) == "logout") ) {
+			if ( !($url == "logout" || $url == "verification" ) ) {
 				redirect( base_url() . "beranda" );
 			}
 		}
@@ -66,6 +67,28 @@ class Auth extends CI_Controller {
 		];
 
 		echo json_encode($this->auth->get_siswa($data));
+	}
+
+	public function verification($param = null)
+	{
+		if ( $this->Clsglobal->check_verification() == 0 ) {
+			redirect( base_url() . "beranda" );
+		} else {
+			if ( $param == null ) {
+				$data['pagetitle'] = "Verifikasi Data Diri";
+				$this->load->view("templates/head",$data);
+				$this->load->view("session/verification");
+			} elseif ( $param == "do" ) {
+				$data = [
+					"id_user" => $this->input->post("id_user"),
+					"tempat_lahir" => strtoupper($this->input->post("tempat_lahir",true)),
+					"tgl_lahir" => $this->input->post("tgl_lahir",true)
+				];
+
+				echo $this->auth->verification($data);
+			}
+		}
+
 	}
 
 	public function logout()

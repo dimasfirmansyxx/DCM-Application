@@ -1,6 +1,16 @@
 <?php 
 
 class Clsglobal extends CI_Model {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model("Auth_model","auth");
+		$this->load->model("Kategori_soal_model","kategori");
+		$this->load->model("Kelas_model","kelas");
+		$this->load->model("Siswa_model","siswa");
+		$this->load->model("Soal_model","soal");
+	}
+
 	public function check_availability($table,$condition)
 	{
 		$query = $this->db->get_where($table,$condition);
@@ -102,6 +112,17 @@ class Clsglobal extends CI_Model {
 			return $get[0][$key] + 1; 
 		} else {
 			return 1;
+		}
+	}
+
+	public function check_verification()
+	{
+		$user = $this->user_info($this->session->user_id);
+		$siswa = $this->siswa->get_siswa($user['id_siswa']);
+		if ( $siswa['verification'] == "not" ) {
+			return 4;
+		} else {
+			return 0;
 		}
 	}
 }
