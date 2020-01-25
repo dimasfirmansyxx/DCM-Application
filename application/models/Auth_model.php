@@ -19,4 +19,29 @@ class Auth_model extends CI_Model {
 			return 4;
 		}
 	}
+
+	public function register($data)
+	{
+		if ( $data['privilege'] == "siswa" ) {
+			if ( $this->Clsglobal->check_availability("tbluser",["id_siswa" => $data['id_siswa']]) == 3 ) {
+				if ( $this->Clsglobal->check_availability("tbluser",["username" => $data['username']]) == 3 ) {
+					$insert = $this->db->insert("tbluser",$data);
+					if ( $insert > 0 ) {
+						return 0;
+					} else {
+						return 1;
+					}
+				} else {
+					return 202;
+				}
+			} else {
+				return 201;
+			}
+		}
+	}
+
+	public function get_siswa($data)
+	{
+		return $this->Clsglobal->get_data("tblsiswa",$data);
+	}
 }

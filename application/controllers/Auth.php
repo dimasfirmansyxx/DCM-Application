@@ -11,6 +11,7 @@ class Auth extends CI_Controller {
 		}
 
 		$this->load->model("Auth_model","auth");
+		$this->load->model("Kelas_model","kelas");
 	}
 
 	public function index()
@@ -38,8 +39,33 @@ class Auth extends CI_Controller {
 	public function register()
 	{
 		$data['pagetitle'] = "Registrasi";
+		$data['kelas'] = $this->kelas->get_all_kelas();
 		$this->load->view("templates/head",$data);
 		$this->load->view("session/registrasi");
+	}
+
+	public function register_act()
+	{
+		$data = [
+			"nama" => $this->input->post("nama_siswa",true),
+			"username" => $this->input->post("username",true),
+			"password" => password_hash($this->input->post("password"), PASSWORD_DEFAULT),
+			"privilege" => "siswa",
+			"id_siswa" => $this->input->post("id_siswa",true),
+			"profile_photo" => "noava.png"
+		];
+
+		echo $this->auth->register($data);
+	}
+
+	public function get_siswa()
+	{
+		$data = [
+			"no_urut" => $this->input->post("no_urut"),
+			"id_kelas" => $this->input->post("kelas")
+		];
+
+		echo json_encode($this->auth->get_siswa($data));
 	}
 
 	public function logout()
