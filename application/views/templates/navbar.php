@@ -24,7 +24,18 @@
           </a>
         </li>
 
-        <?php if ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "admin" ): ?>
+        <?php if ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "siswa" ): ?>
+
+        <li class="nav-item">
+          <a href="<?= base_url() ?>jawab" class="nav-link">
+            <i class="nav-icon fas fa-tasks"></i>
+            <p>
+              Soal
+            </p>
+          </a>
+        </li>
+
+        <?php elseif ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "admin" ): ?>
           <li class="nav-header">PENGATURAN</li>
           <li class="nav-item">
             <a href="<?= base_url() ?>soal" class="nav-link">
