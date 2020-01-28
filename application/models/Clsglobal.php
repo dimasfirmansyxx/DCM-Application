@@ -125,4 +125,76 @@ class Clsglobal extends CI_Model {
 			return 0;
 		}
 	}
+
+	public function romawi($angka)
+	{
+	    $output = "";
+	    if ($angka < 1 || $angka > 5000) { 
+	        $output = "Batas Angka 1 s/d 5000";
+	    } else {
+	        while ($angka >= 1000) {
+	            $output .= "M";
+	            $angka -= 1000;
+	        }
+	    }
+
+
+	    if ($angka >= 500) {
+	        if ($angka > 500) {
+	            if ($angka >= 900) {
+	                $output .= "CM";
+	                $angka -= 900;
+	            } else {
+	                $output .= "D";
+	                $angka-=500;
+	            }
+	        }
+	    }
+	    while ($angka>=100) {
+	        if ($angka>=400) {
+	            $output .= "CD";
+	            $angka -= 400;
+	        } else {
+	            $angka -= 100;
+	        }
+	    }
+	    if ($angka>=50) {
+	        if ($angka>=90) {
+	            $output .= "XC";
+	            $angka -= 90;
+	        } else {
+	            $output .= "L";
+	            $angka-=50;
+	        }
+	    }
+	    while ($angka >= 10) {
+	        if ($angka >= 40) {
+	            $output .= "XL";
+	            $angka -= 40;
+	        } else {
+	            $output .= "X";
+	            $angka -= 10;
+	        }
+	    }
+	    if ($angka >= 5) {
+	        if ($angka == 9) {
+	            $output .= "IX";
+	            $angka-=9;
+	        } else {
+	            $output .= "V";
+	            $angka -= 5;
+	        }
+	    }
+	    while ($angka >= 1) {
+	        if ($angka == 4) {
+	            $output .= "IV"; 
+	            $angka -= 4;
+	        } else {
+	            $output .= "I";
+	            $angka -= 1;
+	        }
+	    }
+
+	    return ($output);
+	}
 }

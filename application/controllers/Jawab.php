@@ -17,15 +17,25 @@ class Jawab extends CI_Controller {
 		}
 		$this->load->model("Kategori_soal_model","kategori_soal");
 		$this->load->model("Soal_model","soal");
+		$this->load->model("Jawab_model","jawab");
 	}
 
 	public function index()
 	{
 		$data['pagetitle'] = "Cek Masalah";
+		$data['jmlkategori'] = $this->Clsglobal->num_rows("tblkategorisoal");
 		$this->load->view("templates/head",$data);
 		$this->load->view("templates/header");
 		$this->load->view("templates/navbar");
 		$this->load->view("jawab/jawab");
 		$this->load->view("templates/footer");
+	}
+
+	public function lembar($no_kategori)
+	{
+		$data['pagetitle'] = "Lembar Soal";
+		$data['kategori'] = $this->kategori->get_kategori($no_kategori);
+		$this->load->view("templates/head",$data);
+		$this->load->view("jawab/lembar");
 	}
 }
