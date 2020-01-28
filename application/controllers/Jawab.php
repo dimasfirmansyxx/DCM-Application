@@ -31,11 +31,28 @@ class Jawab extends CI_Controller {
 		$this->load->view("templates/footer");
 	}
 
-	public function lembar($no_kategori)
+	public function lembar($id_kategori)
 	{
 		$data['pagetitle'] = "Lembar Soal";
-		$data['kategori'] = $this->kategori->get_kategori($no_kategori);
+		$data['kategori'] = $this->kategori->get_kategori($id_kategori);
+		$data['soal'] = $this->jawab->get_soal($id_kategori);
+		$data['jmlkategori'] = $this->Clsglobal->num_rows("tblkategorisoal");
 		$this->load->view("templates/head",$data);
 		$this->load->view("jawab/lembar");
+	}
+
+	public function push_answer()
+	{
+		echo json_encode($_POST);
+	}
+
+	public function selesai()
+	{
+		$data = [
+			"id_user" => $this->input->post("id_user"),
+			"jawaban" => $this->input->post("jawaban",true)
+		];
+
+		echo $this->jawab->save_jawaban($data);
 	}
 }

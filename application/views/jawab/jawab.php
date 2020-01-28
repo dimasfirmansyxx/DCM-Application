@@ -24,8 +24,9 @@
             <div class="card-header bg-secondary">
               Pertanyaan
             </div>
-            <div class="card-body table-responsive">
-              
+            <div class="card-body">
+              <button class="btn btn-primary btnselesai btn-block">Selesai</button>
+              <div id="soal_area"></div>
             </div>
           </div>
         </section>
@@ -41,6 +42,7 @@
     var id_user = <?= $this->session->user_id ?>;
     var jmlkategori = <?= $jmlkategori ?>;
     var no_kategori = 1;
+    var jawaban = {};
 
     function setButton(attribute,word) {
       $(attribute).attr("disabled","disabled");
@@ -51,6 +53,56 @@
       $(attribute).removeAttr("disabled");
       $(attribute).html(word);
     }
+
+    function load(no_kategori){
+      $("#soal_area").load(base_url + "jawab/lembar/" + no_kategori);
+    }
+
+    load(no_kategori);
+    $(".btnselesai").css("display","none");
+
+    $("#soal_area").on("submit","#frmjawab",function(e){
+      e.preventDefault();
+      $.ajax({
+        url : base_url + "jawab/push_answer",
+        data : new FormData(this),
+        cache : false,
+        contentType : false,
+        processData : false,
+        type : "post",
+        dataType : "json",
+        success : function(result) {
+          jawaban[no_kategori] = result;
+          no_kategori = no_kategori + 1;
+          if ( no_kategori <= jmlkategori ) {
+            load(no_kategori);
+          } else {
+            $(".btnselesai").css("display","block");
+          }
+        }
+      });
+    });
+
+    $(".btnselesai").on("click",function(){
+      setButton(".btnselesai","Submitting...");
+      $.ajax({
+        url : base_url + "jawab/selesai",
+        data : { id_user : id_user, jawaban : jawaban },
+        type : "post",
+        dataType : "text",
+        success : function(result) {
+          if ( result == 0 ) {
+            swal("Tes Berhasil","Tes telah berhasil dilakukan. Akan dialihkan untuk keluar.","success");
+            setTimeout(function(){
+              window.location = base_url + "auth/logout";
+            },1000);
+          } else {
+            swal("Gagal","Kesalahan pada server!","error");
+          }
+          unsetButton(".btnselesai","Selesai");
+        }
+      });
+    });
 
   });
 </script>
