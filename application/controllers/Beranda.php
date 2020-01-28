@@ -16,6 +16,9 @@ class Beranda extends CI_Controller {
 	public function index() 
 	{
 		$data['pagetitle'] = "Beranda";
+		$data['jmlsiswa'] = $this->Clsglobal->num_rows("tblsiswa");
+		$data['jmlkelas'] = $this->Clsglobal->num_rows("tblkelas");
+		$data['jmlsoal'] = $this->Clsglobal->num_rows("tblsoal");
 		$this->load->view("templates/head",$data);
 		$this->load->view("templates/header");
 		$this->load->view("templates/navbar");
