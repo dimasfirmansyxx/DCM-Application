@@ -26,7 +26,7 @@ class Clsglobal extends CI_Model {
 		return $this->db->get($table)->num_rows();
 	}
 
-	public function upload_files($key,$directory,$allow_extension)
+	public function upload_files($key,$directory,$allow_extension,$file_name = "random")
 	{
 		if ( $_FILES[$key]['error'] == 4 ) {
 			return "";
@@ -58,7 +58,12 @@ class Clsglobal extends CI_Model {
 				$extension = strtolower(end($explodename));
 
 				if ( in_array($extension, $allow_extension) ) {
-					$newName = uniqid() . "." . $extension;
+					if ( $file_name == "random" ) {
+						$newName = uniqid() . "." . $extension;
+					} else {
+						$newName = $file_name;
+					}
+
 					$dir = "./assets/" . $directory . "/";
 					move_uploaded_file($tmp, $dir . $newName);
 
