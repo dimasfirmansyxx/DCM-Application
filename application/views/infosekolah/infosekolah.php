@@ -26,7 +26,7 @@
               Informasi Sekolah
             </div>
             <div class="card-body table-responsive">
-              <form>
+              <form id="frminfo">
                 <div class="form-group">
                   <label>Nama Sekolah</label>
                   <input type="text" name="nama_sekolah" class="form-control" required value="<?= $this->Clsglobal->site_info("nama_sekolah") ?>">
@@ -60,7 +60,7 @@
               <img src="<?= base_url() ?>assets/img/core/logo.png" class="img-fluid">
             </div>
             <div class="card-footer">
-              <form>
+              <form id="frmlogo">
                 <div class="form-group">
                   <input type="file" name="logo" class="form-control" required>
                 </div>
@@ -81,12 +81,6 @@
   $(document).ready(function() {
     var base_url = "<?= base_url() ?>";
 
-    function reloadData() {
-      $("#data_table").DataTable().ajax.reload(null, false );
-    }
-
-    loadData();
-
     function setButton(attribute,word) {
       $(attribute).attr("disabled","disabled");
       $(attribute).html(word);
@@ -106,6 +100,31 @@
       $(attribute).removeAttr("disabled");
       $(attribute).val(word);
     }
+
+    $("#frminfo").on("submit",function(e){
+      e.preventDefault();
+      setButton(".btnsave","Submitting...");
+      $.ajax({
+        url : base_url + "config_sekolah/change_info",
+        data : new FormData(this),
+        cache : false,
+        contentType : false,
+        processData : false,
+        type : "post",
+        dataType : "text",
+        success : function(result) {
+          if ( result == 0 ) {
+            swal("Sukses!","Sukses mengubah informasi sekolah","success");
+            setTimeout(function(){
+              window.location = base_url + "config_sekolah";
+            },1000);
+          } else {
+            swal("Gagal!","Kesalahan pada server","error");
+          }
+          unsetButton(".btnsave","Submit");
+        }
+      });
+    });
 
   });
 </script>
