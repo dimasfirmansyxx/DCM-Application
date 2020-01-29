@@ -1,6 +1,6 @@
 <div class="login-box mt-5">
   <div class="login-logo">
-    <a href="#"><b>DCM</b>App</a>
+    <img src="<?= base_url() ?>assets/img/core/logo.png" height="100">
   </div>
   <!-- /.login-logo -->
   <div class="card">
