@@ -73,9 +73,9 @@
         dataType : "json",
         success : function(result) {
           jawaban[no_kategori] = result;
-          no_kategori = no_kategori + 1;
           if ( no_kategori <= jmlkategori ) {
             load(no_kategori);
+            no_kategori = no_kategori + 1;
           } else {
             $("#soal_area").html("");
             $(".btnselesai").css("display","block");
