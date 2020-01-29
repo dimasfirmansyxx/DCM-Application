@@ -77,6 +77,7 @@
           if ( no_kategori <= jmlkategori ) {
             load(no_kategori);
           } else {
+            $("#soal_area").html("");
             $(".btnselesai").css("display","block");
           }
         }
