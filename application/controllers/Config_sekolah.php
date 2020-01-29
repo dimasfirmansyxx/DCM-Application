@@ -11,7 +11,7 @@ class Config_sekolah extends CI_Controller {
 		if ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "siswa" ) {
 			redirect( base_url() . "beranda" );
 		}
-		
+
 		$this->load->model("Config_sekolah_model","config_sekolah");
 	}
 
@@ -35,5 +35,17 @@ class Config_sekolah extends CI_Controller {
 		];
 
 		echo $this->config_sekolah->change_info($data);
+	}
+
+	public function change_logo()
+	{
+		$upload = $this->Clsglobal->upload_files("logo","img/core",["png"],"logo.png");
+		if ( $upload[0] == "logo.png" ) {
+			echo 0;
+		} else if ( $upload == 5 ) {
+			echo 5;
+		} else {
+			echo 1;
+		}
 	}
 }

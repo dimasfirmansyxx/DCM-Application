@@ -126,5 +126,32 @@
       });
     });
 
+    $("#frmlogo").on("submit",function(e){
+      e.preventDefault();
+      setButton(".btnupload","Uploading...");
+      $.ajax({
+        url : base_url + "config_sekolah/change_logo",
+        data : new FormData(this),
+        cache : false,
+        contentType : false,
+        processData : false,
+        type : "post",
+        dataType : "text",
+        success : function(result) {
+          if ( result == 0 ) {
+            swal("Sukses!","Sukses mengubah logo sekolah","success");
+            setTimeout(function(){
+              window.location = base_url + "config_sekolah";
+            },1000);
+          } else if ( result == 5 ) {
+            swal("Gagal!","Pastikan format png","warning");
+          } else {
+            swal("Gagal!","Kesalahan pada server","error");
+          }
+          unsetButton(".btnupload","Upload");
+        }
+      });
+    });
+
   });
 </script>
