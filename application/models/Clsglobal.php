@@ -78,6 +78,26 @@ class Clsglobal extends CI_Model {
 
 	}
 
+	public function check_file_extension($key,$allow_extension)
+	{
+		if ( $_FILES[$key]['error'] == 4 ) {
+			return "";
+		} else {
+			$total = count($_FILES[$key]['name']);
+			$returnName = array();
+			$name = $_FILES[$key]['name'];
+			$tmp = $_FILES[$key]['tmp_name'];
+			$explodename = explode(".", $name);
+			$extension = strtolower(end($explodename));
+
+			if ( in_array($extension, $allow_extension) ) {
+				return 0;
+			} else {
+				return 5;
+			}
+		}
+	}
+
 	public function get_data($table,$condition)
 	{
 		if ( $this->check_availability($table,$condition) == 2 ) {
