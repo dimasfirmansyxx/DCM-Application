@@ -74,8 +74,8 @@
         success : function(result) {
           jawaban[no_kategori] = result;
           if ( no_kategori <= jmlkategori ) {
-            load(no_kategori);
             no_kategori = no_kategori + 1;
+            load(no_kategori);
           } else {
             $("#soal_area").html("");
             $(".btnselesai").css("display","block");
