@@ -67,15 +67,23 @@ class Admin_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    // public function insert_kelas($data)
-    // {
-    // 	$insert = $this->db->insert($this->table,$data);
-    // 	if ( $insert > 0 ) {
-    // 		return 0;
-    // 	} else {
-    // 		return 1;
-    // 	}
-    // }
+    public function insert_admin($data)
+    {
+    	$input = [
+    		"nama" => $data['nama'],
+    		"username" => $data['username'],
+    		"password" => $data['password'],
+    		"privilege" => "admin",
+    		"id_siswa" => "0",
+    		"profile_photo" => "noava.png"
+    	];
+    	$insert = $this->db->insert($this->table,$input);
+    	if ( $insert > 0 ) {
+    		return 0;
+    	} else {
+    		return 1;
+    	}
+    }
 
     // public function delete_kelas($id_kelas)
     // {

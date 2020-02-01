@@ -68,8 +68,16 @@
       <div class="modal-body">
         <form id="frmtambah">
           <div class="form-group">
-            <label>Kelas</label>
-            <input type="text" name="kelas" class="form-control" required autocomplete="off">
+            <label>Nama</label>
+            <input type="text" name="nama" class="form-control" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required autocomplete="off">
           </div>
       </div>
       <div class="modal-footer">
@@ -170,7 +178,7 @@
       e.preventDefault();
       setButton(".btnsave","Menyimpan...");
       $.ajax({
-        url : base_url + "kelas/insert_kelas",
+        url : base_url + "admin/insert_admin",
         data : new FormData(this),
         processData : false,
         contentType : false,
@@ -179,11 +187,11 @@
         dataType : "text",
         success : function(result) {
           if ( result == 0 ) {
-            swal("Sukses","Sukses menambah kelas","success");
+            swal("Sukses","Sukses menambah admin","success");
             reloadData();
             $("#frmtambah").trigger("reset");
           } else if ( result == 2 ) {
-            swal("Gagal!","Kelas Sudah Ada","warning");
+            swal("Gagal!","Username Sudah Ada","warning");
           } else {
             swal("Error","Kesalahan pada server","error");
           }

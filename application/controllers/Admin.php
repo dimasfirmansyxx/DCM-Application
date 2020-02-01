@@ -52,4 +52,51 @@ class Admin extends CI_Controller {
         );
         echo json_encode($output);
 	}
+
+	// public function get_kelas_by_id()
+	// {
+	// 	$id_kelas = $this->input->post("id_kelas",true);
+	// 	if ( $this->Clsglobal->check_availability("tblkelas",["id_kelas" => $id_kelas]) == 2 ) {
+	// 		$output = $this->kelas->get_kelas($id_kelas);
+	// 	} else {
+	// 		$output = 3;
+	// 	}
+
+	// 	echo json_encode($output);
+	// }
+
+	public function insert_admin()
+	{
+		$data["username"] = $this->input->post("username",true);
+
+		if ( $this->Clsglobal->check_availability("tbluser",$data) == 3 ) {
+			$data["nama"] = ucwords($this->input->post("nama",true));
+			$data["password"] = password_hash($this->input->post("password",true), PASSWORD_DEFAULT);
+			$output = $this->admin->insert_admin($data);
+		} else {
+			$output = 2;
+		}
+
+		echo $output;
+	}
+
+	// public function delete_kelas()
+	// {
+	// 	$id_kelas = $this->input->post("id_kelas",true);
+	// 	$delete = $this->kelas->delete_kelas($id_kelas);
+
+	// 	echo $delete;
+	// }
+
+	// public function update_kelas()
+	// {
+	// 	$data = [
+	// 		"id_kelas" => $this->input->post("id_kelas",true),
+	// 		"kelas" => strtoupper($this->input->post("kelas",true))
+	// 	];
+
+	// 	$update = $this->kelas->update_kelas($data);
+
+	// 	echo $update;
+	// }
 }
