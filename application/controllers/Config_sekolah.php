@@ -39,10 +39,19 @@ class Config_sekolah extends CI_Controller {
 
 	public function change_logo()
 	{
-		$upload = $this->Clsglobal->upload_files("logo","img/core",["png"],"logo.png");
-		if ( $upload[0] == "logo.png" ) {
-			echo 0;
-		} else if ( $upload == 5 ) {
+		$extension_check = $this->Clsglobal->check_file_extension("logo",["png"]);
+		if ( $extension_check == 0 ) {
+			unlink( "./assets/img/core/logo.png" );
+
+			$upload = $this->Clsglobal->upload_files("logo","img/core",["png"],"logo.png");
+			if ( $upload[0] == "logo.png" ) {
+				echo 0;
+			} else if ( $upload == 5 ) {
+				echo 5;
+			} else {
+				echo 1;
+			}
+		} elseif ( $extension_check == 5 ) {
 			echo 5;
 		} else {
 			echo 1;
