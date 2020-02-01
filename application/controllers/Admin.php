@@ -80,13 +80,13 @@ class Admin extends CI_Controller {
 		echo $output;
 	}
 
-	// public function delete_kelas()
-	// {
-	// 	$id_kelas = $this->input->post("id_kelas",true);
-	// 	$delete = $this->kelas->delete_kelas($id_kelas);
+	public function delete_admin()
+	{
+		$id_user = $this->input->post("id_user",true);
+		$delete = $this->admin->delete_admin($id_user);
 
-	// 	echo $delete;
-	// }
+		echo $delete;
+	}
 
 	// public function update_kelas()
 	// {

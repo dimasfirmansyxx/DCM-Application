@@ -85,16 +85,16 @@ class Admin_model extends CI_Model {
     	}
     }
 
-    // public function delete_kelas($id_kelas)
-    // {
-    // 	$this->db->where("id_kelas",$id_kelas);
-    // 	$delete = $this->db->delete($this->table);
-    // 	if ( $delete > 0 ) {
-    // 		return 0;
-    // 	} else {
-    // 		return 1;
-    // 	}
-    // }
+    public function delete_admin($id_user)
+    {
+    	$this->db->where("id_user",$id_user);
+    	$delete = $this->db->delete($this->table);
+    	if ( $delete > 0 ) {
+    		return 0;
+    	} else {
+    		return 1;
+    	}
+    }
 
     // public function get_kelas($id_kelas)
     // {

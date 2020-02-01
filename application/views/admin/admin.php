@@ -204,8 +204,8 @@
       var id = $(this).attr("data-id");
       setButton(this,"Menghapus ...");
       swal({
-        title : "Yakin menghapus kelas ini ?",
-        text : "Dengan menghapus, siswa serta laporan siswa juga akan terhapus",
+        title : "Yakin menghapus admin ini ?",
+        text : "Admin akan dihapus dan tidak dapat dikembalikan",
         icon : "warning",
         buttons : [
           "Batal",
@@ -215,13 +215,13 @@
       }).then(function(confirm) {
         if ( confirm ) {
           $.ajax({
-            url : base_url + "kelas/delete_kelas",
-            data : { id_kelas : id },
+            url : base_url + "admin/delete_admin",
+            data : { id_user : id },
             type : "post",
             dataType : "text",
             success : function(result) {
               if ( result == 0 ) {
-                swal("Sukses","Sukses menghapus kelas","success");
+                swal("Sukses","Sukses menghapus admin","success");
                 reloadData();
               } else {
                 swal("Error","Kesalahan pada server","error");
