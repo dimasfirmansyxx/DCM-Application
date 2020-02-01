@@ -6,26 +6,17 @@
 <form id="frmjawab">
 	<div class="row">
 		<?php foreach ($soal as $row): ?>
-			<?php $acak = rand(0,1); ?>
 			<div class="col-md-6 mt-5">
 				<p><?= $row['no_soal'] . ". " . $row['soal'] ?></p>
 				<?php if ( $row['jenis'] == "check" ): ?>
 					<div class="form-check">
-						<?php if ( $acak == 0 ): ?>
-						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>ya" value="ya" required checked>
-						<?php else: ?>
 						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>ya" value="ya" required>
-						<?php endif ?>
 						<label class="form-check-label" for="<?= $row['no_soal'] ?>ya">
 							Ya
 						</label>
 					</div>
 					<div class="form-check">
-						<?php if ( $acak == 1 ): ?>
-						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>tidak" value="tidak" required checked>
-						<?php else: ?>
 						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>tidak" value="tidak" required>
-						<?php endif ?>
 						<label class="form-check-label" for="<?= $row['no_soal'] ?>tidak">
 							Tidak
 						</label>
