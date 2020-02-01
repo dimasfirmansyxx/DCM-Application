@@ -3,12 +3,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Kelas</h1>
+          <h1 class="m-0 text-dark">Manajemen Admin</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Kelas</li>
+            <li class="breadcrumb-item"><a href="#">Akun</a></li>
+            <li class="breadcrumb-item active">Manajemen Admin</li>
           </ol>
         </div>
       </div>
@@ -21,7 +22,7 @@
       <div class="row">
         <div class="col-12">
           <button class="btn btn-primary btn-sm btntambah">
-            <i class="fas fa-plus"></i> Tambah Kelas
+            <i class="fas fa-plus"></i> Tambah Admin
           </button>
         </div>
       </div>
@@ -30,14 +31,15 @@
         <section class="col-lg-12">
           <div class="card">
             <div class="card-header bg-secondary">
-              Kelas
+              Daftar Admin
             </div>
             <div class="card-body table-responsive">
               <table class="table table-bordered table-hover" id="data_table">
                 <thead>
                   <tr>
                     <th>No.</th>
-                    <th>Kelas</th>
+                    <th>Nama</th>
+                    <th>Username</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
@@ -47,10 +49,6 @@
               </table>
             </div>
           </div>
-        </section>
-
-        <section class="col-lg-5 ">
-
         </section>
       </div>
 
@@ -62,7 +60,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tambah Kelas</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Admin</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -125,7 +123,7 @@
         "serverSide": true, 
         "order": [], 
         "ajax": {
-            "url": base_url + "kelas/get_kelas",
+            "url": base_url + "admin/get_admin",
             "type": "POST"
         },
         "columnDefs": [

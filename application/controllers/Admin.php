@@ -24,4 +24,32 @@ class Admin extends CI_Controller {
 		$this->load->view("admin/admin");
 		$this->load->view("templates/footer");
 	}
+
+	public function get_admin()
+	{
+		$list = $this->admin->get_datatables();
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $field) {
+        	$no++;
+            $row = array();
+            $row[] = $no;
+            $row[] = $field->nama;
+            $row[] = $field->username;
+            $row[] = "
+            	<button class='btn btn-success btn-sm btnedit' data-id='$field->id_user'>Edit</button>
+            	<button class='btn btn-danger btn-sm btnhapus' data-id='$field->id_user'>Hapus</button>
+            	";
+ 
+            $data[] = $row;
+        }
+ 
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->kelas->count_all(),
+            "recordsFiltered" => $this->kelas->count_filtered(),
+            "data" => $data,
+        );
+        echo json_encode($output);
+	}
 }
