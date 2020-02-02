@@ -95,44 +95,4 @@ class Admin_model extends CI_Model {
     		return 1;
     	}
     }
-
-    // public function get_kelas($id_kelas)
-    // {
-    //     return $this->Clsglobal->get_data($this->table,["id_kelas" => $id_kelas]);
-    // }
-
-    // public function get_all_kelas()
-    // {
-    //     return $this->db->get($this->table)->result_array();
-    // }
-
-    // public function update_kelas($data)
-    // {
-    //     $multiple = false;
-
-    //     $check = $this->Clsglobal->check_availability($this->table,["kelas" => $data['kelas']]);
-    //     if ( $check == 2 ) {
-    //         $get = $this->Clsglobal->get_data($this->table,["kelas" => $data['kelas']]);
-    //         if ( $get['id_kelas'] == $data['id_kelas'] ) {
-    //             $multiple = false;
-    //         } else {
-    //             $multiple = true;
-    //         }
-    //     } else {
-    //         $multiple = false;
-    //     }
-
-    //     if ( $multiple == false ) {
-    //         $this->db->set("kelas", $data['kelas']);
-    //         $this->db->where("id_kelas", $data['id_kelas']);
-    //         $update = $this->db->update($this->table);
-    //         if ( $update > 0 ) {
-    //             return 0;
-    //         } else {
-    //             return 1;
-    //         }
-    //     } else {
-    //         return 2;
-    //     }
-    // }
 }

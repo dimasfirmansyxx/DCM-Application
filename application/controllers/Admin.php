@@ -53,18 +53,6 @@ class Admin extends CI_Controller {
         echo json_encode($output);
 	}
 
-	// public function get_kelas_by_id()
-	// {
-	// 	$id_kelas = $this->input->post("id_kelas",true);
-	// 	if ( $this->Clsglobal->check_availability("tblkelas",["id_kelas" => $id_kelas]) == 2 ) {
-	// 		$output = $this->kelas->get_kelas($id_kelas);
-	// 	} else {
-	// 		$output = 3;
-	// 	}
-
-	// 	echo json_encode($output);
-	// }
-
 	public function insert_admin()
 	{
 		$data["username"] = $this->input->post("username",true);
@@ -87,16 +75,4 @@ class Admin extends CI_Controller {
 
 		echo $delete;
 	}
-
-	// public function update_kelas()
-	// {
-	// 	$data = [
-	// 		"id_kelas" => $this->input->post("id_kelas",true),
-	// 		"kelas" => strtoupper($this->input->post("kelas",true))
-	// 	];
-
-	// 	$update = $this->kelas->update_kelas($data);
-
-	// 	echo $update;
-	// }
 }

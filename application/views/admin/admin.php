@@ -93,35 +93,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Kelas</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="frmedit">
-          <div class="form-group">
-            <label>Kelas</label>
-            <input type="text" name="kelas" class="form-control txtkelasedit" required autocomplete="off">
-          </div>
-      </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
-            Tutup
-          </button>
-          <button type="submit" class="btn btn-primary btn-sm btnsave">
-            Simpan
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
   $(document).ready(function() {
     var base_url = "<?= base_url() ?>";
@@ -231,50 +202,6 @@
         }
       });
       unsetButton(".btnhapus","Hapus");
-    });
-
-    var id_kelas;
-    $("#data_table").on("click",".btnedit",function(){
-      id_kelas = $(this).attr("data-id");
-      setTxt(".txtkelasedit","Loading...");
-      $("#editmodal").modal("show");
-      $.ajax({
-        url : base_url + "kelas/get_kelas_by_id",
-        data : { id_kelas : id_kelas },
-        type : "post",
-        dataType : "json",
-        success : function(result) {
-          unsetTxt(".txtkelasedit",result.kelas);
-        }
-      });
-    });
-
-    $("#frmedit").on("submit",function(e){
-      e.preventDefault();
-      setButton(".btnsave","Menyimpan...");
-      var data = new FormData(this);
-      data.append("id_kelas",id_kelas);
-      $.ajax({
-        url : base_url + "kelas/update_kelas",
-        data : data,
-        processData : false,
-        cache : false,
-        contentType : false,
-        type : "post",
-        dataType : "text",
-        success : function(result) {
-          if ( result == 0 ) {
-            swal("Sukses","Sukses mengubah Kelas","success");
-            $("#editmodal").modal("hide");
-            reloadData();
-          } else if ( result == 2 ) {
-            swal("Gagal","Kelas sudah ada","warning");
-          } else {
-            swal("Error","Kesalahan pada server","error");
-          }
-          unsetButton(".btnsave","Simpan");
-        }
-      });
     });
 
   });
