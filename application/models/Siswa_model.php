@@ -67,6 +67,11 @@ class Siswa_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
+    public function get_all_siswa()
+    {
+        return $this->db->get($this->table)->result_array();
+    }
+
     public function get_siswa($id_siswa)
     {
         return $this->Clsglobal->get_data($this->table,["id_siswa" => $id_siswa]);
