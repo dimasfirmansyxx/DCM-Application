@@ -10,13 +10,13 @@
 				<p><?= $row['no_soal'] . ". " . $row['soal'] ?></p>
 				<?php if ( $row['jenis'] == "check" ): ?>
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>ya" value="ya" required>
+						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>ya" value="y" required>
 						<label class="form-check-label" for="<?= $row['no_soal'] ?>ya">
 							Ya
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>tidak" value="tidak" required>
+						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>tidak" value="g" required>
 						<label class="form-check-label" for="<?= $row['no_soal'] ?>tidak">
 							Tidak
 						</label>
