@@ -37,7 +37,6 @@ class Admin extends CI_Controller {
             $row[] = $field->nama;
             $row[] = $field->username;
             $row[] = "
-            	<button class='btn btn-success btn-sm btnedit' data-id='$field->id_user'>Edit</button>
             	<button class='btn btn-danger btn-sm btnhapus' data-id='$field->id_user'>Hapus</button>
             	";
  
