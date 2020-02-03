@@ -37,7 +37,7 @@
 
         <?php elseif ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "admin" ): ?>
           <li class="nav-header">PENGATURAN</li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="<?= base_url() ?>soal" class="nav-link">
               <i class="nav-icon fas fa-tasks"></i>
               <p>
@@ -52,7 +52,7 @@
                 Kategori Soal
               </p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a href="<?= base_url() ?>siswa" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
