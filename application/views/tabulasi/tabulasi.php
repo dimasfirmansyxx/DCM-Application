@@ -50,5 +50,11 @@
       $(attribute).html(word);
     }
 
+    function load(){
+      $("#data_area").load(base_url + "tabulasi/show");
+    }
+
+    load();
+
   });
 </script>

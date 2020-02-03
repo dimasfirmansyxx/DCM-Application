@@ -15,6 +15,7 @@ class Tabulasi extends CI_Controller {
 		$this->load->model("Kategori_soal_model","kategori");
 		$this->load->model("Siswa_model","siswa");
 		$this->load->model("Kelas_model","kelas");
+		$this->load->model("Soal_model","soal");
 	}
 
 	public function index() 

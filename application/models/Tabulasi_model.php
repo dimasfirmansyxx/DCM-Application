@@ -18,4 +18,10 @@ class Tabulasi_model extends CI_Model {
 		$this->db->where("id_siswa",$id_siswa);
 		return $this->db->get("tbljawaban")->result_array();
 	}
+
+	public function get_num_siswa($id_kelas)
+	{
+		$this->db->where("id_kelas",$id_kelas);
+		return $this->db->get("tblsiswa")->num_rows();
+	}
 }
