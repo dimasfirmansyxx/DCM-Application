@@ -73,7 +73,7 @@
         dataType : "json",
         success : function(result) {
           jawaban[no_kategori] = result;
-          if ( no_kategori <= jmlkategori ) {
+          if ( no_kategori < jmlkategori ) {
             no_kategori = no_kategori + 1;
             load(no_kategori);
           } else {
