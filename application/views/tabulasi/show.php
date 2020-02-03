@@ -68,7 +68,7 @@
         <td colspan="4" class="bg-primary">
           Jumlah Siswa Kelas : <?= $kelas['kelas'] ?>
         </td>
-        <td class="bg-primary"><?= $get_num_siswa ?></td>
+        <td colspan="500" class="bg-primary"><?= $get_num_siswa ?></td>
       </tr>
     <?php endforeach ?>
   </tbody>
