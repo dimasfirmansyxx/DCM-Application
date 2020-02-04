@@ -27,4 +27,24 @@ class Profil_individu_model extends CI_Model {
 
 		return $output;
 	}
+
+	public function get_kategori_chart($no_urut)
+	{
+		$kategori = $this->get_kategori(1,12);
+		$siswa = $this->get_siswa($no_urut);
+		$output = [];
+		foreach ($kategori as $row) {
+			$jawaban = $this->get_jawaban($siswa['id_siswa'],$row['id_kategori']);
+			$jumlah = 0;
+			foreach ($jawaban as $jwb) {
+				if ( $jwb['remarks'] == "y" ) {
+					$jumlah++;
+				}
+			}
+
+			$output[$row['nama_kategori']] = $jumlah / 20 * 100;
+		}
+
+		return $output;
+	}
 }

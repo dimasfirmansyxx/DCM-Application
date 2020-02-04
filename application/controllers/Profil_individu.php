@@ -35,6 +35,10 @@ class Profil_individu extends CI_Controller {
 		$data['pagetitle'] = "show_profil_individu";
 		$data['siswa'] = $this->profil->get_siswa($no_urut);
 		$data['pribadi_kategori'] = $this->profil->get_kategori(1,5);
+		$data['sosial_kategori'] = $this->profil->get_kategori(6,8);
+		$data['belajar_kategori'] = $this->profil->get_kategori(9,11);
+		$data['belajar_kategori'] = $this->profil->get_kategori(12,12);
+		$data['kategori_chart'] = $this->profil->get_kategori_chart($no_urut);
 		$this->load->view("templates/head",$data);
 		$this->load->view("profil_individu/show",$data);
 	}

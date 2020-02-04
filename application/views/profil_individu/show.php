@@ -37,28 +37,158 @@
 				<tr class="bg-primary">
 					<td width="50">I.</td>
 					<td colspan="21">PRIBADI</td>
-					<td>11</td>
-					<td>22%</td>
+					<td id="lbljmlpribadi"></td>
+					<td id="lblpersenpribadi"></td>
 				</tr>
-				<?php $i = 1 ?>
+				<?php 
+					$i = 1;
+					$jmlpribadi = 0;
+					$jmlkeseluruhan = 0;
+					$persenkeseluruhan = 0;
+				?>
 				<?php foreach ($pribadi_kategori as $kategori): ?>
 					<?php 
 			          $get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
+			          $jumlah = 0;
 					?>
-					<?= $kategori['id_kategori'] ?>
 					<tr>
 						<td><?= $i++ ?></td>
 						<td><?= $kategori['nama_kategori'] ?></td>
 						<?php foreach ($get_jawaban as $jawaban): ?>
 			              <?php if ( $jawaban['remarks'] == "y" ): ?>
 			                <td><?= $jawaban['no_soal'] ?></td>
+			                <?php $jumlah++ ?>
 			              <?php elseif ( $jawaban['remarks'] == "g" ): ?>
 			                <td></td>
 			              <?php endif ?>
 						<?php endforeach ?>
+						<td><?= $jumlah ?></td>
+						<td><?= $jumlah / 20 * 100 ?>%</td>
 					</tr>
+					<?php 
+						$jmlpribadi += $jumlah;
+						$jmlkeseluruhan += $jumlah;
+					?>
+					<script>
+						$("#lbljmlpribadi").html("<?= $jmlpribadi ?>");
+						$("#lblpersenpribadi").html("<?= ceil($jmlpribadi / 100 * 100) ?>%");
+					</script>
+				<?php endforeach ?>
+
+				<tr class="bg-danger">
+					<td width="50">II.</td>
+					<td colspan="21">SOSIAL</td>
+					<td id="lbljmlsosial"></td>
+					<td id="lblpersensosial"></td>
+				</tr>
+				<?php 
+					$i = 1;
+					$jmlsosial = 0;
+				?>
+				<?php foreach ($sosial_kategori as $kategori): ?>
+					<?php 
+			          $get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
+			          $jumlah = 0;
+					?>
+					<tr>
+						<td><?= $i++ ?></td>
+						<td><?= $kategori['nama_kategori'] ?></td>
+						<?php foreach ($get_jawaban as $jawaban): ?>
+			              <?php if ( $jawaban['remarks'] == "y" ): ?>
+			                <td><?= $jawaban['no_soal'] ?></td>
+			                <?php $jumlah++ ?>
+			              <?php elseif ( $jawaban['remarks'] == "g" ): ?>
+			                <td></td>
+			              <?php endif ?>
+						<?php endforeach ?>
+						<td><?= $jumlah ?></td>
+						<td><?= $jumlah / 20 * 100 ?>%</td>
+					</tr>
+					<?php 
+						$jmlsosial += $jumlah;
+						$jmlkeseluruhan += $jumlah;
+					?>
+					<script>
+						$("#lbljmlsosial").html("<?= $jmlsosial ?>");
+						$("#lblpersensosial").html("<?= ceil($jmlsosial / 60 * 100) ?>%");
+					</script>
+				<?php endforeach ?>
+
+				<tr class="bg-success">
+					<td width="50">III.</td>
+					<td colspan="21">BELAJAR</td>
+					<td id="lbljmlbelajar"></td>
+					<td id="lblpersenbelajar"></td>
+				</tr>
+				<?php 
+					$i = 1;
+					$jmlbelajar = 0;
+				?>
+				<?php foreach ($belajar_kategori as $kategori): ?>
+					<?php 
+			          $get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
+			          $jumlah = 0;
+					?>
+					<tr>
+						<td><?= $i++ ?></td>
+						<td><?= $kategori['nama_kategori'] ?></td>
+						<?php foreach ($get_jawaban as $jawaban): ?>
+			              <?php if ( $jawaban['remarks'] == "y" ): ?>
+			                <td><?= $jawaban['no_soal'] ?></td>
+			                <?php $jumlah++ ?>
+			              <?php elseif ( $jawaban['remarks'] == "g" ): ?>
+			                <td></td>
+			              <?php endif ?>
+						<?php endforeach ?>
+						<td><?= $jumlah ?></td>
+						<td><?= $jumlah / 20 * 100 ?>%</td>
+					</tr>
+					<?php 
+						$jmlbelajar += $jumlah;
+						$jmlkeseluruhan += $jumlah;
+					?>
+					<script>
+						$("#lbljmlbelajar").html("<?= $jmlbelajar ?>");
+						$("#lblpersenbelajar").html("<?= ceil($jmlbelajar / 20 * 100) ?>%");
+					</script>
 				<?php endforeach ?>
 			</tbody>
 		</table>
 	</div>
 </div>
+<div class="row mt-3">
+	<div class="col-6">
+		<canvas id="kategoriChart" height="200"></canvas>
+	</div>
+</div>
+
+<script>
+	var ctx = document.getElementById('kategoriChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+	    type: 'bar',
+	    data: {
+	        labels: [
+	        	<?php foreach ($kategori_chart as $key => $value): ?>
+		        	'<?= $key ?> ( <?= $value ?>% )',
+	        	<?php endforeach ?>
+	        ],
+	        datasets: [{
+	            data: [
+	            	<?php foreach ($kategori_chart as $key => $value): ?>
+			        	'<?= $value ?>',
+		        	<?php endforeach ?>
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+</script>
