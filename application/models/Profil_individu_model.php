@@ -47,4 +47,76 @@ class Profil_individu_model extends CI_Model {
 
 		return $output;
 	}
+
+	public function get_section_chart($no_urut)
+	{
+		$siswa = $this->get_siswa($no_urut);
+		
+		$catpribadi = $this->get_kategori(1,5);
+		$jmlpribadi = 0;
+		foreach ($catpribadi as $kategori) {
+			$jawaban = $this->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
+			$jumlah = 0;
+			foreach ($jawaban as $jwb) {
+				if ( $jwb['remarks'] == "y" ) {
+					$jumlah++;
+				}
+			}
+
+			$jmlpribadi += $jumlah;
+		}
+		$jmlpribadi = $jmlpribadi / 100 * 100;
+
+		$catsosial = $this->get_kategori(6,8);
+		$jmlsosial = 0;
+		foreach ($catsosial as $kategori) {
+			$jawaban = $this->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
+			$jumlah = 0;
+			foreach ($jawaban as $jwb) {
+				if ( $jwb['remarks'] == "y" ) {
+					$jumlah++;
+				}
+			}
+
+			$jmlsosial += $jumlah;
+		}
+		$jmlsosial = $jmlsosial / 60 * 100;
+
+		$catbelajar = $this->get_kategori(9,11);
+		$jmlbelajar = 0;
+		foreach ($catbelajar as $kategori) {
+			$jawaban = $this->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
+			$jumlah = 0;
+			foreach ($jawaban as $jwb) {
+				if ( $jwb['remarks'] == "y" ) {
+					$jumlah++;
+				}
+			}
+
+			$jmlbelajar += $jumlah;
+		}
+		$jmlbelajar = $jmlbelajar / 60 * 100;
+
+		$catkarir = $this->get_kategori(12,12);
+		$jmlkarir = 0;
+		foreach ($catkarir as $kategori) {
+			$jawaban = $this->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
+			$jumlah = 0;
+			foreach ($jawaban as $jwb) {
+				if ( $jwb['remarks'] == "y" ) {
+					$jumlah++;
+				}
+			}
+
+			$jmlkarir += $jumlah;
+		}
+		$jmlkarir = $jmlkarir / 20 * 100;
+
+		return [
+			"pribadi" => ceil($jmlpribadi),
+			"sosial" => ceil($jmlsosial),
+			"belajar" => ceil($jmlbelajar),
+			"karir" => ceil($jmlkarir)
+		];
+	}
 }

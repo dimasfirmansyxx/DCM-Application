@@ -149,7 +149,46 @@
 					?>
 					<script>
 						$("#lbljmlbelajar").html("<?= $jmlbelajar ?>");
-						$("#lblpersenbelajar").html("<?= ceil($jmlbelajar / 20 * 100) ?>%");
+						$("#lblpersenbelajar").html("<?= ceil($jmlbelajar / 60 * 100) ?>%");
+					</script>
+				<?php endforeach ?>
+
+				<tr class="bg-warning">
+					<td width="50">IV.</td>
+					<td colspan="21">KARIR</td>
+					<td id="lbljmlkarir"></td>
+					<td id="lblpersenkarir"></td>
+				</tr>
+				<?php 
+					$i = 1;
+					$jmlkarir = 0;
+				?>
+				<?php foreach ($karir_kategori as $kategori): ?>
+					<?php 
+			          $get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
+			          $jumlah = 0;
+					?>
+					<tr>
+						<td><?= $i++ ?></td>
+						<td><?= $kategori['nama_kategori'] ?></td>
+						<?php foreach ($get_jawaban as $jawaban): ?>
+			              <?php if ( $jawaban['remarks'] == "y" ): ?>
+			                <td><?= $jawaban['no_soal'] ?></td>
+			                <?php $jumlah++ ?>
+			              <?php elseif ( $jawaban['remarks'] == "g" ): ?>
+			                <td></td>
+			              <?php endif ?>
+						<?php endforeach ?>
+						<td><?= $jumlah ?></td>
+						<td><?= $jumlah / 20 * 100 ?>%</td>
+					</tr>
+					<?php 
+						$jmlkarir += $jumlah;
+						$jmlkeseluruhan += $jumlah;
+					?>
+					<script>
+						$("#lbljmlkarir").html("<?= $jmlkarir ?>");
+						$("#lblpersenkarir").html("<?= ceil($jmlkarir / 20 * 100) ?>%");
 					</script>
 				<?php endforeach ?>
 			</tbody>
@@ -160,11 +199,14 @@
 	<div class="col-6">
 		<canvas id="kategoriChart" height="200"></canvas>
 	</div>
+	<div class="col-6">
+		<canvas id="sectionChart" height="200"></canvas>
+	</div>
 </div>
 
 <script>
-	var ctx = document.getElementById('kategoriChart').getContext('2d');
-	var myChart = new Chart(ctx, {
+	var catChart = document.getElementById('kategoriChart').getContext('2d');
+	var categoryChart = new Chart(catChart, {
 	    type: 'bar',
 	    data: {
 	        labels: [
@@ -175,6 +217,35 @@
 	        datasets: [{
 	            data: [
 	            	<?php foreach ($kategori_chart as $key => $value): ?>
+			        	'<?= $value ?>',
+		        	<?php endforeach ?>
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true
+	                }
+	            }]
+	        }
+	    }
+	});
+
+	var secChart = document.getElementById('sectionChart').getContext('2d');
+	var sectionChart = new Chart(secChart, {
+	    type: 'bar',
+	    data: {
+	        labels: [
+	        	<?php foreach ($section_chart as $key => $value): ?>
+		        	'<?= $key ?> ( <?= $value ?>% )',
+	        	<?php endforeach ?>
+	        ],
+	        datasets: [{
+	            data: [
+	            	<?php foreach ($section_chart as $key => $value): ?>
 			        	'<?= $value ?>',
 		        	<?php endforeach ?>
 	            ],
