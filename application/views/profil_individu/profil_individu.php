@@ -29,7 +29,7 @@
               <form id="frmpilih">
                 <div class="form-group">
                   <label>Kelas</label>
-                  <select class="form-control" name="kelas">
+                  <select class="form-control cmbkelas" name="kelas">
                     <?php foreach ($all_kelas as $kelas): ?>
                       <option value="<?= $kelas['id_kelas'] ?>"><?= $kelas['kelas'] ?></option>
                     <?php endforeach ?>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                   <label>Nomor Urut</label>
-                  <input type="number" name="no_urut" class="form-control" required>
+                  <input type="number" name="no_urut" class="form-control txtnourut" required>
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm btn-block btnshow">Lihat</button>
               </form>
@@ -74,6 +74,14 @@
       $(attribute).removeAttr("disabled");
       $(attribute).html(word);
     }
+
+    $("#frmpilih").on("submit",function(e){
+      e.preventDefault();
+      $("#data_area").html("<center>Sedang memuat...</center>");
+      var kelas = $(".cmbkelas").val();
+      var no_urut = $(".txtnourut").val();
+      $("#data_area").load(base_url + "profil_individu/show/" + kelas + "/" + no_urut);
+    });
 
   });
 </script>

@@ -8,9 +8,14 @@ class Profil_individu_model extends CI_Model {
 		return $this->db->get("tblkategorisoal")->result_array();
 	}
 
-	public function get_siswa($no_urut)
+	public function get_siswa($id_siswa)
     {
-        return $this->Clsglobal->get_data("tblsiswa",["no_urut" => $no_urut]);
+        return $this->Clsglobal->get_data("tblsiswa",["id_siswa" => $id_siswa]);
+    }
+
+    public function get_siswa_by_nourut($kelas,$no_urut)
+    {
+        return $this->Clsglobal->get_data("tblsiswa",["id_kelas" => $kelas, "no_urut" => $no_urut]);
     }
 
     public function get_jawaban($id_siswa,$id_kategori)
@@ -28,10 +33,10 @@ class Profil_individu_model extends CI_Model {
 		return $output;
 	}
 
-	public function get_kategori_chart($no_urut)
+	public function get_kategori_chart($id_siswa)
 	{
 		$kategori = $this->get_kategori(1,12);
-		$siswa = $this->get_siswa($no_urut);
+		$siswa = $this->get_siswa($id_siswa);
 		$output = [];
 		foreach ($kategori as $row) {
 			$jawaban = $this->get_jawaban($siswa['id_siswa'],$row['id_kategori']);
@@ -48,9 +53,9 @@ class Profil_individu_model extends CI_Model {
 		return $output;
 	}
 
-	public function get_section_chart($no_urut)
+	public function get_section_chart($id_siswa)
 	{
-		$siswa = $this->get_siswa($no_urut);
+		$siswa = $this->get_siswa($id_siswa);
 		
 		$catpribadi = $this->get_kategori(1,5);
 		$jmlpribadi = 0;
