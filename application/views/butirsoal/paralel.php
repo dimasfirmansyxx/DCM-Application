@@ -28,7 +28,7 @@
               Analisa
             </div>
             <div class="card-body" id="data_area">
-              
+              <p class="text-center">Sedang memuat...</p>
             </div>
           </div>
         </section>
@@ -51,6 +51,12 @@
       $(attribute).removeAttr("disabled");
       $(attribute).html(word);
     }
+
+    function load() {
+      $("#data_area").load(base_url + "butirsoal/paralel/show");
+    }
+
+    load();
 
   });
 </script>
