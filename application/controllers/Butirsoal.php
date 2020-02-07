@@ -27,7 +27,7 @@ class Butirsoal extends CI_Controller {
 	public function paralel($param = null)
 	{
 		if ( $param == "show" ) {
-			$data['pagetitle'] = "show_profil_kelas";
+			$data['pagetitle'] = "show_analisis_soal_paralel";
 			$data['get_kategori'] = $this->kategori->get_all_kategori();
 			$this->load->view("templates/head",$data);
 			$this->load->view("butirsoal/paralel_show",$data);
@@ -37,6 +37,23 @@ class Butirsoal extends CI_Controller {
 			$this->load->view("templates/header");
 			$this->load->view("templates/navbar");
 			$this->load->view("butirsoal/paralel");
+			$this->load->view("templates/footer");
+		}
+	}
+
+	public function kelas($param = null)
+	{
+		if ( $param == "show" ) {
+			$data['pagetitle'] = "show_analisis_soal_paralel";
+			$data['get_kategori'] = $this->kategori->get_all_kategori();
+			$this->load->view("templates/head",$data);
+			$this->load->view("butirsoal/kelas_show",$data);
+		} else {
+			$data['pagetitle'] = "Analisis Butir Soal";
+			$this->load->view("templates/head",$data);
+			$this->load->view("templates/header");
+			$this->load->view("templates/navbar");
+			$this->load->view("butirsoal/kelas");
 			$this->load->view("templates/footer");
 		}
 	}
