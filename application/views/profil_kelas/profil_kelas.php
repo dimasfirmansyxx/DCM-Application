@@ -75,7 +75,6 @@
       e.preventDefault();
       $("#data_area").html("<center>Sedang memuat...</center>");
       var kelas = $(".cmbkelas").val();
-      var no_urut = $(".txtnourut").val();
       $("#data_area").load(base_url + "profil_kelas/show/" + kelas);
     });
 
