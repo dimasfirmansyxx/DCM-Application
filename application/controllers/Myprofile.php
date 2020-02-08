@@ -52,4 +52,18 @@ class Myprofile extends CI_Controller {
 
 		echo $this->myprofile->change_password($data);
 	}
+
+	public function change_avatar()
+	{
+		$id_user = $this->input->post("id_user",true);
+		$extension_check = $this->Clsglobal->check_file_extension("foto",["png"]);
+		if ( $extension_check == 0 ) {
+			$upload = $this->Clsglobal->upload_files("foto","img/user-ava",["png","jpg","jpeg"]);
+			echo $this->myprofile->change_avatar($id_user,$upload[0]);
+		} elseif ( $extension_check == 5 ) {
+			echo 5;
+		} else {
+			echo 1;
+		}
+	}
 }

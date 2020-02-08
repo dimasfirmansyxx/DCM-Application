@@ -46,7 +46,7 @@
               Foto Profil
             </div>
             <div class="card-body text-center">
-              <img src="<?= base_url() ?>assets/img/core/logo.png" class="img-fluid">
+              <img src="<?= base_url() ?>assets/img/user-ava/<?= $userinfo['profile_photo'] ?>" class="img-fluid">
             </div>
             <div class="card-footer">
               <form id="frmphoto">
@@ -269,6 +269,35 @@
           }
         });
       }
+    });
+
+    $("#frmphoto").on("submit",function(e){
+      e.preventDefault();
+      setButton(".btnupload","Uploading...");
+      var data = new FormData(this);
+      data.append("id_user",user_id);
+      $.ajax({
+        url : base_url + "myprofile/change_avatar",
+        data : data,
+        cache : false,
+        contentType : false,
+        processData : false,
+        type : "post",
+        dataType : "text",
+        success : function(result) {
+          if ( result == 0 ) {
+            swal("Sukses!","Sukses mengubah avatar","success");
+            setTimeout(function(){
+              window.location = base_url + "myprofile";
+            },1000);
+          } else if ( result == 5 ) {
+            swal("Gagal!","Pastikan format png, jpg, jpeg","warning");
+          } else {
+            swal("Gagal!","Kesalahan pada server","error");
+          }
+          unsetButton(".btnupload","Upload");
+        }
+      });
     });
 
   });

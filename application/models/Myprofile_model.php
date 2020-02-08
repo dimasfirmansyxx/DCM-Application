@@ -47,4 +47,16 @@ class Myprofile_model extends CI_model {
 			return 4;
 		}
 	}
+
+	public function change_avatar($id_user,$filename)
+	{
+		$this->db->where("id_user",$id_user);
+		$this->db->set("profile_photo",$filename);
+		$update = $this->db->update("tbluser");
+		if ( $update > 0 ) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
 }
