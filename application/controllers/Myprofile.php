@@ -41,4 +41,16 @@ class Myprofile extends CI_Controller {
 
 		echo $this->myprofile->change_username($data);
 	}
+
+	public function change_password()
+	{
+		$data = [
+			"id_user" => $this->input->post("id_user",true),
+			"passlama" => $this->input->post("oldpassword",true),
+			"passbaru" => password_hash($this->input->post("newpassword",true), PASSWORD_DEFAULT)
+		];
+
+		// echo password_verify($data['passlama'], $this->Clsglobal->user_info($data['id_user'])['password']);
+		echo $this->myprofile->change_password($data);
+	}
 }

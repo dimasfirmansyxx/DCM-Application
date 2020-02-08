@@ -30,4 +30,21 @@ class Myprofile_model extends CI_model {
 			}
 		}
 	}
+
+	public function change_password($data)
+	{
+		$get_user = $this->Clsglobal->user_info($data['id_user']);
+		if ( password_verify($data['passlama'], $get_user['password']) ) {
+			$this->db->where("id_user",$data['id_user']);
+			$this->db->set("password",$data['passbaru']);
+			$update = $this->db->update("tbluser");
+			if ( $update > 0 ) {
+				return 0;
+			} else {
+				return 1;
+			}
+		} else {
+			return 4;
+		}
+	}
 }
