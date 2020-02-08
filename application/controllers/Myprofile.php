@@ -50,7 +50,6 @@ class Myprofile extends CI_Controller {
 			"passbaru" => password_hash($this->input->post("newpassword",true), PASSWORD_DEFAULT)
 		];
 
-		// echo password_verify($data['passlama'], $this->Clsglobal->user_info($data['id_user'])['password']);
 		echo $this->myprofile->change_password($data);
 	}
 }
