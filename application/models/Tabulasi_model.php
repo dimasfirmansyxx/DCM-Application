@@ -7,6 +7,12 @@ class Tabulasi_model extends CI_Model {
 		return $this->db->get("tblsoal")->num_rows();
 	}
 
+	public function get_jml_siswa()
+	{
+		$this->db->where("verification","verif");
+		return $this->db->get("tblsiswa")->num_rows();
+	}
+
 	public function get_siswa($id_kelas)
 	{
 		$this->db->where("id_kelas",$id_kelas);
@@ -23,5 +29,20 @@ class Tabulasi_model extends CI_Model {
 	{
 		$this->db->where("id_kelas",$id_kelas);
 		return $this->db->get("tblsiswa")->num_rows();
+	}
+
+	public function get_score_paralel($id_kategori)
+	{
+		$terjawab = 0;
+		$this->db->where("remarks","y");
+		$get_jawaban = $this->db->get("tbljawaban")->result_array();
+		foreach ($get_jawaban as $jawaban) {
+			$get_soal = $this->Clsglobal->get_data("tblsoal",["no_soal" => $jawaban['no_soal']]);
+			if ( $get_soal['id_kategori'] == $id_kategori ) {
+				$terjawab += 1;
+			}
+		}
+
+		return $terjawab;
 	}
 }

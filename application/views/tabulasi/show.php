@@ -21,6 +21,12 @@
       <?php 
         $all_siswa = $this->tabulasi->get_siswa($kelas['id_kelas']);
         $get_num_siswa = $this->tabulasi->get_num_siswa($kelas['id_kelas']);
+        $jmltopik = [];
+        foreach ($kategori_soal as $kategori) {
+          if ( !($kategori['id_kategori'] == 13) ) {
+            $jmltopik[$kategori['id_kategori']] = 0;
+          }
+        }
       ?>
       <?php foreach ($all_siswa as $siswa): ?>
         <?php 
@@ -52,6 +58,7 @@
               <?php if ( $iteration == $get_num_soal ): ?>
                 <td class="bg-primary"><?= $terjawab ?></td>
                 <?php 
+                  $jmltopik[$get_soal['id_kategori']] += $terjawab; 
                   $iteration = 1; 
                   $terjawab = 0;
                 ?>
@@ -64,12 +71,27 @@
         </tr>
       
       <?php endforeach ?>
-      <tr>
-        <td colspan="4" class="bg-primary">
-          Jumlah Siswa Kelas : <?= $kelas['kelas'] ?>
+      <tr class="bg-primary">
+        <td colspan="3">
+          Jumlah Siswa Kelas <?= $kelas['kelas'] ?> : 
         </td>
-        <td colspan="500" class="bg-primary"><?= $get_num_siswa ?></td>
+        <td><?= $get_num_siswa ?></td>
+        <?php foreach ($jmltopik as $jml): ?>
+          <td colspan="20"></td>
+          <td><?= $jml ?></td>
+        <?php endforeach ?>
       </tr>
     <?php endforeach ?>
   </tbody>
+  <tfoot>
+    <tr class="bg-warning">
+      <td colspan="3">JUMLAH PARALEL</td>
+      <td><?= $this->tabulasi->get_jml_siswa() ?></td>
+      <?php foreach ($kategori_soal as $kategori): ?>
+        <?php $score_paralel = $this->tabulasi->get_score_paralel($kategori['id_kategori']) ?>
+        <td colspan="20"></td>
+        <td><?= $score_paralel ?></td>
+      <?php endforeach ?>
+    </tr>
+  </tfoot>
 </table>

@@ -26,7 +26,7 @@
               Tabulasi Hasil
             </div>
             <div class="card-body table-responsive" id="data_area">
-              
+              <p class="text-center">Sedang Memuat ...</p>
             </div>
           </div>
         </section>
