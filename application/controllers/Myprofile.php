@@ -31,4 +31,14 @@ class Myprofile extends CI_Controller {
 
 		echo $this->myprofile->change_name($data);
 	}
+
+	public function change_username()
+	{
+		$data = [
+			"id_user" => $this->input->post("id_user",true),
+			"username" => $this->input->post("username",true)
+		];
+
+		echo $this->myprofile->change_username($data);
+	}
 }

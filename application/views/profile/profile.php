@@ -91,6 +91,64 @@
   </div>
 </div>
 
+<div class="modal fade" id="usernamemodal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ganti Username</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="frmusername">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="nama" class="form-control" required value="<?= $userinfo['username'] ?>" id="txtusername" autocomplete="off">
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary btnsave">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="passwordmodal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ganti Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="frmpassword">
+          <div class="form-group">
+            <label>Password Lama</label>
+            <input type="password" name="passlama" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Password Baru</label>
+            <input type="password" name="passbaru" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Konfirmasi Password Baru</label>
+            <input type="password" name="passconfirm" class="form-control" required>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary btnsave">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   $(document).ready(function() {
     var base_url = "<?= base_url() ?>";
@@ -120,6 +178,10 @@
       $("#namamodal").modal("show");
     });
 
+    $("#btnusername").on("click",function(){
+      $("#usernamemodal").modal("show");
+    });
+
     $("#frmnama").on("submit",function(e){
       e.preventDefault();
       var newname = $("#txtnama").val();
@@ -138,9 +200,39 @@
           } else {
             swal("Error","Kesalahan pada server","error");
           }
-          setButton(".btnsave","Save changes");
+          unsetButton(".btnsave","Save changes");
         }
       });
+    });
+
+    $("#frmusername").on("submit",function(e){
+      e.preventDefault();
+      var username = $("#txtusername").val();
+      var oldusername = "<?= $userinfo['username'] ?>";
+      if ( username == oldusername ) {
+        $("#usernamemodal").modal("hide");
+      } else {
+        setButton(".btnsave","Saving...");
+        $.ajax({
+          url : base_url + "myprofile/change_username",
+          data : { id_user : user_id, username : username },
+          type : "post",
+          dataType : "text",
+          success : function(result) {
+            if ( result == 0 ) {
+              swal("Sukses","Sukses mengubah username","success");
+              setTimeout(function(){
+                window.location = base_url + "myprofile";
+              },1000);
+            } else if ( result == 2 ) {
+              swal("Gagal!","Username sudah ada","warning");
+            } else {
+              swal("Error","Kesalahan pada server","error");
+            }
+            unsetButton(".btnsave","Save changes");
+          }
+        });
+      }
     });
 
   });
