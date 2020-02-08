@@ -65,9 +65,14 @@
       $(attribute).html(word);
     }
 
-    function load() {
-      $("#data_area").load(base_url + "butirsoal/kelas/show");
+    function load(id_kelas) {
+      $("#data_area").load(base_url + "butirsoal/kelas/show/" + id_kelas);
     }
+
+    $("#cmbkelas").on("change",function(){
+      var id_kelas = $(this).val();
+      load(id_kelas);
+    });
 
   });
 </script>
