@@ -27,10 +27,10 @@ class Topik extends CI_Controller {
 	public function paralel($param = null)
 	{
 		if ( $param == "show" ) {
-			$data['pagetitle'] = "show_analisis_soal_paralel";
+			$data['pagetitle'] = "show_analisis_topik_paralel";
 			$data['get_kategori'] = $this->kategori->get_all_kategori();
 			$this->load->view("templates/head",$data);
-			$this->load->view("butirsoal/paralel_show",$data);
+			$this->load->view("topik/paralel_show",$data);
 		} else {
 			$data['pagetitle'] = "Analisis Topik";
 			$this->load->view("templates/head",$data);
