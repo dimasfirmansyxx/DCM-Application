@@ -41,15 +41,17 @@ class Butirsoal extends CI_Controller {
 		}
 	}
 
-	public function kelas($param = null)
+	public function kelas($param = null, $id_kelas = null)
 	{
 		if ( $param == "show" ) {
-			$data['pagetitle'] = "show_analisis_soal_paralel";
+			$data['pagetitle'] = "show_analisis_soal_perkelas";
+			$data['id_kelas'] = $id_kelas;
 			$data['get_kategori'] = $this->kategori->get_all_kategori();
 			$this->load->view("templates/head",$data);
 			$this->load->view("butirsoal/kelas_show",$data);
 		} else {
 			$data['pagetitle'] = "Analisis Butir Soal";
+			$data['all_kelas'] = $this->kelas->get_all_kelas();
 			$this->load->view("templates/head",$data);
 			$this->load->view("templates/header");
 			$this->load->view("templates/navbar");

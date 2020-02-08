@@ -24,8 +24,8 @@
 					?>
 					<?php foreach ($get_soal as $soal): ?>
 						<?php 
-							$get_jawaban = $this->butirsoal->get_jawaban($soal['no_soal']);
-							$jmlsiswa = $this->butirsoal->jmlsiswa();
+							$get_jawaban = $this->butirsoal->get_jawaban($soal['no_soal'],$id_kelas);
+							$jmlsiswa = $this->butirsoal->jmlsiswa($id_kelas);
 							$jumlah += $get_jawaban;
 							$persentase = $get_jawaban / $jmlsiswa * 100;
 
