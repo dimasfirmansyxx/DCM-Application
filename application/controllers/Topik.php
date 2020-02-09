@@ -17,6 +17,7 @@ class Topik extends CI_Controller {
 		$this->load->model("Kelas_model","kelas");
 		$this->load->model("Soal_model","soal");
 		$this->load->model("Topik_model","topik");
+		$this->load->model("Profil_individu_model","profil");
 	}
 
 	public function index()
@@ -29,6 +30,10 @@ class Topik extends CI_Controller {
 		if ( $param == "show" ) {
 			$data['pagetitle'] = "show_analisis_topik_paralel";
 			$data['get_kategori'] = $this->kategori->get_all_kategori();
+			$data['pribadi_kategori'] = $this->profil->get_kategori(1,5);
+			$data['sosial_kategori'] = $this->profil->get_kategori(6,8);
+			$data['belajar_kategori'] = $this->profil->get_kategori(9,11);
+			$data['karir_kategori'] = $this->profil->get_kategori(12,12);
 			$this->load->view("templates/head",$data);
 			$this->load->view("topik/paralel_show",$data);
 		} else {
