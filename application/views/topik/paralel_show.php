@@ -222,8 +222,7 @@
 						$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
 						$jmlsiswa = $this->tabulasi->get_jml_siswa();
 	        		?>
-		        	'<?= $kategori['nama_kategori'] ?> 
-		        	( <?= ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>% )',
+		        	'<?= $kategori['nama_kategori'] ?> ( <?= ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>% )',
 	        	<?php endforeach ?>
 	        ],
 	        datasets: [{
