@@ -53,10 +53,10 @@
     }
 
     function load() {
-      $("#data_area").load(base_url + "butirsoal/paralel/show");
+      $("#data_area").load(base_url + "topik/paralel/show");
     }
 
-    // load();
+    load();
 
   });
 </script>
