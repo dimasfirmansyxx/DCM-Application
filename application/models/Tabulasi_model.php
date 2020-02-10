@@ -57,6 +57,7 @@ class Tabulasi_model extends CI_Model {
 		foreach ($get_jawaban as $jawaban) {
 			$get_soal = $this->Clsglobal->get_data("tblsoal",["no_soal" => $jawaban['no_soal']]);
 			$get_siswa = $this->siswa->get_siswa($jawaban['id_siswa']);
+			
 			if ( $get_siswa['id_kelas'] == $id_kelas ) {
 				if ( $get_soal['id_kategori'] == $id_kategori ) {
 					$terjawab += 1;
