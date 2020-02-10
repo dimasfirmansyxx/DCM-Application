@@ -45,4 +45,27 @@ class Topik extends CI_Controller {
 			$this->load->view("templates/footer");
 		}
 	}
+
+	public function kelas($param = null, $id_kelas = null)
+	{
+		if ( $param == "show" ) {
+			$data['pagetitle'] = "show_analisis_topik_paralel";
+			$data['id_kelas'] = $id_kelas;
+			$data['get_kategori'] = $this->kategori->get_all_kategori();
+			$data['pribadi_kategori'] = $this->profil->get_kategori(1,5);
+			$data['sosial_kategori'] = $this->profil->get_kategori(6,8);
+			$data['belajar_kategori'] = $this->profil->get_kategori(9,11);
+			$data['karir_kategori'] = $this->profil->get_kategori(12,12);
+			$this->load->view("templates/head",$data);
+			$this->load->view("topik/kelas_show",$data);
+		} else {
+			$data['pagetitle'] = "Analisis Topik";
+			$data['all_kelas'] = $this->kelas->get_all_kelas();
+			$this->load->view("templates/head",$data);
+			$this->load->view("templates/header");
+			$this->load->view("templates/navbar");
+			$this->load->view("topik/kelas");
+			$this->load->view("templates/footer");
+		}
+	}
 }
