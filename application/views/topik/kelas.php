@@ -70,6 +70,7 @@
     }
 
     $("#cmbkelas").on("change",function(){
+      $("#data_area").html("<p class='text-center'>Sedang Memuat...</p>");
       var id_kelas = $(this).val();
       load(id_kelas);
     });
