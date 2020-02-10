@@ -71,6 +71,7 @@
 
     $("#cmbkelas").on("change",function(){
       var id_kelas = $(this).val();
+      $("#data_area").html("<p class='text-center'>Sedang Memuat...</p>");
       load(id_kelas);
     });
 
