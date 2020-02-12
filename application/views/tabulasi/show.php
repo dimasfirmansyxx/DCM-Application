@@ -88,9 +88,11 @@
       <td colspan="3">JUMLAH PARALEL</td>
       <td><?= $this->tabulasi->get_jml_siswa() ?></td>
       <?php foreach ($kategori_soal as $kategori): ?>
-        <?php $score_paralel = $this->tabulasi->get_score_paralel($kategori['id_kategori']) ?>
-        <td colspan="20"></td>
-        <td><?= $score_paralel ?></td>
+        <?php if ( !($kategori['id_kategori'] == 13) ): ?>
+          <?php $score_paralel = $this->tabulasi->get_score_paralel($kategori['id_kategori']) ?>
+          <td colspan="20"></td>
+          <td><?= $score_paralel ?></td>
+        <?php endif ?>
       <?php endforeach ?>
     </tr>
   </tfoot>
