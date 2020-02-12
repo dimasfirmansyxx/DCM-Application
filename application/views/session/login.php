@@ -93,6 +93,8 @@
             });
           } else if ( result == 4 ) {
             do_alert("Gagal!, username/password salah","danger");
+          } else if ( result == 2 ) {
+            swal("Gagal!","Siswa sudah melakukan tes","warning");
           } else {
             swal("Error","Kesalahan pada server","error");
           }

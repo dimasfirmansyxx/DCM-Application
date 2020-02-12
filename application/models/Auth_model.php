@@ -9,6 +9,13 @@ class Auth_model extends CI_Model {
 		if ( $this->Clsglobal->check_availability("tbluser",["username" => $username]) == 2 ) {
 			$get = $this->Clsglobal->get_data("tbluser",["username" => $username]);
 			if ( password_verify($password, $get['password']) ) {
+				if ( !($get['id_siswa'] == 0) ) {
+					$check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $get['id_siswa']]);
+					if ( $check == 2 ) {
+						return 2;
+					}
+				}
+
 				$this->session->set_userdata("user_logged",true);
 				$this->session->set_userdata("user_id",$get['id_user']);
 				return 0;
