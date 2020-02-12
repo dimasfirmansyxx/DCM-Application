@@ -53,6 +53,12 @@ class Profil_individu_model extends CI_Model {
 		return $output;
 	}
 
+	public function get_essay()
+	{
+		$this->db->where("id_kategori","13");
+		return $this->db->get("tblsoal")->result_array();
+	}
+
 	public function get_section_chart($id_siswa)
 	{
 		$siswa = $this->get_siswa($id_siswa);

@@ -204,6 +204,17 @@
 	</div>
 </div>
 
+<?php $i = 0 ?>
+<?php foreach ($soal_essay as $essay): ?>
+	<?php $get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],"13"); ?>
+	<div class="row mt-3">
+		<div class="col-12">
+			<p><?= $essay['no_soal'] . ". " . $essay['soal'] ?></p>
+			<p>&nbsp;&nbsp;&nbsp;= <?= $get_jawaban[$i++]['remarks'] ?></p>
+		</div>
+	</div>
+<?php endforeach ?>
+
 <script>
 	var catChart = document.getElementById('kategoriChart').getContext('2d');
 	var categoryChart = new Chart(catChart, {
