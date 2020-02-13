@@ -26,7 +26,7 @@
               Kelompok
             </div>
             <div class="card-body" id="data_area">
-              
+              <p class="text-center">Sedang Memuat ...</p>
             </div>
           </div>
         </section>
@@ -50,13 +50,11 @@
       $(attribute).html(word);
     }
 
-    $("#frmpilih").on("submit",function(e){
-      e.preventDefault();
-      $("#data_area").html("<center>Sedang memuat...</center>");
-      var kelas = $(".cmbkelas").val();
-      var no_urut = $(".txtnourut").val();
-      $("#data_area").load(base_url + "profil_individu/show/" + kelas + "/" + no_urut);
-    });
+    function load() {
+      $("#data_area").load(base_url + "pengelompokan/show/");
+    }
+  
+    load();    
 
   });
 </script>
