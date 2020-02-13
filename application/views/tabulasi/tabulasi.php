@@ -19,6 +19,14 @@
   <section class="content">
     <div class="container-fluid">
 
+      <div class="row">
+        <div class="col-12">
+          <a href="<?= base_url() ?>tabulasi/print_laporan" class="btn btn-success btn-sm">
+            <i class="fas fa-arrow-up"></i> Export Laporan ke Excel
+          </a>
+        </div>
+      </div>
+
       <div class="row mt-3">
         <section class="col-lg-12">
           <div class="card">

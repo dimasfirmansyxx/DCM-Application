@@ -36,4 +36,15 @@ class Tabulasi extends CI_Controller {
 		$this->load->view("templates/head",$data);
 		$this->load->view("tabulasi/show");
 	}
+
+	public function print_laporan()
+	{
+		$data['pagetitle'] = "print_tabulasi";
+		$data['kategori_soal'] = $this->kategori->get_all_kategori();
+		$data['all_kelas'] = $this->kelas->get_all_kelas();
+		$data['namafile'] = "Laporan Tabulasi";
+		$this->load->view("templates/head",$data);
+		$this->load->view("templates/print");
+		$this->load->view("tabulasi/show");
+	}
 }
