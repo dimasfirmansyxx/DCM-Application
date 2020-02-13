@@ -19,6 +19,7 @@ class Pengelompokan extends CI_Controller {
 		$this->load->model("Profil_kelas_model","profil");
 		$this->load->model("Profil_individu_model","individu");
 		$this->load->model("Kategori_soal_model","kategori");
+		$this->load->model("Pengelompokan_model","pengelompokan");
 	}
 
 	public function index() 
