@@ -141,6 +141,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>pengelompokan" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Pengelompokan Masalah
+              </p>
+            </a>
+          </li>
 
           <li class="nav-header">PENGATURAN APLIKASI</li>
           <li class="nav-item">
