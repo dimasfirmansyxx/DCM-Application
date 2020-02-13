@@ -34,10 +34,9 @@ class Pengelompokan extends CI_Controller {
 
 	public function show()
 	{
-		$data['pagetitle'] = "show_tabulasi";
-		$data['kategori_soal'] = $this->kategori->get_all_kategori();
-		$data['all_kelas'] = $this->kelas->get_all_kelas();
+		$data['pagetitle'] = "show_pengelompokan";
+		$data['all_soal'] = $this->pengelompokan->get_all_soal();
 		$this->load->view("templates/head",$data);
-		$this->load->view("tabulasi/show");
+		$this->load->view("pengelompokan/show");
 	}
 }
