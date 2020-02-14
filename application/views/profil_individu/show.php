@@ -19,7 +19,7 @@
 		<h4>Bidang dan Frekuensi masalah</h4>
 	</div>
 	<div class="col-12 table-responsive">
-		<table class="table table-bordered">
+		<table class="table table-bordered" border="1">
 			<thead class="text-center">
 				<tr>
 					<th rowspan="2" colspan="2" style="vertical-align: middle;">

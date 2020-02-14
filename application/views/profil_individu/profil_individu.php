@@ -26,7 +26,7 @@
               Pilih Siswa
             </div>
             <div class="card-body">
-              <form id="frmpilih">
+              <form id="frmpilih" class="mb-2">
                 <div class="form-group">
                   <label>Kelas</label>
                   <select class="form-control cmbkelas" name="kelas">
@@ -41,6 +41,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm btn-block btnshow">Lihat</button>
               </form>
+              <button type="button" class="btn btn-success btn-sm btn-block btnprint">
+                Export ke Excel
+              </button>
             </div>
           </div>
         </section>
@@ -81,6 +84,16 @@
       var kelas = $(".cmbkelas").val();
       var no_urut = $(".txtnourut").val();
       $("#data_area").load(base_url + "profil_individu/show/" + kelas + "/" + no_urut);
+    });
+
+    $(".btnprint").on("click",function(){
+      var kelas = $(".cmbkelas").val();
+      var no_urut = $(".txtnourut").val();
+      if ( no_urut.trim() == "" ) {
+        swal("Gagal","Isi nomor urut terlebih dahulu","warning");
+      } else {
+        window.location = base_url + "profil_individu/print_laporan/" + kelas + "/" + no_urut;
+      }
     });
 
   });
