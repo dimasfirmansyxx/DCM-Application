@@ -1,5 +1,5 @@
 <div class="row table-responsive">
-	<table class="table table-bordered">
+	<table class="table table-bordered" border="1">
 		<thead>
 			<tr align="center">
 				<th>NO</th>
@@ -26,7 +26,6 @@
 						<?php 
 							$get_jawaban = $this->butirsoal->get_jawaban($soal['no_soal']);
 							$jmlsiswa = $this->butirsoal->jmlsiswa();
-							$jumlah += $get_jawaban;
 							$persentase = $get_jawaban / $jmlsiswa * 100;
 
 							if ( $persentase >= 0 && $persentase < 1 ) {
@@ -40,14 +39,34 @@
 							} else {
 								$derajat = "E";
 							}
+
+							if ( !($sortir == null) ) {
+								if ( $sortir == $derajat ) {
+									$jumlah += $get_jawaban;
+								}
+							} else {	
+								$jumlah += $get_jawaban;
+							}
 						?>
-						<tr>
-							<td><?= $soal['no_soal'] ?></td>
-							<td><?= $soal['soal'] ?></td>
-							<td><?= $get_jawaban ?></td>
-							<td><?= $persentase ?>%</td>
-							<td><?= $derajat ?></td>
-						</tr>
+						<?php if ( !($sortir == null) ): ?>
+							<?php if ( $sortir == $derajat ): ?>
+								<tr>
+									<td><?= $soal['no_soal'] ?></td>
+									<td><?= $soal['soal'] ?></td>
+									<td><?= $get_jawaban ?></td>
+									<td><?= $persentase ?>%</td>
+									<td><?= $derajat ?></td>
+								</tr>
+							<?php endif ?>
+						<?php else: ?>
+							<tr>
+								<td><?= $soal['no_soal'] ?></td>
+								<td><?= $soal['soal'] ?></td>
+								<td><?= $get_jawaban ?></td>
+								<td><?= $persentase ?>%</td>
+								<td><?= $derajat ?></td>
+							</tr>
+						<?php endif ?>
 					<?php endforeach ?>
 					<tr class="bg-warning">
 						<th colspan="2" class="text-right">Jumlah</th>

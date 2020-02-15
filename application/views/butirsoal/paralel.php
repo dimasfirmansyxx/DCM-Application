@@ -23,7 +23,7 @@
       <div class="row">
         
         <section class="col-lg-3">
-          <a href="<?= base_url() ?>tabulasi/print_laporan" class="btn btn-success btn-sm btn-block">
+          <a href="<?= base_url() ?>butirsoal/paralel/print_laporan" class="btn btn-success btn-sm btn-block">
             <i class="fas fa-arrow-up"></i> Export Laporan ke Excel
           </a>
         </section>
@@ -82,6 +82,16 @@
     }
 
     load();
+
+    $(".cmbderajat").on("change",function(){
+      var derajat = $(this).val();
+      $("#data_area").html("<p class='text-center'>Sedang memuat...</p>")
+      if ( derajat == 0 ) {
+        $("#data_area").load(base_url + "butirsoal/paralel/show");
+      } else {
+        $("#data_area").load(base_url + "butirsoal/paralel/show/" + derajat);
+      }
+    });
 
   });
 </script>

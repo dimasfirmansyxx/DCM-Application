@@ -24,12 +24,21 @@ class Butirsoal extends CI_Controller {
 		redirect( base_url() . "beranda" );
 	}
 
-	public function paralel($param = null)
+	public function paralel($param = null, $sortir = null)
 	{
 		if ( $param == "show" ) {
 			$data['pagetitle'] = "show_analisis_soal_paralel";
 			$data['get_kategori'] = $this->kategori->get_all_kategori();
+			$data['sortir'] = $sortir;
 			$this->load->view("templates/head",$data);
+			$this->load->view("butirsoal/paralel_show",$data);
+		} elseif ( $param == "print_laporan" ) {
+			$data['pagetitle'] = "print_analisis_soal_paralel";
+			$data['namafile'] = "Laporan Analisis Butir Soal Paralel";
+			$data['get_kategori'] = $this->kategori->get_all_kategori();
+			$data['sortir'] = $sortir;
+			$this->load->view("templates/head",$data);
+			$this->load->view("templates/print");
 			$this->load->view("butirsoal/paralel_show",$data);
 		} else {
 			$data['pagetitle'] = "Analisis Butir Soal";
