@@ -20,6 +20,27 @@
   <section class="content">
     <div class="container-fluid">
 
+      <div class="row">
+        
+        <section class="col-lg-6">
+          <a href="<?= base_url() ?>tabulasi/print_laporan" class="btn btn-success btn-sm">
+            <i class="fas fa-arrow-up"></i> Export Laporan ke Excel
+          </a>
+          <div class="form-group mt-2">
+            <label>Sortir Derajat Masalah</label>
+            <select class="form-control cmbderajat">
+              <option value="0">Semua</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+            </select>
+          </div>
+        </section>
+
+      </div>
+
       <div class="row mt-3">
 
         <section class="col-lg-12">
@@ -32,6 +53,7 @@
             </div>
           </div>
         </section>
+
       </div>
 
     </div>
