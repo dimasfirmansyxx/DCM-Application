@@ -41,4 +41,17 @@ class Profil_kelas extends CI_Controller {
 		$this->load->view("templates/head",$data);
 		$this->load->view("profil_kelas/show",$data);
 	}
+
+	public function print_laporan($id_kelas)
+	{
+		$data['pagetitle'] = "show_profil_kelas";
+		$data['get_kelas'] = $this->kelas->get_kelas($id_kelas);
+		$data['get_siswa'] = $this->profil->get_siswa_by_kelas($id_kelas);
+		$data['get_kategori'] = $this->kategori->get_all_kategori();
+		$data['abjad'] = ["A","B","C","D","E","F","G","H","I","J","K","L","M"];
+		$data['namafile'] = "Laporan Profil Kelas " . $data['get_kelas']['kelas'];
+		$this->load->view("templates/head",$data);
+		$this->load->view("templates/print");
+		$this->load->view("profil_kelas/show",$data);
+	}
 }

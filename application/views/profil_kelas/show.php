@@ -9,7 +9,7 @@
 	<div class="col-10">: <?= $this->Clsglobal->site_info("alamat") ?></div>
 </div>
 <div class="row table-responsive">
-	<table class="table table-bordered">
+	<table class="table table-bordered" border="1">
 		<thead class="text-center">
 			<tr>
 				<th rowspan="3" style="vertical-align: middle;">No</th>

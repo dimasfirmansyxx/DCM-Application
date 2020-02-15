@@ -26,7 +26,7 @@
               Pilih Kelas
             </div>
             <div class="card-body">
-              <form id="frmpilih">
+              <form id="frmpilih" class="mb-2">
                 <div class="form-group">
                   <label>Kelas</label>
                   <select class="form-control cmbkelas" name="kelas">
@@ -37,6 +37,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-sm btn-block btnshow">Lihat</button>
               </form>
+              <button type="button" class="btn btn-success btn-sm btn-block btnprint">
+                Export ke Excel
+              </button>
             </div>
           </div>
         </section>
@@ -76,6 +79,11 @@
       $("#data_area").html("<center>Sedang memuat...</center>");
       var kelas = $(".cmbkelas").val();
       $("#data_area").load(base_url + "profil_kelas/show/" + kelas);
+    });
+
+    $(".btnprint").on("click",function(){
+      var kelas = $(".cmbkelas").val();
+      window.location = base_url + "profil_kelas/print_laporan/" + kelas;
     });
 
   });
