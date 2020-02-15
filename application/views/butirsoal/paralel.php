@@ -22,21 +22,10 @@
 
       <div class="row">
         
-        <section class="col-lg-6">
-          <a href="<?= base_url() ?>tabulasi/print_laporan" class="btn btn-success btn-sm">
+        <section class="col-lg-3">
+          <a href="<?= base_url() ?>tabulasi/print_laporan" class="btn btn-success btn-sm btn-block">
             <i class="fas fa-arrow-up"></i> Export Laporan ke Excel
           </a>
-          <div class="form-group mt-2">
-            <label>Sortir Derajat Masalah</label>
-            <select class="form-control cmbderajat">
-              <option value="0">Semua</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-              <option value="E">E</option>
-            </select>
-          </div>
         </section>
 
       </div>
@@ -46,7 +35,21 @@
         <section class="col-lg-12">
           <div class="card">
             <div class="card-header bg-secondary">
-              Analisa
+              <div class="row">
+                <div class="col-md-8">
+                  Analisa
+                </div>
+                <div class="col-md-4">
+                  <select class="form-control cmbderajat">
+                    <option value="0">Semua</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div class="card-body" id="data_area">
               <p class="text-center">Sedang memuat...</p>
