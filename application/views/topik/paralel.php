@@ -20,6 +20,16 @@
   <section class="content">
     <div class="container-fluid">
 
+      <div class="row">
+        
+        <section class="col-lg-3">
+          <button type="button" class="btn btn-success btn-sm btn-block btnprint">
+            <i class="fas fa-arrow-up"></i> Export Laporan ke Excel
+          </button>
+        </section>
+
+      </div>
+
       <div class="row mt-3">
 
         <section class="col-lg-12">
@@ -79,6 +89,15 @@
         $("#data_area").load(base_url + "topik/paralel/show");
       } else {
         $("#data_area").load(base_url + "topik/paralel/show/" + derajat);
+      }
+    });
+
+    $(".btnprint").on("click",function(){
+      var derajat = $(".cmbderajat").val();
+      if ( derajat == 0 ) {
+        window.location = base_url + "topik/paralel/print_laporan";
+      } else {
+        window.location = base_url + "topik/paralel/print_laporan/" + derajat;
       }
     });
 

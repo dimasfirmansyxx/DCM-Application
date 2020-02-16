@@ -3,7 +3,7 @@
 		<h4>Hasil Analisis Topik Masalah Kelas Paralel</h4>
 	</div>
 	<div class="col-12 table-responsive">
-		<table class="table table-bordered">
+		<table class="table table-bordered" border="1">
 			<thead class="text-center">
 				<tr>
 					<th>No.</th>
