@@ -32,34 +32,45 @@
 						$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
 						$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
 						$jmlsiswa = $this->tabulasi->get_jml_siswa();
-					?>
-					<tr>
-						<td><?= $iteration++ ?></td>
-						<td><?= $kategori['nama_kategori'] ?></td>
-						<td align="center"><?= $jml ?></td>
-						<td align="center"><?= $jmlsoal ?></td>
-						<td align="center"><?= $jmlsoal * $jmlsiswa ?></td>
-						<td align="center">
-							<?= $persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>%
-						</td>
-						<td align="center">
-							<?php 
-								if ( $persen >= 0 && $persen < 1 ) {
-									echo "A";
-								} elseif ( $persen >= 1 && $persen < 11 ) {
-									echo "B";
-								} elseif ( $persen >= 11 && $persen < 26 ) {
-									echo "C";
-								} elseif ( $persen >= 26 && $persen < 51 ) {
-									echo "D";
-								} else {
-									echo "E";
-								}
 
-								$persenpribadi += $persen
-							?>
-						</td>
-					</tr>
+						$n_m = $jmlsoal * $jmlsiswa;
+						$persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100);
+
+						if ( $persen >= 0 && $persen < 1 ) {
+							$derajat = "A";
+						} elseif ( $persen >= 1 && $persen < 11 ) {
+							$derajat = "B";
+						} elseif ( $persen >= 11 && $persen < 26 ) {
+							$derajat = "C";
+						} elseif ( $persen >= 26 && $persen < 51 ) {
+							$derajat = "D";
+						} else {
+							$derajat = "E";
+						}
+					?>
+					<?php if ( !($sortir == null) ): ?>
+						<?php if ( $sortir == $derajat ): ?>
+							<tr>
+								<td><?= $iteration++ ?></td>
+								<td><?= $kategori['nama_kategori'] ?></td>
+								<td align="center"><?= $jml ?></td>
+								<td align="center"><?= $jmlsoal ?></td>
+								<td align="center"><?= $n_m ?></td>
+								<td align="center"><?= $persen ?>%</td>
+								<td align="center"><?= $derajat ?></td>
+							</tr>
+						<?php endif ?>
+					<?php else: ?>
+						<tr>
+							<td><?= $iteration++ ?></td>
+							<td><?= $kategori['nama_kategori'] ?></td>
+							<td align="center"><?= $jml ?></td>
+							<td align="center"><?= $jmlsoal ?></td>
+							<td align="center"><?= $n_m ?></td>
+							<td align="center"><?= $persen ?>%</td>
+							<td align="center"><?= $derajat ?></td>
+						</tr>
+					<?php endif ?>
 				<?php endforeach ?>
 
 				<tr class="bg-danger">
@@ -78,34 +89,45 @@
 						$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
 						$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
 						$jmlsiswa = $this->tabulasi->get_jml_siswa();
-					?>
-					<tr>
-						<td><?= $iteration++ ?></td>
-						<td><?= $kategori['nama_kategori'] ?></td>
-						<td align="center"><?= $jml ?></td>
-						<td align="center"><?= $jmlsoal ?></td>
-						<td align="center"><?= $jmlsoal * $jmlsiswa ?></td>
-						<td align="center">
-							<?= $persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>%
-						</td>
-						<td align="center">
-							<?php 
-								if ( $persen >= 0 && $persen < 1 ) {
-									echo "A";
-								} elseif ( $persen >= 1 && $persen < 11 ) {
-									echo "B";
-								} elseif ( $persen >= 11 && $persen < 26 ) {
-									echo "C";
-								} elseif ( $persen >= 26 && $persen < 51 ) {
-									echo "D";
-								} else {
-									echo "E";
-								}
 
-								$persensosial += $persen
-							?>
-						</td>
-					</tr>
+						$n_m = $jmlsoal * $jmlsiswa;
+						$persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100);
+
+						if ( $persen >= 0 && $persen < 1 ) {
+							$derajat = "A";
+						} elseif ( $persen >= 1 && $persen < 11 ) {
+							$derajat = "B";
+						} elseif ( $persen >= 11 && $persen < 26 ) {
+							$derajat = "C";
+						} elseif ( $persen >= 26 && $persen < 51 ) {
+							$derajat = "D";
+						} else {
+							$derajat = "E";
+						}
+					?>
+					<?php if ( !($sortir == null) ): ?>
+						<?php if ( $sortir == $derajat ): ?>
+							<tr>
+								<td><?= $iteration++ ?></td>
+								<td><?= $kategori['nama_kategori'] ?></td>
+								<td align="center"><?= $jml ?></td>
+								<td align="center"><?= $jmlsoal ?></td>
+								<td align="center"><?= $n_m ?></td>
+								<td align="center"><?= $persen ?>%</td>
+								<td align="center"><?= $derajat ?></td>
+							</tr>
+						<?php endif ?>
+					<?php else: ?>
+						<tr>
+							<td><?= $iteration++ ?></td>
+							<td><?= $kategori['nama_kategori'] ?></td>
+							<td align="center"><?= $jml ?></td>
+							<td align="center"><?= $jmlsoal ?></td>
+							<td align="center"><?= $n_m ?></td>
+							<td align="center"><?= $persen ?>%</td>
+							<td align="center"><?= $derajat ?></td>
+						</tr>
+					<?php endif ?>
 				<?php endforeach ?>
 
 				<tr class="bg-success">
@@ -124,34 +146,45 @@
 						$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
 						$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
 						$jmlsiswa = $this->tabulasi->get_jml_siswa();
-					?>
-					<tr>
-						<td><?= $iteration++ ?></td>
-						<td><?= $kategori['nama_kategori'] ?></td>
-						<td align="center"><?= $jml ?></td>
-						<td align="center"><?= $jmlsoal ?></td>
-						<td align="center"><?= $jmlsoal * $jmlsiswa ?></td>
-						<td align="center">
-							<?= $persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>%
-						</td>
-						<td align="center">
-							<?php 
-								if ( $persen >= 0 && $persen < 1 ) {
-									echo "A";
-								} elseif ( $persen >= 1 && $persen < 11 ) {
-									echo "B";
-								} elseif ( $persen >= 11 && $persen < 26 ) {
-									echo "C";
-								} elseif ( $persen >= 26 && $persen < 51 ) {
-									echo "D";
-								} else {
-									echo "E";
-								}
 
-								$persenbelajar += $persen
-							?>
-						</td>
-					</tr>
+						$n_m = $jmlsoal * $jmlsiswa;
+						$persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100);
+
+						if ( $persen >= 0 && $persen < 1 ) {
+							$derajat = "A";
+						} elseif ( $persen >= 1 && $persen < 11 ) {
+							$derajat = "B";
+						} elseif ( $persen >= 11 && $persen < 26 ) {
+							$derajat = "C";
+						} elseif ( $persen >= 26 && $persen < 51 ) {
+							$derajat = "D";
+						} else {
+							$derajat = "E";
+						}
+					?>
+					<?php if ( !($sortir == null) ): ?>
+						<?php if ( $sortir == $derajat ): ?>
+							<tr>
+								<td><?= $iteration++ ?></td>
+								<td><?= $kategori['nama_kategori'] ?></td>
+								<td align="center"><?= $jml ?></td>
+								<td align="center"><?= $jmlsoal ?></td>
+								<td align="center"><?= $n_m ?></td>
+								<td align="center"><?= $persen ?>%</td>
+								<td align="center"><?= $derajat ?></td>
+							</tr>
+						<?php endif ?>
+					<?php else: ?>
+						<tr>
+							<td><?= $iteration++ ?></td>
+							<td><?= $kategori['nama_kategori'] ?></td>
+							<td align="center"><?= $jml ?></td>
+							<td align="center"><?= $jmlsoal ?></td>
+							<td align="center"><?= $n_m ?></td>
+							<td align="center"><?= $persen ?>%</td>
+							<td align="center"><?= $derajat ?></td>
+						</tr>
+					<?php endif ?>
 				<?php endforeach ?>
 
 				<tr class="bg-warning">
@@ -170,34 +203,45 @@
 						$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
 						$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
 						$jmlsiswa = $this->tabulasi->get_jml_siswa();
-					?>
-					<tr>
-						<td><?= $iteration++ ?></td>
-						<td><?= $kategori['nama_kategori'] ?></td>
-						<td align="center"><?= $jml ?></td>
-						<td align="center"><?= $jmlsoal ?></td>
-						<td align="center"><?= $jmlsoal * $jmlsiswa ?></td>
-						<td align="center">
-							<?= $persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>%
-						</td>
-						<td align="center">
-							<?php 
-								if ( $persen >= 0 && $persen < 1 ) {
-									echo "A";
-								} elseif ( $persen >= 1 && $persen < 11 ) {
-									echo "B";
-								} elseif ( $persen >= 11 && $persen < 26 ) {
-									echo "C";
-								} elseif ( $persen >= 26 && $persen < 51 ) {
-									echo "D";
-								} else {
-									echo "E";
-								}
 
-								$persenkarir += $persen
-							?>
-						</td>
-					</tr>
+						$n_m = $jmlsoal * $jmlsiswa;
+						$persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100);
+
+						if ( $persen >= 0 && $persen < 1 ) {
+							$derajat = "A";
+						} elseif ( $persen >= 1 && $persen < 11 ) {
+							$derajat = "B";
+						} elseif ( $persen >= 11 && $persen < 26 ) {
+							$derajat = "C";
+						} elseif ( $persen >= 26 && $persen < 51 ) {
+							$derajat = "D";
+						} else {
+							$derajat = "E";
+						}
+					?>
+					<?php if ( !($sortir == null) ): ?>
+						<?php if ( $sortir == $derajat ): ?>
+							<tr>
+								<td><?= $iteration++ ?></td>
+								<td><?= $kategori['nama_kategori'] ?></td>
+								<td align="center"><?= $jml ?></td>
+								<td align="center"><?= $jmlsoal ?></td>
+								<td align="center"><?= $n_m ?></td>
+								<td align="center"><?= $persen ?>%</td>
+								<td align="center"><?= $derajat ?></td>
+							</tr>
+						<?php endif ?>
+					<?php else: ?>
+						<tr>
+							<td><?= $iteration++ ?></td>
+							<td><?= $kategori['nama_kategori'] ?></td>
+							<td align="center"><?= $jml ?></td>
+							<td align="center"><?= $jmlsoal ?></td>
+							<td align="center"><?= $n_m ?></td>
+							<td align="center"><?= $persen ?>%</td>
+							<td align="center"><?= $derajat ?></td>
+						</tr>
+					<?php endif ?>
 				<?php endforeach ?>
 				
 			</tbody>
@@ -217,23 +261,27 @@
 	    data: {
 	        labels: [
 	        	<?php foreach ($get_kategori as $kategori): ?>
-	        		<?php 
-	        			$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
-						$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
-						$jmlsiswa = $this->tabulasi->get_jml_siswa();
-	        		?>
-		        	'<?= $kategori['nama_kategori'] ?> ( <?= ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>% )',
-	        	<?php endforeach ?>
-	        ],
-	        datasets: [{
-	            data: [
-	            	<?php foreach ($get_kategori as $kategori): ?>
+	        		<?php if ( $kategori['id_kategori'] != 13 ) : ?>
 		        		<?php 
 		        			$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
 							$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
 							$jmlsiswa = $this->tabulasi->get_jml_siswa();
 		        		?>
-			        	'<?= ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>',
+			        	'<?= $kategori['nama_kategori'] ?> ( <?= ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>% )',
+	        		<?php endif ?>
+	        	<?php endforeach ?>
+	        ],
+	        datasets: [{
+	            data: [
+	            	<?php foreach ($get_kategori as $kategori): ?>
+		        		<?php if ( $kategori['id_kategori'] != 13 ) : ?>
+			        		<?php 
+			        			$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
+								$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
+								$jmlsiswa = $this->tabulasi->get_jml_siswa();
+			        		?>
+				        	'<?= ceil($jml / ($jmlsoal * $jmlsiswa) * 100) ?>',
+				        <?php endif ?>
 		        	<?php endforeach ?>
 	            ],
 	            borderWidth: 1
