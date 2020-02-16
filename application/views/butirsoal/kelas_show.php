@@ -1,5 +1,5 @@
 <div class="row table-responsive">
-	<table class="table table-bordered">
+	<table class="table table-bordered" border="1">
 		<thead>
 			<tr align="center">
 				<th>NO</th>
@@ -26,7 +26,6 @@
 						<?php 
 							$get_jawaban = $this->butirsoal->get_jawaban($soal['no_soal'],$id_kelas);
 							$jmlsiswa = $this->butirsoal->jmlsiswa($id_kelas);
-							$jumlah += $get_jawaban;
 							$persentase = $get_jawaban / $jmlsiswa * 100;
 
 							if ( $persentase >= 0 && $persentase < 1 ) {

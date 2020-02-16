@@ -20,6 +20,14 @@
   <section class="content">
     <div class="container-fluid">
 
+      <div class="row">
+        <section class="col-lg-3">
+          <button type="button" class="btn btn-success btn-sm btn-block btnprint">
+            <i class="fas fa-arrow-up"></i> Export Laporan ke Excel
+          </button>
+        </section>
+      </div>
+
       <div class="row mt-3">
         <div class="col-12">
           <div class="form-group">
@@ -85,8 +93,12 @@
 
     $("#cmbkelas").on("change",function(){
       var id_kelas = $(this).val();
-      $("#data_area").html("<p class='text-center'>Sedang Memuat...</p>");
-      load(id_kelas);
+      if ( id_kelas == 0 ) {
+        $("#data_area").html("<p class='text-center'>Pilih kelas terlebih dahulu</p>");
+      } else {
+        $("#data_area").html("<p class='text-center'>Sedang Memuat...</p>");
+        load(id_kelas);
+      }
     });
 
     $(".cmbderajat").on("change",function(){
@@ -102,6 +114,25 @@
           $("#data_area").load(base_url + "butirsoal/kelas/show/" + kelas);
         } else {
           $("#data_area").load(base_url + "butirsoal/kelas/show/" + kelas + "/" + derajat);
+        }
+      }
+    });
+
+    $(".btnprint").on("click",function(){
+      var kelas = $("#cmbkelas").val();
+      var derajat = $(".cmbderajat").val();
+      if ( derajat == 0 ) {
+      } else {
+      }
+
+      if ( kelas == 0 ) {
+        swal("Gagal","Pilih kelas terlebih dahulu","warning");
+        $(".cmbderajat").val(0);
+      } else {
+        if ( derajat == 0 ) {
+          window.location = base_url + "butirsoal/kelas/print_laporan/" + kelas;
+        } else {
+          window.location = base_url + "butirsoal/kelas/print_laporan/" + kelas + "/" + derajat;
         }
       }
     });
