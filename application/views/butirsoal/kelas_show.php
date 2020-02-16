@@ -40,14 +40,34 @@
 							} else {
 								$derajat = "E";
 							}
+
+							if ( !($sortir == null) ) {
+								if ( $sortir == $derajat ) {
+									$jumlah += $get_jawaban;
+								}
+							} else {	
+								$jumlah += $get_jawaban;
+							}
 						?>
-						<tr>
-							<td><?= $soal['no_soal'] ?></td>
-							<td><?= $soal['soal'] ?></td>
-							<td><?= $get_jawaban ?></td>
-							<td><?= $persentase ?>%</td>
-							<td><?= $derajat ?></td>
-						</tr>
+						<?php if ( !($sortir == null) ): ?>
+							<?php if ( $sortir == $derajat ): ?>
+								<tr>
+									<td><?= $soal['no_soal'] ?></td>
+									<td><?= $soal['soal'] ?></td>
+									<td><?= $get_jawaban ?></td>
+									<td><?= $persentase ?>%</td>
+									<td><?= $derajat ?></td>
+								</tr>
+							<?php endif ?>
+						<?php else: ?>
+							<tr>
+								<td><?= $soal['no_soal'] ?></td>
+								<td><?= $soal['soal'] ?></td>
+								<td><?= $get_jawaban ?></td>
+								<td><?= $persentase ?>%</td>
+								<td><?= $derajat ?></td>
+							</tr>
+						<?php endif ?>
 					<?php endforeach ?>
 					<tr class="bg-warning">
 						<th colspan="2" class="text-right">Jumlah</th>
