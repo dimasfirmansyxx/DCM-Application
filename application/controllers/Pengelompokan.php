@@ -39,4 +39,14 @@ class Pengelompokan extends CI_Controller {
 		$this->load->view("templates/head",$data);
 		$this->load->view("pengelompokan/show");
 	}
+
+	public function print_laporan()
+	{
+		$data['pagetitle'] = "print_pengelompokan";
+		$data['all_soal'] = $this->pengelompokan->get_all_soal();
+		$data['namafile'] = "Pengelompokkan Siswa";
+		$this->load->view("templates/head",$data);
+		$this->load->view("templates/print",$data);
+		$this->load->view("pengelompokan/show");
+	}
 }
