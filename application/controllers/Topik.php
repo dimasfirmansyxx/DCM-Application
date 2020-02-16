@@ -59,7 +59,7 @@ class Topik extends CI_Controller {
 		}
 	}
 
-	public function kelas($param = null, $id_kelas = null)
+	public function kelas($param = null, $id_kelas = null, $sortir = null)
 	{
 		if ( $param == "show" ) {
 			$data['pagetitle'] = "show_analisis_topik_paralel";
@@ -69,6 +69,7 @@ class Topik extends CI_Controller {
 			$data['sosial_kategori'] = $this->profil->get_kategori(6,8);
 			$data['belajar_kategori'] = $this->profil->get_kategori(9,11);
 			$data['karir_kategori'] = $this->profil->get_kategori(12,12);
+			$data['sortir'] = $sortir;
 			$this->load->view("templates/head",$data);
 			$this->load->view("topik/kelas_show",$data);
 		} else {
