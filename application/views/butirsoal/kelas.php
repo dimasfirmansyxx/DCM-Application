@@ -121,9 +121,6 @@
     $(".btnprint").on("click",function(){
       var kelas = $("#cmbkelas").val();
       var derajat = $(".cmbderajat").val();
-      if ( derajat == 0 ) {
-      } else {
-      }
 
       if ( kelas == 0 ) {
         swal("Gagal","Pilih kelas terlebih dahulu","warning");

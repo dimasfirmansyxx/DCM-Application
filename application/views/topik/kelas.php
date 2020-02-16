@@ -20,6 +20,14 @@
   <section class="content">
     <div class="container-fluid">
 
+      <div class="row">
+        <section class="col-lg-3">
+          <button type="button" class="btn btn-success btn-sm btn-block btnprint">
+            <i class="fas fa-arrow-up"></i> Export Laporan ke Excel
+          </button>
+        </section>
+      </div>
+
       <div class="row mt-3">
         <div class="col-12">
           <div class="form-group">
@@ -102,6 +110,22 @@
           $("#data_area").load(base_url + "topik/kelas/show/" + kelas);
         } else {
           $("#data_area").load(base_url + "topik/kelas/show/" + kelas + "/" + derajat);
+        }
+      }
+    });
+
+    $(".btnprint").on("click",function(){
+      var kelas = $("#cmbkelas").val();
+      var derajat = $(".cmbderajat").val();
+
+      if ( kelas == 0 ) {
+        swal("Gagal","Pilih kelas terlebih dahulu","warning");
+        $(".cmbderajat").val(0);
+      } else {
+        if ( derajat == 0 ) {
+          window.location = base_url + "topik/kelas/print_laporan/" + kelas;
+        } else {
+          window.location = base_url + "topik/kelas/print_laporan/" + kelas + "/" + derajat;
         }
       }
     });
