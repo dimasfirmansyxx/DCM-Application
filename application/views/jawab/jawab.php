@@ -80,6 +80,7 @@
             $("#soal_area").html("");
             $(".btnselesai").css("display","block");
           }
+          console.log(jawaban);
         }
       });
     });

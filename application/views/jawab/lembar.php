@@ -6,27 +6,22 @@
 <form id="frmjawab">
 	<div class="row">
 		<?php foreach ($soal as $row): ?>
-			<?php $acak = rand(0,1) ?>
-			<div class="col-md-6 mt-5">
-				<p><?= $row['no_soal'] . ". " . $row['soal'] ?></p>
+			<div class="col-md-6">
+				<div class="form-check">
+				  <input class="form-check-input cekbok" type="checkbox" id="check<?= $row['no_soal'] ?>" data-status="uncheck" data-id="<?= $row['no_soal'] ?>">
+				  <label class="form-check-label" for="check<?= $row['no_soal'] ?>">
+					<?= $row['no_soal'] . ". " . $row['soal'] ?>
+				  </label>
+				</div>
 				<?php if ( $row['jenis'] == "check" ): ?>
-					<div class="form-check">
-						<?php if ($acak == 1): ?>
-						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>ya" value="y" required checked>
-							<?php else: ?>
+					<div class="form-check" style="display: none;">
 						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>ya" value="y" required>
-						<?php endif ?>
 						<label class="form-check-label" for="<?= $row['no_soal'] ?>ya">
 							Ya
 						</label>
 					</div>
-					<div class="form-check">
-						<?php if ( $acak == 0 ): ?>
+					<div class="form-check" style="display: none;">
 						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>tidak" value="g" required checked>
-							<?php else: ?>
-
-						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>tidak" value="g" required>
-						<?php endif ?>
 						<label class="form-check-label" for="<?= $row['no_soal'] ?>tidak">
 							Tidak
 						</label>
@@ -47,7 +42,22 @@
 </form>
 
 <script>
+	$(".cekbok").on("change",function(){
+		var id = $(this).attr('data-id');
+		var check = $("#check" + id).attr("data-status");
+		if ( check == "uncheck" ) {
+			$("#" + id + "tidak").removeAttr("checked");
+			$("#" + id + "ya").attr("checked","checked");
+			$("#check" + id).attr("data-status","checked");
+		} else {
+			$("#" + id + "ya").removeAttr("checked");
+			$("#" + id + "tidak").attr("checked","checked");
+			$("#check" + id).attr("data-status","uncheck");
+		}
+	});
+
 	$("#frmjawab").on("submit",function(){
 		$(".btnsubmit").attr("disabled","disabled");
+		window.location = "#";
 	});
 </script>
