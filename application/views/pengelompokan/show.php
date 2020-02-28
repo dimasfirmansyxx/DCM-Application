@@ -15,7 +15,7 @@
 			<tbody>
 				<?php $i = 1; ?>
 				<?php foreach ($all_soal as $soal): ?>
-					<?php $get_kelompok = $this->pengelompokan->get_kelompok($soal['no_soal']) ?>
+					<?php $get_kelompok = $this->pengelompokan->get_kelompok($soal['no_soal'], $id_kelas) ?>
 					<tr>
 						<td><?= $i++ ?></td>
 						<td><?= $soal['soal'] ?></td>

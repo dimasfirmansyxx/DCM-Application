@@ -21,9 +21,17 @@
 
       <div class="row">
         <div class="col-12">
-          <a href="<?= base_url() ?>pengelompokan/print_laporan" class="btn btn-success btn-sm">
+          <button type="button" class="btn btn-success btn-sm btnexport">
             <i class="fas fa-arrow-up"></i> Export Laporan ke Excel
-          </a>
+          </button>
+        </div>
+        <div class="col-12 mt-3">
+          <select class="form-control cmbkelas" name="kelas">
+            <option value="0">--- Pilih kelas ---</option>
+            <?php foreach ($all_kelas as $kelas): ?>
+              <option value="<?= $kelas['id_kelas'] ?>"><?= $kelas['kelas'] ?></option>
+            <?php endforeach ?>
+          </select>
         </div>
       </div>
 
@@ -34,7 +42,7 @@
               Kelompok
             </div>
             <div class="card-body" id="data_area">
-              <p class="text-center">Sedang Memuat ...</p>
+              <p class="text-center">Pilih kelas terlebih dahulu</p>
             </div>
           </div>
         </section>
@@ -58,11 +66,28 @@
       $(attribute).html(word);
     }
 
-    function load() {
-      $("#data_area").load(base_url + "pengelompokan/show/");
+    function load(kelas) {
+      $("#data_area").load(base_url + "pengelompokan/show/" + kelas);
     }
   
-    load();    
+    $(".cmbkelas").on("change",function(){
+      var id = $(this).val();
+      if ( id == 0 ) {
+        $("#data_area").html("<p class='text-center'>Pilih kelas terlebih dahulu</p>")
+      } else {
+        $("#data_area").html("<p class='text-center'>Sedang memuat...</p>")
+        load(id);
+      }
+    });
+
+    $(".btnexport").on("click",function(){
+      var id = $(".cmbkelas").val();
+      if ( id == 0 ) {
+        swal("Gagal","Pilih kelas terlebih dahulu","warning");
+      } else {
+        window.location = base_url + "pengelompokan/print_laporan/" + id;
+      }
+    });
 
   });
 </script>

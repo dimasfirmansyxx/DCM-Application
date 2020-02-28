@@ -7,7 +7,7 @@ class Pengelompokan_model extends CI_Model {
 		return $this->db->get("tblsoal")->result_array();
 	}
 
-	public function get_kelompok($no_soal)
+	public function get_kelompok($no_soal, $id_kelas)
 	{
 		$output = [];
 
@@ -17,7 +17,9 @@ class Pengelompokan_model extends CI_Model {
 		foreach ($get_jawaban as $jawaban) {
 			$siswa = $this->siswa->get_siswa($jawaban['id_siswa']);
 			$kelas = $this->kelas->get_kelas($siswa['id_kelas']);
-			$output[] = $siswa['no_urut'] . " (" . $kelas['kelas'] . ")";
+			if ( $siswa['id_kelas'] == $id_kelas ) {
+				$output[] = $siswa['no_urut'];
+			}
 		}
 
 		return $output;

@@ -25,6 +25,7 @@ class Pengelompokan extends CI_Controller {
 	public function index() 
 	{
 		$data['pagetitle'] = "Pengelompokan Siswa per Masalah";
+		$data['all_kelas'] = $this->kelas->get_all_kelas();
 		$this->load->view("templates/head",$data);
 		$this->load->view("templates/header");
 		$this->load->view("templates/navbar");
@@ -32,18 +33,20 @@ class Pengelompokan extends CI_Controller {
 		$this->load->view("templates/footer");
 	}
 
-	public function show()
+	public function show($id_kelas)
 	{
 		$data['pagetitle'] = "show_pengelompokan";
 		$data['all_soal'] = $this->pengelompokan->get_all_soal();
+		$data['id_kelas'] = $id_kelas;
 		$this->load->view("templates/head",$data);
 		$this->load->view("pengelompokan/show");
 	}
 
-	public function print_laporan()
+	public function print_laporan($id_kelas)
 	{
 		$data['pagetitle'] = "print_pengelompokan";
 		$data['all_soal'] = $this->pengelompokan->get_all_soal();
+		$data['id_kelas'] = $id_kelas;
 		$data['namafile'] = "Pengelompokkan Siswa";
 		$this->load->view("templates/head",$data);
 		$this->load->view("templates/print",$data);
