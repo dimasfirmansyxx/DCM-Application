@@ -8,8 +8,10 @@ class Beranda extends CI_Controller {
 			redirect( base_url() . "auth/login" );
 		}
 		
-		if ( $this->Clsglobal->check_verification() == 4 ) {
-			redirect( base_url() . "auth/verification" );
+		if ( $this->Clsglobal->user_info($this->session->user_id)['privilege'] == "siswa" ) {
+			if ( $this->Clsglobal->check_verification() == 4 ) {
+				redirect( base_url() . "auth/verification" );
+			}
 		}
 	}
 
