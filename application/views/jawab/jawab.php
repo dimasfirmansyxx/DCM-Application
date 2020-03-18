@@ -43,6 +43,7 @@
     var jmlkategori = <?= $jmlkategori ?>;
     var no_kategori = 1;
     var jawaban = {};
+    var essay = {};
 
     function setButton(attribute,word) {
       $(attribute).attr("disabled","disabled");
@@ -72,6 +73,18 @@
         type : "post",
         dataType : "json",
         success : function(result) {
+
+          // essay[no_kategori] = [result.belumtercantum, result.menyusahkan];
+          
+          // // var essaybelumtercantum = $("#frmjawab #essay241");
+          // // var essaymenyusahkan = $("#frmjawab #essay242");
+          // // // $.each(essay, function(key,value){
+          // //   essaybelumtercantum.html(essaybelumtercantum.html() + " " + result.belumtercantum + ",");
+          // //   essaymenyusahkan.html(essaymenyusahkan.html() + " " + result.menyusahkan + ",");
+          // // // });
+
+          // delete result.belumtercantum;
+          // delete result.menyusahkan;
           jawaban[no_kategori] = result;
           if ( no_kategori < jmlkategori ) {
             no_kategori = no_kategori + 1;
@@ -80,7 +93,7 @@
             $("#soal_area").html("");
             $(".btnselesai").css("display","block");
           }
-          console.log(jawaban);
+
         }
       });
     });

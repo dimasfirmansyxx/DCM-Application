@@ -1,6 +1,12 @@
 <h3>
 	<?= $this->Clsglobal->romawi($kategori['id_kategori']) ?>. 
 	<?= strtoupper($kategori['nama_kategori']) ?>
+	<?php 
+		if ( $kategori['id_kategori'] == 1 ) {
+			unset($_SESSION['jawaban_menyusahkan']);
+			unset($_SESSION['jawaban_belumtercantum']);
+		}
+	?>
 </h3>
 
 <form id="frmjawab">
@@ -28,17 +34,41 @@
 					</div>
 				<?php else: ?>
 					<div class="form-group">
-						<textarea required class="form-control" name="<?= $row['no_soal'] ?>"></textarea>
+						<textarea required class="form-control" name="<?= $row['no_soal'] ?>">
+							<?php if ( $row['no_soal'] == 241 ): ?>
+								<?= $_SESSION['jawaban_belumtercantum'] ?>
+								<?php unset($_SESSION['jawaban_belumtercantum']); ?>
+							<?php elseif ( $row['no_soal'] == 242 ): ?>
+								<?= $_SESSION['jawaban_menyusahkan'] ?>
+								<?php unset($_SESSION['jawaban_menyusahkan']); ?>
+							<?php endif ?>
+						</textarea>
 					</div>
 				<?php endif ?>
 			</div>
 		<?php endforeach ?>
-		<?php if ( $kategori['id_kategori'] <= $jmlkategori ): ?>
-			<div class="mt-5 col-12 text-center">
-				<button type="submit" class="btn btn-primary btnsubmit">Selanjutnya</button>
+	</div>
+	<?php if ( $kategori['id_kategori'] <= $jmlkategori ): ?>
+		<?php if ( !($kategori['id_kategori'] == "13") ): ?>
+			<div class="row mt-4">
+				<div class="col-6">
+					<div class="form-group">
+						<label>Masalah apakah yang belum tercantum diatas ?</label>
+						<textarea class="form-control" name="belumtercantum"></textarea>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="form-group">
+						<label>Masalah apakah yang paling menyusahkan ?</label>
+						<textarea class="form-control" name="menyusahkan"></textarea>
+					</div>
+				</div>
 			</div>
 		<?php endif ?>
-	</div>
+		<div class="mt-2 col-12 text-center">
+			<button type="submit" class="btn btn-primary btnsubmit">Selanjutnya</button>
+		</div>
+	<?php endif ?>
 </form>
 
 <script>

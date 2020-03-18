@@ -43,7 +43,29 @@ class Jawab extends CI_Controller {
 
 	public function push_answer()
 	{
-		echo json_encode($_POST);
+		$output = [];
+		foreach ($_POST as $key => $value) {
+			if ( is_numeric($key) ) {
+				$output[$key] = $value;
+			} else {
+				if ( !($value == "") ) {
+					if ( $key == "belumtercantum" ) {
+						if ( isset($_SESSION['jawaban_belumtercantum']) ) {
+							$_SESSION['jawaban_belumtercantum'] = $_SESSION['jawaban_belumtercantum'] . ", " . $value;
+						} else {
+							$_SESSION['jawaban_belumtercantum'] = $value ;
+						}
+					} else {
+						if ( isset($_SESSION['jawaban_menyusahkan']) ) {
+							$_SESSION['jawaban_menyusahkan'] = $_SESSION['jawaban_menyusahkan'] . ", " . $value;
+						} else {
+							$_SESSION['jawaban_menyusahkan'] = $value;
+						}
+					}
+				}
+			}
+		}
+		echo json_encode($output);
 	}
 
 	public function selesai()
