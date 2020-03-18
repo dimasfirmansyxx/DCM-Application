@@ -1,4 +1,22 @@
-<table border="1" class="table table-bordered table-hover">
+<table class="">
+  <tr>
+    <td width="200">Nama Sekolah</td>
+    <td width="500">: <?= $this->Clsglobal->site_info("nama_sekolah") ?></td>
+  </tr>
+  <tr>
+    <td width="200">Alamat</td>
+    <td width="500">: <?= $this->Clsglobal->site_info("alamat") ?></td>
+  </tr>
+  <tr>
+    <td width="200">Nama Guru Pembimbing</td>
+    <td width="500">: <?= $this->Clsglobal->site_info("guru_pembimbing") ?></td>
+  </tr>
+  <tr>
+    <td width="200">Nama Kepala Sekolah</td>
+    <td width="500">: <?= $this->Clsglobal->site_info("kepala_sekolah") ?></td>
+  </tr>
+</table>
+<table border="1" class="table table-bordered table-hover mt-3">
   <thead>
     <tr>
       <th>No.</th>
