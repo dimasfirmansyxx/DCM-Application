@@ -1,13 +1,32 @@
-<div class="row">
-	<div class="col-2">Kelas</div>
-	<div class="col-10">: <?= $get_kelas['kelas'] ?></div>
-
-	<div class="col-2">Sekolah</div>
-	<div class="col-10">: <?= $this->Clsglobal->site_info("nama_sekolah") ?></div>
-
-	<div class="col-2">Alamat</div>
-	<div class="col-10">: <?= $this->Clsglobal->site_info("alamat") ?></div>
-</div>
+<table width="100%">
+	<tbody>
+		<tr>
+			<td colspan="17" align="middle"><h4>HASIL PENGOLAHAN</h4></td>
+		</tr>
+		<tr>
+			<td colspan="17" align="middle"><h2>DCM (DAFTAR CEK MASALAH)</h2></td>
+		</tr>
+		<tr>
+			<td colspan="17" align="middle"><h4>(KLASIKAL)</h4></td>
+		</tr>
+	</tbody>
+</table>
+<tbody>
+	<table>
+		<tr>
+			<td width="200">Kelas</td>
+			<td width="500">: <?= $get_kelas['kelas'] ?></td>
+		</tr>
+		<tr>
+			<td width="200">Sekolah</td>
+			<td width="500">: <?= $this->Clsglobal->site_info("nama_sekolah") ?></td>
+		</tr>
+		<tr>
+			<td width="200">Alamat</td>
+			<td width="500">: <?= $this->Clsglobal->site_info("alamat") ?></td>
+		</tr>
+	</table>
+</tbody>
 <div class="row table-responsive">
 	<table class="table table-bordered" border="1">
 		<thead class="text-center">
@@ -17,7 +36,6 @@
 				<th rowspan="3" style="vertical-align: middle;">Jenis Kelamin</th>
 				<th colspan="12">Topik Masalah</th>
 				<th rowspan="3" style="vertical-align: middle;">Jumlah</th>
-				<th rowspan="3" style="vertical-align: middle;">Ket</th>
 			</tr>
 			<tr>
 				<th colspan="5">Pribadi</th>
@@ -27,12 +45,11 @@
 			</tr>
 			<tr>
 				<?php for($i = 0; $i < count($get_kategori) - 1; $i++) : ?>
-					<th><?= $abjad[$i] ?></th>
+					<th><?= $get_kategori[$i]['nama_kategori'] ?></th>
 				<?php endfor ?>
 			</tr>
 		</thead>
 		<tbody>
-			<?php $showket = false ?>
 			<?php foreach ($get_siswa as $siswa): ?>
 				<tr>
 					<td><?= $siswa['no_urut'] ?></td>
@@ -42,14 +59,6 @@
 					<?php foreach ($get_score as $score): ?>
 						<td><?= $score ?></td>
 					<?php endforeach ?>
-					<?php if ( $showket == false ): ?>
-						<td rowspan="500">
-							<?php for($i = 0; $i < count($get_kategori) - 1; $i++) : ?>
-								<?= $abjad[$i] . ". " . $get_kategori[$i]['nama_kategori'] ?><br>
-								<?php $showket = true ?>
-							<?php endfor ?>
-						</td>
-					<?php endif ?>
 				</tr>
 			<?php endforeach ?>
 			<tr>
@@ -57,3 +66,27 @@
 		</tbody>
 	</table>
 </div>
+<table width="100%">
+	<tbody>
+		<tr>
+			<td colspan="8">
+				<table>
+					<tr><td colspan="8">Mengetahui</td></tr>
+					<tr><td colspan="8">Kepala Sekolah</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td colspan="8"><?= $this->Clsglobal->site_info("kepala_sekolah") ?></td></tr>
+				</table>
+			</td>
+			<td colspan="8">
+				<table>
+					<tr><td colspan="8">Mengetahui</td></tr>
+					<tr><td colspan="8">Guru Pembimbing</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td>&nbsp;</td></tr>
+					<tr><td colspan="8"><?= $this->Clsglobal->site_info("guru_pembimbing") ?></td></tr>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
