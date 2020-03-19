@@ -49,7 +49,11 @@
 						<?php 
 							$get_jawaban = $this->butirsoal->get_jawaban($soal['no_soal'],$id_kelas);
 							$jmlsiswa = $this->butirsoal->jmlsiswa($id_kelas);
-							$persentase = $get_jawaban / $jmlsiswa * 100;
+							if ( $jmlsiswa == 0 ) {
+								$persentase = 0;
+							} else {
+								$persentase = $get_jawaban / $jmlsiswa * 100;
+							}
 
 							if ( $persentase >= 0 && $persentase < 1 ) {
 								$derajat = "A";
