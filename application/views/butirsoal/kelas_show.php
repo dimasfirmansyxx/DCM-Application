@@ -1,3 +1,26 @@
+<table width="100%">
+	<tbody>
+		<tr>
+			<td colspan="17" align="middle"><h4>
+				HASIL ANALISIS PER BUTIR SOAL DCM PER KELAS
+			</h4></td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<tr>
+		<td width="200">Kelas</td>
+		<td width="500">: <?= $this->kelas->get_kelas($id_kelas)['kelas'] ?></td>
+	</tr>
+	<tr>
+		<td width="200">Sekolah</td>
+		<td width="500">: <?= $this->Clsglobal->site_info("nama_sekolah") ?></td>
+	</tr>
+	<tr>
+		<td width="200">Alamat</td>
+		<td width="500">: <?= $this->Clsglobal->site_info("alamat") ?></td>
+	</tr>
+</table>
 <div class="row table-responsive">
 	<table class="table table-bordered" border="1">
 		<thead>
