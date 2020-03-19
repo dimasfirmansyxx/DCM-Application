@@ -1,22 +1,43 @@
-<div class="row">
-	<div class="col-2">Nomor Urut</div>
-	<div class="col-10">: <?= $siswa['no_urut'] ?></div>
-</div>
-<div class="row">
-	<div class="col-2">Nama</div>
-	<div class="col-10">: <?= $siswa['nama_siswa'] ?></div>
-</div>
-<div class="row">
-	<div class="col-2">Jenis Kelamin</div>
-	<div class="col-10">: <?= ucwords($siswa['jenis_kelamin']) ?></div>
-</div>
-<div class="row">
-	<div class="col-2">Kelas</div>
-	<div class="col-10">: <?= $this->kelas->get_kelas($siswa['id_kelas'])['kelas'] ?></div>
-</div>
-<div class="row">
+<table width="100%">
+	<tbody>
+		<tr>
+			<td colspan="24" align="middle"><h4>HASIL PENGOLAHAN</h4></td>
+		</tr>
+		<tr>
+			<td colspan="24" align="middle"><h2>DCM (DAFTAR CEK MASALAH)</h2></td>
+		</tr>
+		<tr>
+			<td colspan="24" align="middle"><h4>(INDIVIDUAL)</h4></td>
+		</tr>
+	</tbody>
+	<tbody>
+		<table>
+			<tr>
+				<td width="200">Nomor Urut</td>
+				<td width="500">: <?= $siswa['no_urut'] ?></td>
+			</tr>
+			<tr>
+				<td width="200">Nama</td>
+				<td width="500">: <?= $siswa['nama_siswa'] ?></td>
+			</tr>
+			<tr>
+				<td width="200">Jenis Kelamin</td>
+				<td width="500">: <?= ucwords($siswa['jenis_kelamin']) ?></td>
+			</tr>
+			<tr>
+				<td width="200">Kelas</td>
+				<td width="500">: <?= $this->kelas->get_kelas($siswa['id_kelas'])['kelas'] ?></td>
+			</tr>
+		</table>
+	</tbody>
+	<tbody class="text-center">
+		<tr>
+			<td colspan="24" align="middle"><h4>Bidang dan Frekuensi masalah</h4></td>
+		</tr>
+	</tbody>
+</table>
+<div class="row mt-4">
 	<div class="col-12 text-center">
-		<h4>Bidang dan Frekuensi masalah</h4>
 	</div>
 	<div class="col-12 table-responsive">
 		<table class="table table-bordered" border="1">
