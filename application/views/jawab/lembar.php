@@ -14,10 +14,10 @@
 		<?php foreach ($soal as $row): ?>
 			<div class="col-md-6">
 				<div class="form-check">
-				  <input class="form-check-input cekbok" type="checkbox" id="check<?= $row['no_soal'] ?>" data-status="uncheck" data-id="<?= $row['no_soal'] ?>">
-				  <label class="form-check-label" for="check<?= $row['no_soal'] ?>">
-					<?= $row['no_soal'] . ". " . $row['soal'] ?>
-				  </label>
+					<input class="form-check-input cekbok" type="checkbox" id="check<?= $row['no_soal'] ?>" data-status="uncheck" data-id="<?= $row['no_soal'] ?>">
+					<label class="form-check-label" for="check<?= $row['no_soal'] ?>">
+						<?= $row['no_soal'] . ". " . $row['soal'] ?>
+					</label>
 				</div>
 				<?php if ( $row['jenis'] == "check" ): ?>
 					<div class="form-check" style="display: none;">

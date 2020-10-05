@@ -75,6 +75,7 @@ class Jawab extends CI_Controller {
 			"jawaban" => $this->input->post("jawaban",true)
 		];
 
+		echo json_encode($data['jawaban']); die;
 		echo $this->jawab->save_jawaban($data);
 	}
 }

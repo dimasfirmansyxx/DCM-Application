@@ -65,7 +65,7 @@
     $("#soal_area").on("click",".btnsebelum",function(){
       no_kategori = no_kategori - 1;
       load(no_kategori);
-      btnprevious();
+      $("#soal_area #check1").attr("data-status","check");
     })
 
     $("#soal_area").on("submit","#frmjawab",function(e){
