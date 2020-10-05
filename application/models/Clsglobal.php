@@ -42,7 +42,7 @@ class Clsglobal extends CI_Model {
 					$extension = strtolower(end($explodename));
 
 					if ( in_array($extension, $allow_extension) ) {
-						$newName = uniqid() . "." . $extension;
+						$newName = date("YmdHis") . "." . $extension;
 						$dir = "./assets/" . $directory . "/";
 						move_uploaded_file($tmp, $dir . $newName);
 
@@ -59,7 +59,7 @@ class Clsglobal extends CI_Model {
 
 				if ( in_array($extension, $allow_extension) ) {
 					if ( $file_name == "random" ) {
-						$newName = uniqid() . "." . $extension;
+						$newName = date("YmdHis") . "." . $extension;
 					} else {
 						$newName = $file_name;
 					}

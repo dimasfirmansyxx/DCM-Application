@@ -149,10 +149,11 @@ class Siswa_model extends CI_Model {
         $numrow = 1;
         foreach($sheet as $row){
             if($numrow > 2){
+                $kelas = $this->Clsglobal->get_data("tblkelas",["kelas" => $row['F']]);
                 array_push($data, array(
                     'no_urut' => $row['D'],
                     'nama_siswa' => strtoupper($row['E']),
-                    'id_kelas' => $row['F'],
+                    'id_kelas' => $kelas['id_kelas'],
                     'jenis_kelamin' => strtolower($row['G']),
                     'tempat_lahir' => "",
                     'tgl_lahir' => "01/01/2020",
