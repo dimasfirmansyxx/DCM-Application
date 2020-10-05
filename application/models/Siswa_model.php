@@ -3,33 +3,29 @@
 class Siswa_model extends CI_Model {
 	var $table = 'tblsiswa';
     var $column_order = array('id_siswa', 'nama_siswa', 'id_kelas', 'jenis_kelamin', 'alamat');
-    var $column_search = array('id_siswa', 'nama_siswa');
+    var $column_search = array('nama_siswa');
     var $order = array('id_siswa' => 'asc'); 
  
     private function _get_datatables_query()
     {
-         
-        $this->db->from($this->table);
- 
         $i = 0;
      
         foreach ($this->column_search as $item) // looping awal
         {
             if($_POST['search']['value']) // jika datatable mengirimkan pencarian dengan metode POST
             {
-                 
+
                 if($i===0) // looping awal
                 {
                     $this->db->group_start(); 
                     $this->db->like($item, $_POST['search']['value']);
-                }
-                else
-                {
+                } else {
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
  
-                if(count($this->column_search) - 1 == $i) 
+                if(count($this->column_search) - 1 == $i) {
                     $this->db->group_end(); 
+                } 
             }
             $i++;
         }
@@ -43,6 +39,8 @@ class Siswa_model extends CI_Model {
             $order = $this->order;
             $this->db->order_by(key($order), $order[key($order)]);
         }
+        $this->db->from($this->table);
+
     }
  
     function get_datatables()
