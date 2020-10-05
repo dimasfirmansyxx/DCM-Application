@@ -138,17 +138,15 @@ class Siswa extends CI_Controller {
 		$sheet->setTitle('SOAL');
 		$sheet->setCellValue("A1", "KELAS");
 		$sheet->setCellValue("D1", "PENGISIAN SISWA");
-		$sheet->setCellValue("A2", "id_kelas");
-		$sheet->setCellValue("B2", "kelas");
+		$sheet->setCellValue("A2", "Kelas");
 		$sheet->setCellValue("D2", "Nomor Absen");
 		$sheet->setCellValue("E2", "Nama Siswa");
-		$sheet->setCellValue("F2", "Kelas (id_kelas)");
-		$sheet->setCellValue("G2", "Jenis Kelamin");
+		$sheet->setCellValue("F2", "Kelas");
+		$sheet->setCellValue("G2", "Jenis Kelamin (pria, wanita)");
 
 		$iteration = 3;
 		foreach ($kelas as $row) {
-			$sheet->setCellValue("A" . $iteration, $row['id_kelas']);
-			$sheet->setCellValue("B" . $iteration, $row['kelas']);
+			$sheet->setCellValue("A" . $iteration, $row['kelas']);
 			$iteration++;
 		}
 
