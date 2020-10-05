@@ -62,6 +62,12 @@
     load(no_kategori);
     $(".btnselesai").css("display","none");
 
+    $("#soal_area").on("click",".btnsebelum",function(){
+      no_kategori = no_kategori - 1;
+      load(no_kategori);
+      btnprevious();
+    })
+
     $("#soal_area").on("submit","#frmjawab",function(e){
       e.preventDefault();
       $.ajax({
@@ -73,18 +79,6 @@
         type : "post",
         dataType : "json",
         success : function(result) {
-
-          // essay[no_kategori] = [result.belumtercantum, result.menyusahkan];
-          
-          // // var essaybelumtercantum = $("#frmjawab #essay241");
-          // // var essaymenyusahkan = $("#frmjawab #essay242");
-          // // // $.each(essay, function(key,value){
-          // //   essaybelumtercantum.html(essaybelumtercantum.html() + " " + result.belumtercantum + ",");
-          // //   essaymenyusahkan.html(essaymenyusahkan.html() + " " + result.menyusahkan + ",");
-          // // // });
-
-          // delete result.belumtercantum;
-          // delete result.menyusahkan;
           jawaban[no_kategori] = result;
           if ( no_kategori < jmlkategori ) {
             no_kategori = no_kategori + 1;

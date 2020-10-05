@@ -66,6 +66,11 @@
 			</div>
 		<?php endif ?>
 		<div class="mt-2 col-12 text-center">
+			<?php if ( $kategori['id_kategori'] != 1 ): ?>
+				<button type="button" class="btn btn-secondary btnsebelum">Sebelumnya</button>
+			<?php else: ?>
+				<button type="button" class="btn btn-secondary btnsebelum" disabled="">Sebelumnya</button>
+			<?php endif ?>
 			<button type="submit" class="btn btn-primary btnsubmit">Selanjutnya</button>
 		</div>
 	<?php endif ?>
@@ -88,6 +93,15 @@
 
 	$("#frmjawab").on("submit",function(){
 		$(".btnsubmit").attr("disabled","disabled");
+		$(".btnsebelum").attr("disabled","disabled");
+		window.location = "#";
+	});
+
+	$(".btnsebelum").on("click",function(){
+		$(".btnsubmit").attr("disabled","disabled");
+		setTimeout(function(){
+			$(".btnsebelum").attr("disabled","disabled");
+		},100);
 		window.location = "#";
 	});
 </script>
