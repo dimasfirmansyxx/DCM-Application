@@ -163,7 +163,6 @@
           <li>Download template dengan menekan tombol download dibawah</li>
           <li>Isi data hanya pada bagian PENGISIAN SISWA</li>
           <li>Isi nomor urut siswa berurutan</li>
-          <li>Isi kolom 'Kelas (id_kelas)' mengikuti kelas(id_kelas) yang ada di bagian KELAS</li>
           <li>Isi kolom jenis hanya dengan dua nilai (pria, wanita)</li>
           <li>Save lalu load pada Form dibawah, lalu tekan tombol Upload</li>
         </ul>
