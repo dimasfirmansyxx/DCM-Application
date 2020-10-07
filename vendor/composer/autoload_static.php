@@ -9,9 +9,14 @@ class ComposerStaticInit9a1eee5e5cf1a6d77d58962c04e83dc6
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'setasign\\Fpdi\\' => 14,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -27,7 +32,12 @@ class ComposerStaticInit9a1eee5e5cf1a6d77d58962c04e83dc6
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'Prophecy\\' => 9,
+        ),
+        'M' => 
+        array (
+            'Mpdf\\' => 5,
         ),
         'D' => 
         array (
@@ -37,6 +47,10 @@ class ComposerStaticInit9a1eee5e5cf1a6d77d58962c04e83dc6
     );
 
     public static $prefixDirsPsr4 = array (
+        'setasign\\Fpdi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
@@ -55,9 +69,17 @@ class ComposerStaticInit9a1eee5e5cf1a6d77d58962c04e83dc6
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
         'Prophecy\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
+        ),
+        'Mpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
