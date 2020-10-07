@@ -8,30 +8,52 @@
 		}
 	?>
 </h3>
-
 <form id="frmjawab">
 	<div class="row">
 		<?php foreach ($soal as $row): ?>
 			<div class="col-md-6">
 				<div class="form-check">
-					<input class="form-check-input cekbok" type="checkbox" id="check<?= $row['no_soal'] ?>" data-status="uncheck" data-id="<?= $row['no_soal'] ?>">
-					<label class="form-check-label" for="check<?= $row['no_soal'] ?>">
-						<?= $row['no_soal'] . ". " . $row['soal'] ?>
-					</label>
+
+					<?php if ( $_SESSION["jawaban_checkbox"][$row['no_soal']]=== "y" ): ?>
+						<input class="form-check-input cekbok" type="checkbox" id="check<?= $row['no_soal'] ?>" data-status="uncheck" data-id="<?= $row['no_soal'] ?>" checked>
+						<label class="form-check-label" for="check<?= $row['no_soal'] ?>">
+							<?= $row['no_soal'] . ". " . $row['soal'] ?>
+						</label>
+					<?php else: ?>
+						<input class="form-check-input cekbok" type="checkbox" id="check<?= $row['no_soal'] ?>" data-status="uncheck" data-id="<?= $row['no_soal'] ?>">
+						<label class="form-check-label" for="check<?= $row['no_soal'] ?>">
+							<?= $row['no_soal'] . ". " . $row['soal'] ?>
+						</label>
+					<?php endif ?>
 				</div>
 				<?php if ( $row['jenis'] == "check" ): ?>
-					<div class="form-check" style="display: none;">
-						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>ya" value="y" required>
-						<label class="form-check-label" for="<?= $row['no_soal'] ?>ya">
-							Ya
-						</label>
-					</div>
-					<div class="form-check" style="display: none;">
-						<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>tidak" value="g" required checked>
-						<label class="form-check-label" for="<?= $row['no_soal'] ?>tidak">
-							Tidak
-						</label>
-					</div>
+					<?php if ( $_SESSION["jawaban_checkbox"][$row['no_soal']] == "y" ): ?>
+						<div class="form-check" style="display: none;">
+							<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>ya" value="y" required checked>
+							<label class="form-check-label" for="<?= $row['no_soal'] ?>ya">
+								Ya
+							</label>
+						</div>
+						<div class="form-check" style="display: none;">
+							<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>tidak" value="g" required>
+							<label class="form-check-label" for="<?= $row['no_soal'] ?>tidak">
+								Tidak
+							</label>
+						</div>
+					<?php else: ?>
+						<div class="form-check" style="display: none;">
+							<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>ya" value="y" required>
+							<label class="form-check-label" for="<?= $row['no_soal'] ?>ya">
+								Ya
+							</label>
+						</div>
+						<div class="form-check" style="display: none;">
+							<input class="form-check-input" type="radio" name="<?= $row['no_soal'] ?>" id="<?= $row['no_soal'] ?>tidak" value="g" required checked>
+							<label class="form-check-label" for="<?= $row['no_soal'] ?>tidak">
+								Tidak
+							</label>
+						</div>
+					<?php endif ?>
 				<?php else: ?>
 					<div class="form-group">
 						<textarea required class="form-control" name="<?= $row['no_soal'] ?>">

@@ -29,6 +29,14 @@ class Jawab extends CI_Controller {
 		$this->load->view("templates/navbar");
 		$this->load->view("jawab/jawab");
 		$this->load->view("templates/footer");
+		unset($_SESSION["jawaban_checkbox"]);
+		if ( !isset($_SESSION["jawaban_checkbox"]) ) {
+			$jmlsoal = $this->Clsglobal->num_rows("tblsoal");
+			$_SESSION["jawaban_checkbox"] = [];
+			for ($i=1; $i <= $jmlsoal ; $i++) {
+				$_SESSION["jawaban_checkbox"][$i] = "g"; 
+			}
+		}
 	}
 
 	public function lembar($id_kategori)
@@ -47,6 +55,7 @@ class Jawab extends CI_Controller {
 		foreach ($_POST as $key => $value) {
 			if ( is_numeric($key) ) {
 				$output[$key] = $value;
+				$_SESSION["jawaban_checkbox"][$key] = $value;
 			} else {
 				if ( !($value == "") ) {
 					if ( $key == "belumtercantum" ) {
@@ -74,8 +83,6 @@ class Jawab extends CI_Controller {
 			"id_user" => $this->input->post("id_user"),
 			"jawaban" => $this->input->post("jawaban",true)
 		];
-
-		echo json_encode($data['jawaban']); die;
 		echo $this->jawab->save_jawaban($data);
 	}
 }
