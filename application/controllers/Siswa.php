@@ -42,7 +42,8 @@ class Siswa extends CI_Controller {
             $row[] = ucwords($field->jenis_kelamin);
             $row[] = "
             	<button class='btn btn-success btn-sm btnedit' data-id='$field->id_siswa'>Edit</button>
-            	<button class='btn btn-warning btn-sm btnubah' data-id='$field->id_siswa'>Ubah Info Login</button>
+            	<button class='btn btn-primary btn-sm btnubah' data-id='$field->id_siswa'>Ubah Info Login</button>
+            	<button class='btn btn-warning btn-sm btnreset' data-id='$field->id_siswa'>Reset Hasil</button>
             	<button class='btn btn-danger btn-sm btnhapus' data-id='$field->id_siswa'>Hapus</button>
             	";
  
@@ -108,6 +109,14 @@ class Siswa extends CI_Controller {
 		$delete = $this->siswa->delete_siswa($id_siswa);
 
 		echo $delete;
+	}
+
+	public function reset_siswa()
+	{
+		$id_siswa = $this->input->post("id_siswa",true);
+		$reset = $this->siswa->reset_siswa($id_siswa);
+
+		echo $reset;
 	}
 
 	public function update_siswa()

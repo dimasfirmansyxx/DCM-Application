@@ -99,6 +99,17 @@ class Siswa_model extends CI_Model {
         }
     }
 
+    public function reset_siswa($id_siswa)
+    {
+        $this->db->where("id_siswa",$id_siswa);
+        $delete = $this->db->delete("tbljawaban");
+        if ( $delete > 0 ) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
     public function update_siswa($data)
     {
         $multiple = false;

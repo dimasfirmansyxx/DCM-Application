@@ -337,6 +337,39 @@
       unsetButton(".btnhapus","Hapus");
     });
 
+    $("#data_table").on("click",".btnreset",function(){
+      var id = $(this).attr("data-id");
+      setButton(this,"Mereset ...");
+      swal({
+        title : "Yakin ingin reset hasil siswa ini ?",
+        text : "Dengan reset, hasil siswa akan terhapus",
+        icon : "warning",
+        buttons : [
+          "Batal",
+          "Ya, lanjutkan"
+        ],
+        dangerMode : true
+      }).then(function(confirm) {
+        if ( confirm ) {
+          $.ajax({
+            url : base_url + "siswa/reset_siswa",
+            data : { id_siswa : id },
+            type : "post",
+            dataType : "text",
+            success : function(result) {
+              if ( result == 0 ) {
+                swal("Sukses","Sukses me-reset hasil siswa","success");
+                reloadData();
+              } else {
+                swal("Error","Kesalahan pada server","error");
+              }
+            }
+          }); 
+        }
+      });
+      unsetButton(".btnreset","Reset Hasil");
+    });
+
     var id_siswa;
     $("#data_table").on("click",".btnedit",function(){
       id_siswa = $(this).attr("data-id");
