@@ -135,6 +135,41 @@ class Siswa_model extends CI_Model {
         }
     }
 
+    public function update_login($data)
+    {
+        $check = $this->Clsglobal->check_availability("tblsiswa",["id_siswa" => $data['id_siswa'],"verification" => "verif"]);
+        if ( $check == 2 ) {
+            $check = $this->Clsglobal->check_availability("tbluser",["username" => $data['username']]);
+            if ( $check == 2 ) {
+                $get = $this->Clsglobal->get_data("tbluser",["username" => $data['username']]);
+                if ( $get['id_siswa'] == $data['id_siswa'] ) {
+                    $this->db->set("password",$data['password']);
+                    $this->db->where("id_siswa",$data['id_siswa']);
+                    $update = $this->db->update("tbluser");
+                    if ( $update > 0 ) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                } else {
+                    return 2;
+                }
+            } else {
+                $this->db->set("username",$data['username']);
+                $this->db->set("password",$data['password']);
+                $this->db->where("id_siswa",$data['id_siswa']);
+                $update = $this->db->update("tbluser");
+                if ( $update > 0 ) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+        } else {
+            return 2;
+        }
+    }
+
     public function import_siswa($filename)
     {
         include APPPATH.'third_party/PHPExcel/PHPExcel.php';

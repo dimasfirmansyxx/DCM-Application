@@ -42,6 +42,7 @@ class Siswa extends CI_Controller {
             $row[] = ucwords($field->jenis_kelamin);
             $row[] = "
             	<button class='btn btn-success btn-sm btnedit' data-id='$field->id_siswa'>Edit</button>
+            	<button class='btn btn-warning btn-sm btnubah' data-id='$field->id_siswa'>Ubah Info Login</button>
             	<button class='btn btn-danger btn-sm btnhapus' data-id='$field->id_siswa'>Hapus</button>
             	";
  
@@ -118,6 +119,19 @@ class Siswa extends CI_Controller {
 		];
 
 		$update = $this->siswa->update_siswa($data);
+
+		echo $update;
+	}
+
+	public function update_login()
+	{
+		$data = [
+			"id_siswa" => $this->input->post("id_siswa"),
+			"username" => $this->input->post("username",true),
+			"password" => password_hash($this->input->post("password",true), PASSWORD_DEFAULT)
+		];
+
+		$update = $this->siswa->update_login($data);
 
 		echo $update;
 	}

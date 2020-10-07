@@ -148,6 +148,39 @@
   </div>
 </div>
 
+<div class="modal fade" id="ubahmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Siswa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="frmubah">
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" required autocomplete="off">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required autocomplete="off">
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+            Tutup
+          </button>
+          <button type="submit" class="btn btn-primary btn-sm btnsave">
+            Simpan
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="excelmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -324,6 +357,11 @@
       });
     });
 
+    $("#data_table").on("click",".btnubah",function(){
+      id_siswa = $(this).attr("data-id");
+      $("#ubahmodal").modal("show");
+    })
+
     $("#frmedit").on("submit",function(e){
       e.preventDefault();
       setButton(".btnsave","Menyimpan...");
@@ -344,6 +382,37 @@
             reloadData();
           } else if ( result == 2 ) {
             swal("Gagal","Siswa sudah ada","warning");
+          } else {
+            swal("Error","Kesalahan pada server","error");
+          }
+          unsetButton(".btnsave","Simpan");
+        }
+      });
+    });
+
+    $("#frmubah").on("submit",function(e){
+      e.preventDefault();
+      setButton(".btnsave","Menyimpan...");
+      var data = new FormData(this);
+      data.append("id_siswa",id_siswa);
+      $.ajax({
+        url : base_url + "siswa/update_login",
+        data : data,
+        processData : false,
+        cache : false,
+        contentType : false,
+        type : "post",
+        dataType : "text",
+        success : function(result) {
+          if ( result == 0 ) {
+            swal("Sukses","Sukses mengubah info login siswa","success");
+            $("#ubahmodal").modal("hide");
+            $("#frmubah").trigger('reset');
+            reloadData();
+          } else if ( result == 2 ) {
+            swal("Gagal","Username sudah ada","warning");
+          } else if ( result == 4 ) {
+            swal("Gagal","Siswa belum melakukan pendaftaran","warning");
           } else {
             swal("Error","Kesalahan pada server","error");
           }
