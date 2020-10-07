@@ -62,6 +62,5 @@ class Profil_individu extends CI_Controller {
 		$this->pdf->setPaper('A4', 'potrait');
 		$this->pdf->load_view("templates/head",$data);
 		$this->pdf->load_view("profil_individu/show",$data);
-		$this->pdf->load_view("templates/print",$data);
 	}
 }
