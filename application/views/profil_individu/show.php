@@ -2,8 +2,8 @@
 $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa['id_siswa']]);
 	if ( $check == 3 ) { 
 		echo "<p class='text-center'>Siswa belum melakukan tes / Siswa tidak ada</p>";
+		return;
 	}
-	return;
 ?>
 <table width="100%">
 	<tbody>
