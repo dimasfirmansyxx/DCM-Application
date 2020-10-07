@@ -60,7 +60,7 @@
 							<?php if ( $row['no_soal'] == 241 && isset($_SESSION['jawaban_belumtercantum']) ): ?>
 								<?= $_SESSION['jawaban_belumtercantum'] ?>
 								<?php unset($_SESSION['jawaban_belumtercantum']); ?>
-							<?php elseif ( $row['no_soal'] == 242  && isset($_SESSION['jawaban_belumtercantum']) ): ?>
+							<?php elseif ( $row['no_soal'] == 242  && isset($_SESSION['jawaban_menyusahkan']) ): ?>
 								<?= $_SESSION['jawaban_menyusahkan'] ?>
 								<?php unset($_SESSION['jawaban_menyusahkan']); ?>
 							<?php endif ?>
