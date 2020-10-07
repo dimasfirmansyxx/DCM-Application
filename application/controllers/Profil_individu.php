@@ -59,8 +59,10 @@ class Profil_individu extends CI_Controller {
 		$data['kategori_chart'] = $this->profil->get_kategori_chart($id_siswa);
 		$data['section_chart'] = $this->profil->get_section_chart($id_siswa);
 		$data['filename'] = $data['siswa']['nama_siswa'] . " (Profil Individu) ";
-		$this->pdf->setPaper('A4', 'potrait');
-		$this->pdf->load_view("templates/head",$data);
-		$this->pdf->load_view("profil_individu/show",$data);
+	
+		$html = $this->load->view('templates/head', $data, true);
+		$html .= $this->load->view('profil_individu/show', $data, true);
+	    
+	    $this->pdfgenerator->generate($html,$data['filename']);
 	}
 }
