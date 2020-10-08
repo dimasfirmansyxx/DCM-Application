@@ -295,10 +295,11 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 	</div>
 </div>
 <div class="row mt-3">
-	<div class="col-6">
+	<div class="col-5">
 		<canvas id="kategoriChart" height="200"></canvas>
 	</div>
-	<div class="col-6">
+	<div class="col-2"></div>
+	<div class="col-5">
 		<canvas id="sectionChart" height="200"></canvas>
 	</div>
 </div>
