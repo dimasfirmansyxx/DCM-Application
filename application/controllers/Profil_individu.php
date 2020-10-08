@@ -288,6 +288,29 @@ class Profil_individu extends CI_Controller {
 				$begin++;
 
 			}
+			// essay
+			$i = 0;
+			$begin = 30;
+			foreach ($soal_essay as $essay) {
+				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],"13");
+				$sheet->setCellValue("A" . $begin,$essay['no_soal']);
+				$colnum = $begin +1;
+				$sheet->mergeCells("A$begin:A$colnum");
+				$excel->getActiveSheet()->getStyle("A$begin")->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+				$excel->getActiveSheet()->getStyle("A$begin")->getAlignment()->setVertical(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+				$excel->getActiveSheet()->getStyle("A$begin:A$colnum")->applyFromArray($tableborderStyle);
+
+
+				$sheet->mergeCells("B$begin:X$begin");
+				$excel->getActiveSheet()->getStyle("B$begin:X$begin")->applyFromArray($tableborderStyle);
+				$sheet->setCellValue("B" . $begin++,$essay['soal']);
+				
+				$sheet->mergeCells("B$begin:X$begin");
+				$excel->getActiveSheet()->getStyle("B$begin:X$begin")->applyFromArray($tableborderStyle);
+				$sheet->setCellValue("B" .$begin,ltrim($get_jawaban[$i++]['remarks']));
+
+				$begin++;
+			}
 
 
 		// SET WIDTH OF COLUMN
