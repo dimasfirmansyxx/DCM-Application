@@ -263,11 +263,22 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 	        	<?php endforeach ?>
 	        ],
 	        datasets: [{
+	        	label: 'Persentase Profil Individu',
 	            data: [
 	            	<?php foreach ($kategori_chart as $key => $value): ?>
 			        	'<?= $value ?>',
 		        	<?php endforeach ?>
 	            ],
+		        backgroundColor: [
+			        <?php foreach ($kategori_chart as $key => $value): ?>
+						'rgba(255,99,132,1)',
+		        	<?php endforeach ?>
+				],
+				borderColor: [
+					<?php foreach ($kategori_chart as $key => $value): ?>
+						'rgba(255,99,132,1)',
+		        	<?php endforeach ?>
+				],
 	            borderWidth: 1
 	        }]
 	    },
@@ -288,17 +299,28 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 	    data: {
 	        labels: [
 	        	<?php foreach ($section_chart as $key => $value): ?>
-		        	'<?= $key ?> ( <?= $value ?>% )',
+		        	'<?= ucwords($key) ?> ( <?= $value ?>% )',
 	        	<?php endforeach ?>
 	        ],
 	        datasets: [{
+	        	label: 'Persentase Profil Individu',
 	            data: [
 	            	<?php foreach ($section_chart as $key => $value): ?>
 			        	'<?= $value ?>',
 		        	<?php endforeach ?>
 	            ],
+		        backgroundColor: [
+					<?php foreach ($kategori_chart as $key => $value): ?>
+						'rgba(255,99,132,1)',
+		        	<?php endforeach ?>
+				],
+				borderColor: [
+					<?php foreach ($kategori_chart as $key => $value): ?>
+						'rgba(255,99,132,1)',
+		        	<?php endforeach ?>
+				],
 	            borderWidth: 1
-	        }]
+	        }],
 	    },
 	    options: {
 	        scales: {
