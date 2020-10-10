@@ -50,6 +50,49 @@ class Profil_individu extends CI_Controller {
 	{
 		// $data['pagetitle'] = "print_profil_individu";
 		$id_siswa = $this->profil->get_siswa_by_nourut($kelas,$no_urut)['id_siswa'];
+		$data['siswa'] = $this->profil->get_siswa($id_siswa);
+		$data['pribadi_kategori'] = $this->profil->get_kategori(1,5);
+		$data['sosial_kategori'] = $this->profil->get_kategori(6,8);
+		$data['belajar_kategori'] = $this->profil->get_kategori(9,11);
+		$data['karir_kategori'] = $this->profil->get_kategori(12,12);
+		$data['soal_essay'] = $this->profil->get_essay();
+		$data['kategori_chart'] = $this->profil->get_kategori_chart($id_siswa);
+		$data['section_chart'] = $this->profil->get_section_chart($id_siswa);
+		$this->load->view("templates/head",$data);
+		$this->load->view("profil_individu/show",$data);
+	}
+
+	public function upload_chart()
+	{
+		$chart1 = $_POST['chart1'];
+		$chart2 = $_POST['chart2'];
+
+		$chart1img = $chart1;
+		$chart1img = str_replace('data:image/png;base64,', '', $chart1img);
+		$chart1img = str_replace(' ', '+', $chart1img);
+		$chart1img = base64_decode($chart1img);
+		$chart1img_name = uniqid();
+		$chart1img_path = './assets/chart_img/'.$chart1img_name.'.jpg';
+		file_put_contents($chart1img_path, $chart1img); 
+
+		$chart2img = $chart2;
+		$chart2img = str_replace('data:image/png;base64,', '', $chart2img);
+		$chart2img = str_replace(' ', '+', $chart2img);
+		$chart2img = base64_decode($chart2img);
+		$chart2img_name = uniqid();
+		$chart2img_path = './assets/chart_img/'.$chart2img_name.'.jpg';
+		file_put_contents($chart2img_path, $chart2img);
+
+		$encrypt = base64_encode($chart1img_path);
+		$decrypt = base64_decode($encrypt);
+
+		echo json_encode(["chart1" => $chart1img_name, "chart2" => $chart2img_name]);
+	}
+
+	public function do_print_laporan($kelas, $no_urut, $chart1, $chart2)
+	{
+		// $data['pagetitle'] = "print_profil_individu";
+		$id_siswa = $this->profil->get_siswa_by_nourut($kelas,$no_urut)['id_siswa'];
 		$siswa = $this->profil->get_siswa($id_siswa);
 		$pribadi_kategori = $this->profil->get_kategori(1,5);
 		$sosial_kategori = $this->profil->get_kategori(6,8);
@@ -59,7 +102,6 @@ class Profil_individu extends CI_Controller {
 		$kategori_chart = $this->profil->get_kategori_chart($id_siswa);
 		$section_chart = $this->profil->get_section_chart($id_siswa);
 		$namafile = $siswa['nama_siswa'] . " (Profil Individu) ";
-	
 
 		include APPPATH.'third_party/PHPExcel/PHPExcel.php';
 		$kelas = $this->kelas->get_all_kelas();
@@ -381,20 +423,28 @@ class Profil_individu extends CI_Controller {
 	        $excel->getActiveSheet()
 	                ->getColumnDimension($col)
 	                ->setAutoSize(false);
-	    } 
-		// $gdImage = imagecreatefromjpeg('http://localhost/dcm-app/assets/img/core/logo.png');
+	    }
+
 		$objDrawing = new PHPExcel_Worksheet_Drawing();
 		$objDrawing->setName('test_img');
 		$objDrawing->setDescription('test_img');
-		$objDrawing->setPath('./assets/img/core/logo.png');
-		$objDrawing->setCoordinates('A1');                      
-		//setOffsetX works properly
+		$objDrawing->setPath("./assets/chart_img/" . $chart1 . ".jpg");
+		$objDrawing->setCoordinates('A1');   
 		$objDrawing->setOffsetX(5); 
-		$objDrawing->setOffsetY(5);                
-		//set width, height
-		$objDrawing->setWidth(100); 
-		$objDrawing->setHeight(35); 
+		$objDrawing->setOffsetY(5);    
+		$objDrawing->setWidth(300); 
+		$objDrawing->setHeight(300); 
 		$objDrawing->setWorksheet($excel->getActiveSheet());
+
+		// $gdImage = imagecreatefromjpeg('images/officelogo.jpg');
+		// // Add a drawing to the worksheetecho date('H:i:s') . " Add a drawing to the worksheet\n";
+		// $objDrawing = new PHPExcel_Worksheet_MemoryDrawing();
+		// $objDrawing->setName('Sample image');$objDrawing->setDescription('Sample image');
+		// $objDrawing->setImageResource($gdImage);
+		// $objDrawing->setRenderingFunction(PHPExcel_Worksheet_MemoryDrawing::RENDERING_JPEG);
+		// $objDrawing->setMimeType(PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_DEFAULT);
+		// $objDrawing->setHeight(150);
+		// $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment;filename="'.$namafile.'.xlsx"');

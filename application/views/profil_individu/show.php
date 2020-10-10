@@ -252,7 +252,6 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 		</div>
 	</div>
 <?php endforeach ?>
-
 <script>
 	var catChart = document.getElementById('kategoriChart').getContext('2d');
 	var categoryChart = new Chart(catChart, {
@@ -279,7 +278,7 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 	                    beginAtZero: true
 	                }
 	            }]
-	        }
+	        },
 	    }
 	});
 
@@ -308,7 +307,27 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 	                    beginAtZero: true
 	                }
 	            }]
-	        }
+	        },
 	    }
 	});
+
+
+	<?php if ( $this->uri->segment(2) == "print_laporan" ): ?>
+	setTimeout(done,500);
+	function done(){
+	    var chart1 = categoryChart.toBase64Image();
+	    var chart2 = sectionChart.toBase64Image();
+	    var kelas = "<?= $this->uri->segment(3) ?>"
+	    var no_urut = "<?= $this->uri->segment(4) ?>"
+	    $.ajax({
+	    	url : "<?= base_url() ?>profil_individu/upload_chart/",
+	    	data : { chart1 : chart1, chart2 : chart2 },
+	    	type : "post",
+	    	dataType : "json",
+	    	success : function(result) {
+	    		window.location = "<?= base_url() ?>profil_individu/do_print_laporan/"+ kelas +"/"+ no_urut +"/"+ result.chart1 + "/" + result.chart2
+	    	}
+	    });
+	}
+	<?php endif ?>
 </script>
