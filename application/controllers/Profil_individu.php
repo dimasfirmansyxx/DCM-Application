@@ -464,9 +464,6 @@ class Profil_individu extends CI_Controller {
 		    )
 		);
 
-		unlink("./assets/chart_img/" . $chart1 . ".jpg");
-		unlink("./assets/chart_img/" . $chart2 . ".jpg");
-
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment;filename="'.$namafile.'.xlsx"');
 		header('Cache-Control: max-age=1');
