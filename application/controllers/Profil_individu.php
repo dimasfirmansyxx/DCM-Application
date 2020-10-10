@@ -186,6 +186,8 @@ class Profil_individu extends CI_Controller {
 			}
 			$sheet->setCellValue("W13",$jmlpribadi);
 			$sheet->setCellValue("X13",ceil($jmlpribadi / 100 * 100) . "%");
+			$excel->getActiveSheet()->getStyle("W13")->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("X13")->applyFromArray($tableborderStyle);
 			// sosial
 			$sheet->setCellValue("A19","II.");
 			$sheet->setCellValue("B19","SOSIAL");
@@ -229,6 +231,8 @@ class Profil_individu extends CI_Controller {
 			}
 			$sheet->setCellValue("W19",$jmlsosial);
 			$sheet->setCellValue("X19",ceil($jmlsosial / 100 * 100) . "%");
+			$excel->getActiveSheet()->getStyle("W19")->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("X19")->applyFromArray($tableborderStyle);
 			// belajar
 			$sheet->setCellValue("A23","III.");
 			$sheet->setCellValue("B23","BELAJAR");
@@ -272,6 +276,8 @@ class Profil_individu extends CI_Controller {
 			}
 			$sheet->setCellValue("W23",$jmlbelajar);
 			$sheet->setCellValue("X23",ceil($jmlbelajar / 100 * 100) . "%");
+			$excel->getActiveSheet()->getStyle("W23")->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("X23")->applyFromArray($tableborderStyle);
 			// karir
 			$sheet->setCellValue("A27","IV.");
 			$sheet->setCellValue("B27","KARIR");
@@ -315,6 +321,8 @@ class Profil_individu extends CI_Controller {
 			}
 			$sheet->setCellValue("W27",$jmlkarir);
 			$sheet->setCellValue("X27",ceil($jmlkarir / 100 * 100) . "%");
+			$excel->getActiveSheet()->getStyle("W27")->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("X27")->applyFromArray($tableborderStyle);
 			// essay
 			$i = 0;
 			$begin = 30;
