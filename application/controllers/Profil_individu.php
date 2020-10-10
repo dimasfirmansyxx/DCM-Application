@@ -374,7 +374,6 @@ class Profil_individu extends CI_Controller {
 		$excel->getActiveSheet()->getColumnDimension('W')->setWidth(8.3);
 		$excel->getActiveSheet()->getColumnDimension('X')->setWidth(5);
 
-
 		
 		$excel->getActiveSheet()->setTitle("Profil Individu");
 
@@ -383,6 +382,19 @@ class Profil_individu extends CI_Controller {
 	                ->getColumnDimension($col)
 	                ->setAutoSize(false);
 	    } 
+		// $gdImage = imagecreatefromjpeg('http://localhost/dcm-app/assets/img/core/logo.png');
+		$objDrawing = new PHPExcel_Worksheet_Drawing();
+		$objDrawing->setName('test_img');
+		$objDrawing->setDescription('test_img');
+		$objDrawing->setPath('./assets/img/core/logo.png');
+		$objDrawing->setCoordinates('A1');                      
+		//setOffsetX works properly
+		$objDrawing->setOffsetX(5); 
+		$objDrawing->setOffsetY(5);                
+		//set width, height
+		$objDrawing->setWidth(100); 
+		$objDrawing->setHeight(35); 
+		$objDrawing->setWorksheet($excel->getActiveSheet());
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment;filename="'.$namafile.'.xlsx"');
