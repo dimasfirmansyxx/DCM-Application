@@ -426,25 +426,43 @@ class Profil_individu extends CI_Controller {
 	    }
 
 		$objDrawing = new PHPExcel_Worksheet_Drawing();
-		$objDrawing->setName('test_img');
-		$objDrawing->setDescription('test_img');
+		$objDrawing->setName('Chart 1');
+		$objDrawing->setDescription('Chart 1');
 		$objDrawing->setPath("./assets/chart_img/" . $chart1 . ".jpg");
-		$objDrawing->setCoordinates('A1');   
+		$objDrawing->setCoordinates('A37');   
 		$objDrawing->setOffsetX(5); 
 		$objDrawing->setOffsetY(5);    
 		$objDrawing->setWidth(300); 
 		$objDrawing->setHeight(300); 
 		$objDrawing->setWorksheet($excel->getActiveSheet());
 
-		// $gdImage = imagecreatefromjpeg('images/officelogo.jpg');
-		// // Add a drawing to the worksheetecho date('H:i:s') . " Add a drawing to the worksheet\n";
-		// $objDrawing = new PHPExcel_Worksheet_MemoryDrawing();
-		// $objDrawing->setName('Sample image');$objDrawing->setDescription('Sample image');
-		// $objDrawing->setImageResource($gdImage);
-		// $objDrawing->setRenderingFunction(PHPExcel_Worksheet_MemoryDrawing::RENDERING_JPEG);
-		// $objDrawing->setMimeType(PHPExcel_Worksheet_MemoryDrawing::MIMETYPE_DEFAULT);
-		// $objDrawing->setHeight(150);
-		// $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());
+		$objDrawing2 = new PHPExcel_Worksheet_Drawing();
+		$objDrawing2->setName('Chart 2');
+		$objDrawing2->setDescription('Chart 2');
+		$objDrawing2->setPath("./assets/chart_img/" . $chart2 . ".jpg");
+		$objDrawing2->setCoordinates('A54');   
+		$objDrawing2->setOffsetX(5); 
+		$objDrawing2->setOffsetY(5);    
+		$objDrawing2->setWidth(300); 
+		$objDrawing2->setHeight(300); 
+		$objDrawing2->setWorksheet($excel->getActiveSheet());
+
+		$excel->getActiveSheet()->getStyle('A37:P52')->applyFromArray(
+		    array(
+		        'fill' => array(
+		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+		            'color' => array('rgb' => 'FFFFFF')
+		        )
+		    )
+		);
+		$excel->getActiveSheet()->getStyle('A54:P69')->applyFromArray(
+		    array(
+		        'fill' => array(
+		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+		            'color' => array('rgb' => 'FFFFFF')
+		        )
+		    )
+		);
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment;filename="'.$namafile.'.xlsx"');
