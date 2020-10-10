@@ -144,10 +144,13 @@ class Profil_individu extends CI_Controller {
 			// pribadi
 			$sheet->setCellValue("A13","I.");
 			$sheet->setCellValue("B13","PRIBADI");
-			$sheet->mergeCells("B13:X13");
+			$sheet->mergeCells("B13:V13");
 			$excel->getActiveSheet()->getStyle('A13')->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle('B13:X13')->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('B13:V13')->applyFromArray($tableborderStyle);
+			$jmlkeseluruhan = 0;
+
 			$i = 1;
+			$jmlpribadi = 0;
 			$begin = 14;
 			foreach ($pribadi_kategori as $kategori) {
 				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
@@ -171,19 +174,26 @@ class Profil_individu extends CI_Controller {
 					$coljawaban++;
 				}
 
+				$jmlpribadi += $jumlah;
+				$jmlkeseluruhan += $jumlah;
+
 				$sheet->setCellValue("W" . $begin,$jumlah);
 				$sheet->setCellValue("X" . $begin,$jumlah / 20 * 100 . "%");
 				$excel->getActiveSheet()->getStyle("W" . $begin)->applyFromArray($tableborderStyle);
 				$excel->getActiveSheet()->getStyle("X" . $begin)->applyFromArray($tableborderStyle);
+
 				$begin++;
 			}
+			$sheet->setCellValue("W13",$jmlpribadi);
+			$sheet->setCellValue("X13",ceil($jmlpribadi / 100 * 100) . "%");
 			// sosial
 			$sheet->setCellValue("A19","II.");
 			$sheet->setCellValue("B19","SOSIAL");
-			$sheet->mergeCells("B19:X19");
+			$sheet->mergeCells("B19:V19");
 			$excel->getActiveSheet()->getStyle('A19')->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle('B19:X19')->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('B19:V19')->applyFromArray($tableborderStyle);
 			$i = 1;
+			$jmlsosial = 0;
 			$begin = 20;
 			foreach ($sosial_kategori as $kategori) {
 				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
@@ -207,6 +217,9 @@ class Profil_individu extends CI_Controller {
 					$coljawaban++;
 				}
 
+				$jmlsosial += $jumlah;
+				$jmlkeseluruhan += $jumlah;
+
 				$sheet->setCellValue("W" . $begin,$jumlah);
 				$sheet->setCellValue("X" . $begin,$jumlah / 20 * 100 . "%");
 				$excel->getActiveSheet()->getStyle("W" . $begin)->applyFromArray($tableborderStyle);
@@ -214,13 +227,16 @@ class Profil_individu extends CI_Controller {
 				$begin++;
 
 			}
+			$sheet->setCellValue("W19",$jmlsosial);
+			$sheet->setCellValue("X19",ceil($jmlsosial / 100 * 100) . "%");
 			// belajar
 			$sheet->setCellValue("A23","III.");
 			$sheet->setCellValue("B23","BELAJAR");
-			$sheet->mergeCells("B23:X23");
+			$sheet->mergeCells("B23:V23");
 			$excel->getActiveSheet()->getStyle('A23')->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle('B23:X23')->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('B23:V23')->applyFromArray($tableborderStyle);
 			$i = 1;
+			$jmlbelajar = 0;
 			$begin = 24;
 			foreach ($belajar_kategori as $kategori) {
 				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
@@ -244,6 +260,9 @@ class Profil_individu extends CI_Controller {
 					$coljawaban++;
 				}
 
+				$jmlbelajar += $jumlah;
+				$jmlkeseluruhan += $jumlah;
+
 				$sheet->setCellValue("W" . $begin,$jumlah);
 				$sheet->setCellValue("X" . $begin,$jumlah / 20 * 100 . "%");
 				$excel->getActiveSheet()->getStyle("W" . $begin)->applyFromArray($tableborderStyle);
@@ -251,13 +270,16 @@ class Profil_individu extends CI_Controller {
 				$begin++;
 
 			}
+			$sheet->setCellValue("W23",$jmlbelajar);
+			$sheet->setCellValue("X23",ceil($jmlbelajar / 100 * 100) . "%");
 			// karir
 			$sheet->setCellValue("A27","IV.");
 			$sheet->setCellValue("B27","KARIR");
-			$sheet->mergeCells("B27:X27");
+			$sheet->mergeCells("B27:V27");
 			$excel->getActiveSheet()->getStyle('A27')->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle('B27:X27')->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('B27:V27')->applyFromArray($tableborderStyle);
 			$i = 1;
+			$jmlkarir = 0;
 			$begin = 28;
 			foreach ($karir_kategori as $kategori) {
 				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
@@ -281,6 +303,9 @@ class Profil_individu extends CI_Controller {
 					$coljawaban++;
 				}
 
+				$jmlkarir += $jumlah;
+				$jmlkeseluruhan += $jumlah;
+
 				$sheet->setCellValue("W" . $begin,$jumlah);
 				$sheet->setCellValue("X" . $begin,$jumlah / 20 * 100 . "%");
 				$excel->getActiveSheet()->getStyle("W" . $begin)->applyFromArray($tableborderStyle);
@@ -288,6 +313,8 @@ class Profil_individu extends CI_Controller {
 				$begin++;
 
 			}
+			$sheet->setCellValue("W27",$jmlkarir);
+			$sheet->setCellValue("X27",ceil($jmlkarir / 100 * 100) . "%");
 			// essay
 			$i = 0;
 			$begin = 30;
@@ -304,7 +331,7 @@ class Profil_individu extends CI_Controller {
 				$sheet->mergeCells("B$begin:X$begin");
 				$excel->getActiveSheet()->getStyle("B$begin:X$begin")->applyFromArray($tableborderStyle);
 				$sheet->setCellValue("B" . $begin++,$essay['soal']);
-				
+
 				$sheet->mergeCells("B$begin:X$begin");
 				$excel->getActiveSheet()->getStyle("B$begin:X$begin")->applyFromArray($tableborderStyle);
 				$sheet->setCellValue("B" .$begin,ltrim($get_jawaban[$i++]['remarks']));
@@ -340,6 +367,7 @@ class Profil_individu extends CI_Controller {
 		$excel->getActiveSheet()->getColumnDimension('X')->setWidth(5);
 
 
+		
 		$excel->getActiveSheet()->setTitle("Profil Individu");
 
 		foreach (range('A', $excel->getActiveSheet()->getHighestDataColumn()) as $col) {
@@ -350,9 +378,10 @@ class Profil_individu extends CI_Controller {
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment;filename="'.$namafile.'.xlsx"');
-		header('Cache-Control: max-age=0');
+		header('Cache-Control: max-age=1');
 		 
 		$objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
+		$objWriter->setIncludeCharts(TRUE);
 		$objWriter->save('php://output');
 
 
