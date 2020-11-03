@@ -146,6 +146,8 @@ class Profil_individu extends CI_Controller {
 
 		// HEAD LABEL
 		$sheet->setCellValue("A10","BIDANG DAN FREKUENSI MASALAH");
+		$sheet->mergeCells("A10:X10");
+		$excel->getActiveSheet()->getStyle('A10')->applyFromArray($headerStyle);
 
 		// DATA TABLE
 		$tableborderStyle = [
@@ -160,7 +162,7 @@ class Profil_individu extends CI_Controller {
 		$sheet->setCellValue("A11","KODE TOPIK MASALAH");
 		$sheet->setCellValue("C11","JENIS MASALAH");
 		$sheet->setCellValue("C12","NOMOR MASALAH");
-		$sheet->setCellValue("W11","JUMLAH");
+		$sheet->setCellValue("W11","JML");
 		$sheet->setCellValue("X11","%");
 		// head style
 		$sheet->mergeCells("A11:B12");
@@ -413,7 +415,7 @@ class Profil_individu extends CI_Controller {
 		$excel->getActiveSheet()->getColumnDimension('T')->setWidth(3);
 		$excel->getActiveSheet()->getColumnDimension('U')->setWidth(3);
 		$excel->getActiveSheet()->getColumnDimension('V')->setWidth(3);
-		$excel->getActiveSheet()->getColumnDimension('W')->setWidth(8.3);
+		$excel->getActiveSheet()->getColumnDimension('W')->setWidth(4);
 		$excel->getActiveSheet()->getColumnDimension('X')->setWidth(5);
 
 		
@@ -425,29 +427,38 @@ class Profil_individu extends CI_Controller {
 	                ->setAutoSize(false);
 	    }
 
+	    $excel->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
+
+		$sheet->setCellValue("A72", "GRAFIK PROFIL INDIVIDUAL");
+		$sheet->setCellValue("A73", strtoupper($siswa['nama_siswa']));
+		$excel->getActiveSheet()->getStyle('A72')->applyFromArray($headerStyle);
+		$excel->getActiveSheet()->getStyle('A73')->applyFromArray($headerStyle);
+		$sheet->mergeCells("A72:X72");
+		$sheet->mergeCells("A73:X73");
+
 		$objDrawing = new PHPExcel_Worksheet_Drawing();
 		$objDrawing->setName('Chart 1');
 		$objDrawing->setDescription('Chart 1');
 		$objDrawing->setPath("./assets/chart_img/" . $chart1 . ".jpg");
-		$objDrawing->setCoordinates('A37');   
-		$objDrawing->setOffsetX(5); 
-		$objDrawing->setOffsetY(5);    
-		$objDrawing->setWidth(300); 
-		$objDrawing->setHeight(300); 
+		$objDrawing->setCoordinates('B75');   
+		$objDrawing->setOffsetX(50); 
+		$objDrawing->setOffsetY(0);    
+		$objDrawing->setWidth(450); 
+		$objDrawing->setHeight(450); 
 		$objDrawing->setWorksheet($excel->getActiveSheet());
 
 		$objDrawing2 = new PHPExcel_Worksheet_Drawing();
 		$objDrawing2->setName('Chart 2');
 		$objDrawing2->setDescription('Chart 2');
 		$objDrawing2->setPath("./assets/chart_img/" . $chart2 . ".jpg");
-		$objDrawing2->setCoordinates('A54');   
-		$objDrawing2->setOffsetX(5); 
-		$objDrawing2->setOffsetY(5);    
-		$objDrawing2->setWidth(300); 
-		$objDrawing2->setHeight(300); 
+		$objDrawing2->setCoordinates('B99');   
+		$objDrawing2->setOffsetX(50); 
+		$objDrawing2->setOffsetY(0);    
+		$objDrawing2->setWidth(450); 
+		$objDrawing2->setHeight(450); 
 		$objDrawing2->setWorksheet($excel->getActiveSheet());
 
-		$excel->getActiveSheet()->getStyle('A37:P52')->applyFromArray(
+		$excel->getActiveSheet()->getStyle('B75:W97')->applyFromArray(
 		    array(
 		        'fill' => array(
 		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -455,7 +466,7 @@ class Profil_individu extends CI_Controller {
 		        )
 		    )
 		);
-		$excel->getActiveSheet()->getStyle('A54:P69')->applyFromArray(
+		$excel->getActiveSheet()->getStyle('B99:W121')->applyFromArray(
 		    array(
 		        'fill' => array(
 		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -463,6 +474,11 @@ class Profil_individu extends CI_Controller {
 		        )
 		    )
 		);
+
+		$sheet->getPageSetup()->setFitToWidth(1);    
+	    $sheet->getPageSetup()->setFitToHeight(0);
+
+	    $excel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header('Content-Disposition: attachment;filename="'.$namafile.'.xlsx"');
