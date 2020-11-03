@@ -92,7 +92,15 @@
       if ( no_urut.trim() == "" ) {
         swal("Gagal","Isi nomor urut terlebih dahulu","warning");
       } else {
-        window.location = base_url + "profil_individu/print_laporan/" + kelas + "/" + no_urut;
+        $.ajax({
+          url : "<?= base_url() ?>profil_individu/upload_chart/",
+          data : { kelas : kelas },
+          type : "post",
+          dataType : "json",
+          success : function(result) {
+            window.location = "<?= base_url() ?>profil_individu/do_print_laporan/"+ kelas +"/"+ no_urut +"/"+ result.chart1 + "/" + result.chart2
+          }
+        });
       }
     });
 

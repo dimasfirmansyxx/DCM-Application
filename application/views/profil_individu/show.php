@@ -233,11 +233,11 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 	</div>
 </div>
 <div class="row mt-3">
-	<div class="col-5">
+	<div class="col-12">
 		<canvas id="kategoriChart" height="200"></canvas>
 	</div>
 	<div class="col-2"></div>
-	<div class="col-5">
+	<div class="col-12">
 		<canvas id="sectionChart" height="200"></canvas>
 	</div>
 </div>
@@ -333,6 +333,20 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 	    }
 	});
 
+	setTimeout(setSessChart,500);
+	function setSessChart(){
+	    var chart1 = categoryChart.toBase64Image();
+	    var chart2 = sectionChart.toBase64Image();
+	    $.ajax({
+	    	url : "<?= base_url() ?>profil_individu/set_chart_session/",
+	    	data : { chart1 : chart1, chart2 : chart2 },
+	    	type : "post",
+	    	dataType : "json",
+	    	success : function(result) {
+	    		
+	    	}
+	    });
+	}
 
 	<?php if ( $this->uri->segment(2) == "print_laporan" ): ?>
 	setTimeout(done,500);

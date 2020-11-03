@@ -62,10 +62,18 @@ class Profil_individu extends CI_Controller {
 		$this->load->view("profil_individu/show",$data);
 	}
 
-	public function upload_chart()
+	public function set_chart_session()
 	{
 		$chart1 = $_POST['chart1'];
 		$chart2 = $_POST['chart2'];
+
+		$_SESSION["chart_profil"] = [$chart1, $chart2];
+	}
+
+	public function upload_chart()
+	{
+		$chart1 = $_SESSION["chart_profil"][0];
+		$chart2 = $_SESSION["chart_profil"][1];
 
 		$chart1img = $chart1;
 		$chart1img = str_replace('data:image/png;base64,', '', $chart1img);
@@ -487,8 +495,6 @@ class Profil_individu extends CI_Controller {
 		$objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
 		$objWriter->setIncludeCharts(TRUE);
 		$objWriter->save('php://output');
-
-
 
 		// $this->load->view('templates/head', $data);
 		// $this->load->view('profil_individu/show', $data);
