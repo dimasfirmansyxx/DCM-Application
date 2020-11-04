@@ -33,7 +33,17 @@
         <section class="col-lg-12">
           <div class="card">
             <div class="card-header bg-secondary">
-              Siswa
+              <div class="card-title">
+                Siswa
+              </div>
+              <div class="card-tools">
+                <select class="form-control" id="cmbkelas">
+                  <option value="0">-- Pilih Kelas --</option>
+                  <?php foreach ($kelas as $row): ?>
+                    <option value="<?= $row['id_kelas'] ?>"><?= $row['kelas'] ?></option>
+                  <?php endforeach ?>
+                </select>
+              </div>
             </div>
             <div class="card-body table-responsive">
               <table class="table table-bordered table-hover" id="data_table">
@@ -243,6 +253,8 @@
         },
         ],
       });
+
+      $('.dataTables_filter input').addClass('txtsearch');
     }
 
     function reloadData() {
@@ -486,6 +498,19 @@
         }
       });
     });
+
+    $("#cmbkelas").on("change",function(){
+      var kelas = $(this).val();
+      if ( kelas == "0" ) {
+        $(".txtsearch").val("");
+        $(".txtsearch").keyup();
+        $(".txtsearch").removeAttr('readonly');
+      } else {
+        $(".txtsearch").val(kelas);
+        $(".txtsearch").keyup();
+        $(".txtsearch").attr('readonly','readonly');
+      }
+    })
 
   });
 </script>

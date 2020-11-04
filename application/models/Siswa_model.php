@@ -3,7 +3,7 @@
 class Siswa_model extends CI_Model {
 	var $table = 'tblsiswa';
     var $column_order = array('id_siswa', 'nama_siswa', 'id_kelas', 'jenis_kelamin', 'alamat');
-    var $column_search = array('nama_siswa');
+    var $column_search = array('nama_siswa','id_kelas');
     var $order = array('id_siswa' => 'asc'); 
  
     private function _get_datatables_query()
@@ -14,7 +14,6 @@ class Siswa_model extends CI_Model {
         {
             if($_POST['search']['value']) // jika datatable mengirimkan pencarian dengan metode POST
             {
-
                 if($i===0) // looping awal
                 {
                     $this->db->group_start(); 
