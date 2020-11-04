@@ -12,7 +12,7 @@ class Tabulasi_model extends CI_Model {
 		if ( $id_kelas != null ) {
 			$this->db->where("id_kelas",$id_kelas);
 		}
-		$this->db->where("verification","verif");
+		// $this->db->where("verification","verif");
 		return $this->db->get("tblsiswa")->num_rows();
 	}
 
