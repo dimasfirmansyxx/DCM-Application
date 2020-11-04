@@ -386,7 +386,7 @@ class Profil_individu extends CI_Controller {
 
 		// SET WIDTH OF COLUMN
 		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(4);
-		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(22);
+		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(39);
 		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(3);
 		$excel->getActiveSheet()->getColumnDimension('D')->setWidth(3);
 		$excel->getActiveSheet()->getColumnDimension('E')->setWidth(3);
@@ -419,7 +419,22 @@ class Profil_individu extends CI_Controller {
 	                ->setAutoSize(false);
 	    }
 
-	    $excel->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
+	    // $excel->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
+
+	    $sheet->setCellValue("B38","Mengetahui,");
+	    $sheet->setCellValue("B39","Kepala Sekolah");
+		$sheet->setCellValue("B45",$this->Clsglobal->site_info("kepala_sekolah"));
+		$sheet->setCellValue("M38","Mengetahui,");
+	    $sheet->setCellValue("M39","Guru Pembimbing");
+		$sheet->setCellValue("M45",$this->Clsglobal->site_info("guru_pembimbing"));
+		$excel->getActiveSheet()->getStyle('B38:W45')->applyFromArray(
+		    array(
+		        'fill' => array(
+		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+		            'color' => array('rgb' => 'FFFFFF')
+		        )
+		    )
+		);
 
 		$sheet->setCellValue("A72", "GRAFIK PROFIL INDIVIDUAL");
 		$sheet->setCellValue("A73", strtoupper($siswa['nama_siswa']));
