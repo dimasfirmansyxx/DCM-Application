@@ -94,6 +94,7 @@ class Profil_individu extends CI_Controller {
 		$soal_essay = $this->profil->get_essay();
 		$kategori_chart = $this->profil->get_kategori_chart($id_siswa);
 		$section_chart = $this->profil->get_section_chart($id_siswa);
+		$answered = $this->profil->get_answered($id_siswa);
 		$namafile = $siswa['nama_siswa'] . " (Profil Individu) ";
 
 		include APPPATH.'third_party/PHPExcel/PHPExcel.php';
@@ -386,7 +387,7 @@ class Profil_individu extends CI_Controller {
 
 
 		// SET WIDTH OF COLUMN
-		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(10.57);
 		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(39);
 		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(3);
 		$excel->getActiveSheet()->getColumnDimension('D')->setWidth(3);
@@ -413,14 +414,6 @@ class Profil_individu extends CI_Controller {
 
 		
 		$excel->getActiveSheet()->setTitle("Profil Individu");
-
-		foreach (range('A', $excel->getActiveSheet()->getHighestDataColumn()) as $col) {
-	        $excel->getActiveSheet()
-	                ->getColumnDimension($col)
-	                ->setAutoSize(false);
-	    }
-
-	    // $excel->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
 
 	    $sheet->setCellValue("B38","Mengetahui,");
 	    $sheet->setCellValue("B39","Kepala Sekolah");
@@ -482,6 +475,37 @@ class Profil_individu extends CI_Controller {
 		        )
 		    )
 		);
+
+		// TOPIK MASALAH SOAL
+		$sheet->setCellValue("A138", "TOPIK MASALAH");
+		// HEADER STYLE
+		$headerStyle = [
+			'font' => ['bold' => true, 'size' => '16'],
+			'alignment' => [
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+		        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+			],
+
+		];
+		$excel->getActiveSheet()->getStyle('A138')->applyFromArray($headerStyle);
+		$sheet->mergeCells("A138:X138");
+
+		$sheet->setCellValue("A140", "Nomor Soal");
+		$sheet->setCellValue("B140", "Soal");
+		$sheet->mergeCells("B140:X140");
+		$excel->getActiveSheet()->getStyle('A140')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('B140:X140')->applyFromArray($tableborderStyle);
+		$begin = 141;
+		foreach ($answered as $soal) {
+			$get = $this->soal->get_soal($soal['no_soal']);
+			$sheet->setCellValue("A" . $begin, $get['no_soal']);
+			$sheet->setCellValue("B" . $begin, $get['soal']);
+			$excel->getActiveSheet()->getStyle('A' . $begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('B' . $begin . ":X" . $begin)->applyFromArray($tableborderStyle);
+			$sheet->mergeCells('B' . $begin . ":X" . $begin);
+			$begin++;
+		}
+
 
 		$sheet->getPageSetup()->setFitToWidth(1);    
 	    $sheet->getPageSetup()->setFitToHeight(0);
