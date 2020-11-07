@@ -33,6 +33,13 @@ class Profil_individu_model extends CI_Model {
 		return $output;
 	}
 
+	public function get_answered($id_siswa)
+	{
+		$this->db->where("id_siswa",$id_siswa);
+		$this->db->where("remarks","y");
+		return $this->db->get("tbljawaban")->result_array();
+	}
+
 	public function get_kategori_chart($id_siswa)
 	{
 		$kategori = $this->get_kategori(1,12);

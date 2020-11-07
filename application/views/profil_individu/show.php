@@ -252,6 +252,27 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 		</div>
 	</div>
 <?php endforeach ?>
+<br><br>
+
+<h4 class="text-center">Topik Masalah</h4>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Nomor Soal</th>
+			<th>Soal</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($answered as $soal): ?>
+			<?php $get = $this->soal->get_soal($soal['no_soal']) ?>
+			<tr>
+				<td><?= $get['no_soal'] ?></td>
+				<td><?= $get['soal'] ?></td>
+			</tr>
+		<?php endforeach ?>
+	</tbody>
+</table>
+
 <script>
 	var catChart = document.getElementById('kategoriChart').getContext('2d');
 	var categoryChart = new Chart(catChart, {

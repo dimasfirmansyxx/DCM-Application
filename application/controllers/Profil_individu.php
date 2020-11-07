@@ -42,6 +42,7 @@ class Profil_individu extends CI_Controller {
 		$data['soal_essay'] = $this->profil->get_essay();
 		$data['kategori_chart'] = $this->profil->get_kategori_chart($id_siswa);
 		$data['section_chart'] = $this->profil->get_section_chart($id_siswa);
+		$data['answered'] = $this->profil->get_answered($id_siswa);
 		$this->load->view("templates/head",$data);
 		$this->load->view("profil_individu/show",$data);
 	}
