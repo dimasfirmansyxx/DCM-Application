@@ -494,7 +494,8 @@ class Profil_individu extends CI_Controller {
 		$objWriter = PHPExcel_IOFactory::createWriter($excel, 'Excel2007');
 		$objWriter->setIncludeCharts(TRUE);
 		$objWriter->save('php://output');
-
+		unlink("./assets/chart_img/" . $chart1 . ".jpg");
+		unlink("./assets/chart_img/" . $chart2 . ".jpg");
 		// $this->load->view('templates/head', $data);
 		// $this->load->view('profil_individu/show', $data);
 		// $this->load->view('templates/print', $data);
