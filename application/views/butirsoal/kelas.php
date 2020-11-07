@@ -127,9 +127,9 @@
         $(".cmbderajat").val(0);
       } else {
         if ( derajat == 0 ) {
-          window.location = base_url + "butirsoal/kelas/print_laporan/" + kelas;
+          window.location = base_url + "butirsoal/print_kelas/" + kelas;
         } else {
-          window.location = base_url + "butirsoal/kelas/print_laporan/" + kelas + "/" + derajat;
+          window.location = base_url + "butirsoal/print_kelas/" + kelas + "/" + derajat;
         }
       }
     });
