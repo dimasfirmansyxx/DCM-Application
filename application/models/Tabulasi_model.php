@@ -9,7 +9,7 @@ class Tabulasi_model extends CI_Model {
 
 	public function get_jml_siswa($id_kelas = null)
 	{
-		if ( $id_kelas != null ) {
+		if ( $id_kelas <> null ) {
 			$this->db->where("id_kelas",$id_kelas);
 		}
 		// $this->db->where("verification","verif");

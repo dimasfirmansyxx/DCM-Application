@@ -123,9 +123,17 @@
         $(".cmbderajat").val(0);
       } else {
         if ( derajat == 0 ) {
-          window.location = base_url + "topik/kelas/print_laporan/" + kelas;
+          $.ajax({
+            url : "<?= base_url() ?>topik/upload_chart/",
+            data : { kelas : kelas },
+            type : "post",
+            dataType : "json",
+            success : function(result) {
+              window.location = base_url + "topik/print_kelas/" + result.chart + "/" + kelas;
+            }
+          });
         } else {
-          window.location = base_url + "topik/kelas/print_laporan/" + kelas + "/" + derajat;
+            window.location = base_url + "topik/print_kelas/" + result.chart + "/" + kelas + "/" + derajat;
         }
       }
     });
