@@ -96,9 +96,9 @@
     $(".btnprint").on("click",function(){
       var derajat = $(".cmbderajat").val();
       if ( derajat == 0 ) {
-        window.location = base_url + "butirsoal/paralel/print_laporan";
+        window.location = base_url + "butirsoal/print_paralel";
       } else {
-        window.location = base_url + "butirsoal/paralel/print_laporan/" + derajat;
+        window.location = base_url + "butirsoal/print_paralel/" + derajat;
       }
     });
 
