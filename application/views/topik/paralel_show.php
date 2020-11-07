@@ -265,7 +265,7 @@
 	</div>
 </div>
 <div class="row mt-3">
-	<div class="col-6">
+	<div class="col-12">
 		<canvas id="kategoriChart" height="200"></canvas>
 	</div>
 </div>
@@ -288,6 +288,7 @@
 	        	<?php endforeach ?>
 	        ],
 	        datasets: [{
+	        	label: 'Persentase',
 	            data: [
 	            	<?php foreach ($get_kategori as $kategori): ?>
 		        		<?php if ( $kategori['id_kategori'] != 13 ) : ?>
@@ -300,6 +301,30 @@
 				        <?php endif ?>
 		        	<?php endforeach ?>
 	            ],
+	            backgroundColor: [
+	            	<?php foreach ($get_kategori as $kategori): ?>
+		        		<?php if ( $kategori['id_kategori'] != 13 ) : ?>
+			        		<?php 
+			        			$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
+								$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
+								$jmlsiswa = $this->tabulasi->get_jml_siswa();
+			        		?>
+							'rgba(255,99,132,1)',
+				        <?php endif ?>
+		        	<?php endforeach ?>
+				],
+				borderColor: [
+					<?php foreach ($get_kategori as $kategori): ?>
+		        		<?php if ( $kategori['id_kategori'] != 13 ) : ?>
+			        		<?php 
+			        			$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
+								$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
+								$jmlsiswa = $this->tabulasi->get_jml_siswa();
+			        		?>
+							'rgba(255,99,132,1)',
+				        <?php endif ?>
+		        	<?php endforeach ?>
+				],
 	            borderWidth: 1
 	        }]
 	    },
@@ -313,4 +338,18 @@
 	        }
 	    }
 	});
+
+	setTimeout(setSessChart,500);
+	function setSessChart(){
+	    var chart = categoryChart.toBase64Image();
+	    $.ajax({
+	    	url : "<?= base_url() ?>topik/set_chart_session/",
+	    	data : { chart : chart },
+	    	type : "post",
+	    	dataType : "json",
+	    	success : function(result) {
+	    		
+	    	}
+	    });
+	}
 </script>

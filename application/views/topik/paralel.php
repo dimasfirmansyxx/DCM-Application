@@ -95,9 +95,17 @@
     $(".btnprint").on("click",function(){
       var derajat = $(".cmbderajat").val();
       if ( derajat == 0 ) {
-        window.location = base_url + "topik/paralel/print_laporan";
+        $.ajax({
+          url : "<?= base_url() ?>topik/upload_chart/",
+          data : { derajat : derajat },
+          type : "post",
+          dataType : "json",
+          success : function(result) {
+            window.location = base_url + "topik/print_paralel/" + result.chart;
+          }
+        });
       } else {
-        window.location = base_url + "topik/paralel/print_laporan/" + derajat;
+          window.location = base_url + "topik/print_paralel/" + result.chart + "/" + derajat;
       }
     });
 
