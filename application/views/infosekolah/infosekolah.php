@@ -43,6 +43,10 @@
                   <label>Guru Pembimbing</label>
                   <input type="text" name="guru_pembimbing" class="form-control" required value="<?= $this->Clsglobal->site_info("guru_pembimbing") ?>">
                 </div>
+                <div class="form-group">
+                  <label>Teks Dasbor</label>
+                  <textarea class="form-control" name="welcome_message" required rows="10"><?= $this->Clsglobal->site_info("welcome_message") ?></textarea>
+                </div>
                 <button type="submit" class="btn btn-sm btn-block btn-primary btnsave">
                   Submit
                 </button>
