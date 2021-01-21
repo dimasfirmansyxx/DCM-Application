@@ -75,13 +75,13 @@
 			<div class="row mt-4">
 				<div class="col-6">
 					<div class="form-group">
-						<label>Masalah apakah yang belum tercantum diatas ?</label>
+						<label>Masalah anda yang belum tercantum diatas, isilah dikolom berikut ini !</label>
 						<textarea class="form-control" name="belumtercantum"></textarea>
 					</div>
 				</div>
 				<div class="col-6">
 					<div class="form-group">
-						<label>Masalah apakah yang paling menyusahkan ?</label>
+						<label>Masalah yang menurut anda paling menyusahkan, isilah nomor nya saja dikolom berikut !</label>
 						<textarea class="form-control" name="menyusahkan"></textarea>
 					</div>
 				</div>
