@@ -319,7 +319,8 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 	        scales: {
 	            yAxes: [{
 	                ticks: {
-	                    beginAtZero: true
+	                    beginAtZero: true,
+	                    max: 100
 	                }
 	            }]
 	        },
@@ -359,7 +360,8 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 	        scales: {
 	            yAxes: [{
 	                ticks: {
-	                    beginAtZero: true
+	                    beginAtZero: true,
+	                    max: 100
 	                }
 	            }]
 	        },
