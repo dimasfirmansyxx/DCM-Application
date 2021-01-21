@@ -8,7 +8,8 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Panduan</li>
+            <li class="breadcrumb-item"><a href="#">Panduan</a></li>
+            <li class="breadcrumb-item active">Edit</li>
           </ol>
         </div>
       </div>
@@ -22,17 +23,15 @@
         <section class="col-lg-12">
           <div class="card">
             <div class="card-header bg-secondary">
-              <h3 class="card-title">Panduan</h3>
-              <?php if ($this->Clsglobal->user_info($this->session->user_id)["privilege"] == "admin"): ?>
-                <div class="card-tools">
-                  <a href="<?= base_url() ?>panduan/edit" class="text-white">
-                    <i class="fas fa-edit"></i> Edit
-                  </a>
-                </div>
-              <?php endif ?>
+              <h3 class="card-title">Edit Panduan</h3>
             </div>
             <div class="card-body">
-              <?= $this->Clsglobal->site_info("panduan_app") ?>
+              <form action="" method="post">
+                <textarea class="summernote" name="panduan_app" required>
+                  <?= $this->Clsglobal->site_info("panduan_app") ?>
+                </textarea>
+                <button class="btn btn-primary btn-block" type="submit">Submit</button>
+              </form>
             </div>
           </div>
         </section>
@@ -41,3 +40,13 @@
     </div>
   </section>
 </div>
+
+<script>
+  $(function(){
+
+    $('.summernote').summernote({
+      minHeight: 300
+    })
+
+  })
+</script>
