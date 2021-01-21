@@ -28,7 +28,7 @@
         </div>
         <p class="login-box-msg">Informasi Login</p>
         <div class="input-group mb-3">
-          <input type="text" name="username" class="form-control" placeholder="Username" required>
+          <input type="text" name="username" class="form-control txtUsername" placeholder="Username" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -176,5 +176,9 @@
         });
       }
     });
+
+
+    $('.txtUsername').tooltip({'trigger':'focus', 'title': 'Tidak menggunakan SIMBOL, SPASI, dan HURUF KAPITAL'});
+
   });
 </script>
