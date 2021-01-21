@@ -79,8 +79,17 @@ class Kelas_model extends CI_Model {
 
     public function delete_kelas($id_kelas)
     {
-        $this->db->where("id_kelas",$id_kelas);
-        $this->db->delete("tblsiswa");
+        $getsiswa = $this->Clsglobal->get_query("tblsiswa",["id_kelas" => $id_kelas]);
+        foreach ($getsiswa as $siswa) {
+            $this->db->where("id_siswa",$siswa['id_siswa']);
+            $this->db->delete("tbljawaban");
+         
+            $this->db->where("id_siswa",$siswa['id_siswa']);
+            $this->db->delete("tbluser");
+            
+            $this->db->where("id_siswa",$siswa['id_siswa']);
+            $this->db->delete("tblsiswa");
+        }
 
     	$this->db->where("id_kelas",$id_kelas);
     	$delete = $this->db->delete($this->table);
