@@ -44,14 +44,18 @@
                   <input type="text" name="guru_pembimbing" class="form-control" required value="<?= $this->Clsglobal->site_info("guru_pembimbing") ?>">
                 </div>
                 <div class="form-group">
+                  <label>Tahun Pelajaran</label>
+                  <input type="text" name="tahun_ajar" class="form-control" required value="<?= $this->Clsglobal->site_info("tahun_ajar") ?>">
+                </div>
+                <div class="form-group">
                   <label>Teks Dasbor</label>
-                  <textarea class="summernote" name="welcome_message" required>
+                  <textarea id="summernote1" name="welcome_message" required>
                     <?= $this->Clsglobal->site_info("welcome_message") ?>
                   </textarea>
                 </div>
                 <div class="form-group">
                   <label>Teks Login</label>
-                  <textarea class="summernote" name="login_message" required>
+                  <textarea id="summernote2" name="login_message" required>
                     <?= $this->Clsglobal->site_info("login_message") ?>
                   </textarea>
                 </div>
@@ -165,7 +169,8 @@
       });
     });
 
-    $('.summernote').summernote()
+    $('#summernote1').summernote();
+    $('#summernote2').summernote();
 
   });
 </script>

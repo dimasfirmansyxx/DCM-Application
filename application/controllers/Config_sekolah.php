@@ -32,6 +32,7 @@ class Config_sekolah extends CI_Controller {
 			"alamat" => $this->input->post("alamat",true),
 			"kepala_sekolah" => ucwords($this->input->post("kepala_sekolah",true)),
 			"guru_pembimbing" => ucwords($this->input->post("guru_pembimbing",true)),
+			"tahun_ajar" => ucwords($this->input->post("tahun_ajar",true)),
 			"welcome_message" => nl2br($this->input->post("welcome_message")),
 			"login_message" => nl2br($this->input->post("login_message"))
 		];
