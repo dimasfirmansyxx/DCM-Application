@@ -15,6 +15,7 @@
 
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-header">APLIKASI</li>
         <li class="nav-item">
           <a href="<?= base_url() ?>beranda" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -23,9 +24,18 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="<?= base_url() ?>panduan" class="nav-link">
+            <i class="nav-icon fas fa-book"></i>
+            <p>
+              Panduan Aplikasi
+            </p>
+          </a>
+        </li>
 
         <?php if ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "siswa" ): ?>
 
+        <li class="nav-header">PENGISIAN SOAL</li>
         <li class="nav-item">
           <a href="<?= base_url() ?>jawab" class="nav-link">
             <i class="nav-icon fas fa-tasks"></i>
