@@ -87,6 +87,8 @@ class Profil_kelas extends CI_Controller {
 		$sheet->setCellValue("C6",": " . $this->Clsglobal->site_info("nama_sekolah"));
 		$sheet->setCellValue("B7","Alamat");
 		$sheet->setCellValue("C7",": " . $this->Clsglobal->site_info("alamat"));
+		$sheet->setCellValue("B8","Tahun Pelajaran");
+		$sheet->setCellValue("C8",": " . $this->Clsglobal->site_info("tahun_ajar"));
 
 		// DATA TABLE
 		$tableborderStyle = [
@@ -98,55 +100,55 @@ class Profil_kelas extends CI_Controller {
         	],
         ];
 		// head tabble
-		$sheet->setCellValue("A9","No.");
-		$sheet->setCellValue("B9","Nama");
-		$sheet->setCellValue("C9","Jenis Kelamin");
-		$sheet->setCellValue("D9","Topik Masalah");
-		$sheet->setCellValue("P9","JML");
+		$sheet->setCellValue("A10","No.");
+		$sheet->setCellValue("B10","Nama");
+		$sheet->setCellValue("C10","Jenis Kelamin");
+		$sheet->setCellValue("D10","Topik Masalah");
+		$sheet->setCellValue("P10","JML");
 		// head style
-		$sheet->mergeCells("A9:A11");
-		$sheet->mergeCells("B9:B11");
-		$sheet->mergeCells("C9:C11");
-		$sheet->mergeCells("D9:O9");
-		$sheet->mergeCells("P9:P11");
-		$excel->getActiveSheet()->getStyle('A9:A11')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('B9:B11')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('C9:C11')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('D9:O9')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('P9:P11')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('A9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('A9')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		$excel->getActiveSheet()->getStyle('B9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('B9')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		$excel->getActiveSheet()->getStyle('C9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('C9')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		$excel->getActiveSheet()->getStyle('D9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('P9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('P9')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-	    $excel->getActiveSheet()->getStyle("D10:O11")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$sheet->mergeCells("A10:A12");
+		$sheet->mergeCells("B10:B12");
+		$sheet->mergeCells("C10:C12");
+		$sheet->mergeCells("D10:O10");
+		$sheet->mergeCells("P10:P12");
+		$excel->getActiveSheet()->getStyle('A10:A12')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('B10:B12')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('C10:C12')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('D10:O10')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('P10:P12')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('A10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('A10')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$excel->getActiveSheet()->getStyle('B10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('B10')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$excel->getActiveSheet()->getStyle('C10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('C10')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$excel->getActiveSheet()->getStyle('D10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('P10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('P10')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+	    $excel->getActiveSheet()->getStyle("D10:O12")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-		$sheet->setCellValue("D10","Pribadi");
-		$sheet->setCellValue("I10","Sosial");
-		$sheet->setCellValue("L10","Belajar");
-		$sheet->setCellValue("O10","Karir");
-		$sheet->mergeCells("D10:H10");
-		$sheet->mergeCells("I10:K10");
-		$sheet->mergeCells("L10:N10");
-		$excel->getActiveSheet()->getStyle('D10:H10')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('I10:K10')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('L10:N10')->applyFromArray($tableborderStyle);
+		$sheet->setCellValue("D11","Pribadi");
+		$sheet->setCellValue("I11","Sosial");
+		$sheet->setCellValue("L11","Belajar");
+		$sheet->setCellValue("O11","Karir");
+		$sheet->mergeCells("D11:H11");
+		$sheet->mergeCells("I11:K11");
+		$sheet->mergeCells("L11:N11");
+		$excel->getActiveSheet()->getStyle('D11:H11')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('I11:K11')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('L11:N11')->applyFromArray($tableborderStyle);
 
 		$colstopik = ["D","E","F","G","H","I","J","K","L","M","N","O"];
 		$valtopik = ["A","B","C","D","E","F","G","H","I","J","K","L"];
 		for($i = 0; $i < count($get_kategori) - 1; $i++) {
 			// $sheet->setCellValue($colstopik[$i] . "11",$get_kategori[$i]['nama_kategori']);
-			$sheet->setCellValue($colstopik[$i] . "11",$valtopik[$i]);
-			$excel->getActiveSheet()->getStyle($colstopik[$i] . "11")->applyFromArray($tableborderStyle);
+			$sheet->setCellValue($colstopik[$i] . "12",$valtopik[$i]);
+			$excel->getActiveSheet()->getStyle($colstopik[$i] . "12")->applyFromArray($tableborderStyle);
 		}
 
 
 		// data
-		$begin = 12;
+		$begin = 13;
 		$colstable = ["D","E","F","G","H","I","J","K","L","M","N","O","P"];
 		foreach ($get_siswa as $siswa) {
 			$sheet->setCellValue("A" . $begin, $siswa['no_urut']);
@@ -191,7 +193,7 @@ class Profil_kelas extends CI_Controller {
 		$excel->getActiveSheet()->setTitle("Profil Kelas");
 
 		// signature
-		if ( $begin > 23 ) {
+		if ( $begin > 24 ) {
 			$headsignature = $begin + 2;
 			$subheadsignature = $headsignature + 1;
 			$namesignature = $subheadsignature + 6;
@@ -208,18 +210,18 @@ class Profil_kelas extends CI_Controller {
 		$sheet->setCellValue("M" . $namesignature,$this->Clsglobal->site_info("guru_pembimbing"));
 
 		// keterangan column
-		$sheet->setCellValue("Q9","Keterangan");
-		$sheet->mergeCells("Q9:Q11");
-		$excel->getActiveSheet()->getStyle('Q9:Q11')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('Q9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('Q9')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		$beginketcol = 12;
+		$sheet->setCellValue("Q10","Keterangan");
+		$sheet->mergeCells("Q10:Q12");
+		$excel->getActiveSheet()->getStyle('Q10:Q12')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('Q10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('Q10')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$beginketcol = 13;
 		$ketcol_num = ["A","B","C","D","E","F","G","H","I","J","K","L"];
 		for($i = 0; $i < count($get_kategori) - 1; $i++) {
 			$sheet->setCellValue("Q" . $beginketcol,$ketcol_num[$i] . ". " . $get_kategori[$i]['nama_kategori']);
 			$beginketcol++;
 		}
-		$excel->getActiveSheet()->getStyle('Q12:Q23')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('Q13:Q24')->applyFromArray($tableborderStyle);
 
 
 
