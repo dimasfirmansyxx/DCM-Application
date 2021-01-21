@@ -18,7 +18,8 @@ class Jawab_model extends CI_Model {
 				$insert = [
 					"id_siswa" => $id_siswa,
 					"no_soal" => $key,
-					"remarks" => $value
+					"remarks" => $value,
+					"tgl" => date("d/m/Y")
 				];
 
 				$output = $this->db->insert("tbljawaban",$insert);
