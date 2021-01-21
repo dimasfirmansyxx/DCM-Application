@@ -25,6 +25,10 @@
 			<td width="200">Alamat</td>
 			<td width="500">: <?= $this->Clsglobal->site_info("alamat") ?></td>
 		</tr>
+		<tr>
+			<td width="200">Tahun Pelajaran</td>
+			<td width="500">: <?= $this->Clsglobal->site_info("tahun_ajar") ?></td>
+		</tr>
 	</table>
 </tbody>
 <div class="row table-responsive">
