@@ -45,8 +45,14 @@
                 </div>
                 <div class="form-group">
                   <label>Teks Dasbor</label>
-                  <textarea id="summernote" name="welcome_message" required>
+                  <textarea class="summernote" name="welcome_message" required>
                     <?= $this->Clsglobal->site_info("welcome_message") ?>
+                  </textarea>
+                </div>
+                <div class="form-group">
+                  <label>Teks Login</label>
+                  <textarea class="summernote" name="login_message" required>
+                    <?= $this->Clsglobal->site_info("login_message") ?>
                   </textarea>
                 </div>
                 <button type="submit" class="btn btn-sm btn-block btn-primary btnsave">
@@ -159,7 +165,7 @@
       });
     });
 
-    $('#summernote').summernote()
+    $('.summernote').summernote()
 
   });
 </script>
