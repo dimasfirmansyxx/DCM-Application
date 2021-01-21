@@ -28,8 +28,8 @@
                 </div>
               </div>
             </div>
-            <div class="card-body" id="data_area">
-              <p class="text-center">Pilih Kelas Terlebih dahulu</p>
+            <div class="card-body">
+              <?= $this->Clsglobal->site_info("panduan_app") ?>
             </div>
           </div>
         </section>
