@@ -147,7 +147,7 @@ class Siswa_model extends CI_Model {
 
     public function update_login($data)
     {
-        $check = $this->Clsglobal->check_availability("tblsiswa",["id_siswa" => $data['id_siswa'],"verification" => "verif"]);
+        $check = $this->Clsglobal->check_availability("tblsiswa",["id_siswa" => $data['id_siswa']]);
         if ( $check == 2 ) {
             $check = $this->Clsglobal->check_availability("tbluser",["username" => $data['username']]);
             if ( $check == 2 ) {
