@@ -44,6 +44,18 @@ $check = $this->Clsglobal->check_availability("tbljawaban",["id_siswa" => $siswa
 				<td width="200">Kelas</td>
 				<td width="500">: <?= $this->kelas->get_kelas($siswa['id_kelas'])['kelas'] ?></td>
 			</tr>
+			<tr>
+				<td width="200">Sekolah</td>
+				<td width="500">: <?= $this->Clsglobal->site_info("nama_sekolah") ?></td>
+			</tr>
+			<tr>
+				<td width="200">Tahun Pelajaran</td>
+				<td width="500">: <?= $this->Clsglobal->site_info("tahun_ajar") ?></td>
+			</tr>
+			<tr>
+				<td width="200">Tanggal Mengisi</td>
+				<td width="500">: <?= $this->profil->get_jawaban($siswa['id_siswa'],"1")[0]['tgl'] ?></td>
+			</tr>
 		</table>
 	</tbody>
 	<tbody class="text-center">
