@@ -137,11 +137,17 @@ class Profil_individu extends CI_Controller {
 		$sheet->setCellValue("C7",": " . ucwords($siswa['jenis_kelamin']));
 		$sheet->setCellValue("B8","Kelas");
 		$sheet->setCellValue("C8",": " . $this->kelas->get_kelas($siswa['id_kelas'])['kelas']);
+		$sheet->setCellValue("B9","Sekolah");
+		$sheet->setCellValue("C9",": " . $this->Clsglobal->site_info("nama_sekolah"));
+		$sheet->setCellValue("B10","Tahun Pelajaran");
+		$sheet->setCellValue("C10",": " . $this->Clsglobal->site_info("tahun_ajar"));
+		$sheet->setCellValue("B11","Tanggal Mengisi");
+		$sheet->setCellValue("C11",": " . $this->profil->get_jawaban($siswa['id_siswa'],"1")[0]['tgl']);
 
 		// HEAD LABEL
-		$sheet->setCellValue("A10","BIDANG DAN FREKUENSI MASALAH");
-		$sheet->mergeCells("A10:X10");
-		$excel->getActiveSheet()->getStyle('A10')->applyFromArray($headerStyle);
+		$sheet->setCellValue("A13","BIDANG DAN FREKUENSI MASALAH");
+		$sheet->mergeCells("A13:X13");
+		$excel->getActiveSheet()->getStyle('A13')->applyFromArray($headerStyle);
 
 		// DATA TABLE
 		$tableborderStyle = [
@@ -153,43 +159,43 @@ class Profil_individu extends CI_Controller {
         	],
         ];
 		// head tabble
-		$sheet->setCellValue("A11","KODE TOPIK MASALAH");
-		$sheet->setCellValue("C11","JENIS MASALAH");
-		$sheet->setCellValue("C12","NOMOR MASALAH");
-		$sheet->setCellValue("W11","JML");
-		$sheet->setCellValue("X11","%");
+		$sheet->setCellValue("A14","KODE TOPIK MASALAH");
+		$sheet->setCellValue("C14","JENIS MASALAH");
+		$sheet->setCellValue("C15","NOMOR MASALAH");
+		$sheet->setCellValue("W14","JML");
+		$sheet->setCellValue("X14","%");
 		// head style
-		$sheet->mergeCells("A11:B12");
-		$sheet->mergeCells("C11:V11");
-		$sheet->mergeCells("C12:V12");
-		$sheet->mergeCells("W11:W12");
-		$sheet->mergeCells("X11:X12");
-		$excel->getActiveSheet()->getStyle('A11:B12')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('C11:V11')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('C12:V12')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('W11:W12')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('X11:X12')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('A11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('A11')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		$excel->getActiveSheet()->getStyle('C11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('C12')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('W11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('W11')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		$excel->getActiveSheet()->getStyle('X11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$excel->getActiveSheet()->getStyle('X11')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$sheet->mergeCells("A14:B15");
+		$sheet->mergeCells("C14:V14");
+		$sheet->mergeCells("C15:V15");
+		$sheet->mergeCells("W14:W15");
+		$sheet->mergeCells("X14:X15");
+		$excel->getActiveSheet()->getStyle('A14:B15')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('C14:V14')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('C15:V15')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('W14:W15')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('X14:X15')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('A14')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('A14')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$excel->getActiveSheet()->getStyle('C14')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('C15')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('W14')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('W14')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$excel->getActiveSheet()->getStyle('X14')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$excel->getActiveSheet()->getStyle('X14')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		// data
 		$colsjawaban = ["C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V"];
 			// pribadi
-			$sheet->setCellValue("A13","I.");
-			$sheet->setCellValue("B13","PRIBADI");
-			$sheet->mergeCells("B13:V13");
-			$excel->getActiveSheet()->getStyle('A13')->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle('B13:V13')->applyFromArray($tableborderStyle);
+			$sheet->setCellValue("A16","I.");
+			$sheet->setCellValue("B16","PRIBADI");
+			$sheet->mergeCells("B16:V16");
+			$excel->getActiveSheet()->getStyle('A16')->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('B16:V16')->applyFromArray($tableborderStyle);
 			$jmlkeseluruhan = 0;
 
 			$i = 1;
 			$jmlpribadi = 0;
-			$begin = 14;
+			$begin = 17;
 			foreach ($pribadi_kategori as $kategori) {
 				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
 			    $jumlah = 0;
@@ -222,19 +228,19 @@ class Profil_individu extends CI_Controller {
 
 				$begin++;
 			}
-			$sheet->setCellValue("W13",$jmlpribadi);
-			$sheet->setCellValue("X13",ceil($jmlpribadi / 100 * 100) . "%");
-			$excel->getActiveSheet()->getStyle("W13")->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("X13")->applyFromArray($tableborderStyle);
+			$sheet->setCellValue("W16",$jmlpribadi);
+			$sheet->setCellValue("X16",ceil($jmlpribadi / 100 * 100) . "%");
+			$excel->getActiveSheet()->getStyle("W16")->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("X16")->applyFromArray($tableborderStyle);
 			// sosial
-			$sheet->setCellValue("A19","II.");
-			$sheet->setCellValue("B19","SOSIAL");
-			$sheet->mergeCells("B19:V19");
-			$excel->getActiveSheet()->getStyle('A19')->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle('B19:V19')->applyFromArray($tableborderStyle);
+			$sheet->setCellValue("A22","II.");
+			$sheet->setCellValue("B22","SOSIAL");
+			$sheet->mergeCells("B22:V22");
+			$excel->getActiveSheet()->getStyle('A22')->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('B22:V22')->applyFromArray($tableborderStyle);
 			$i = 1;
 			$jmlsosial = 0;
-			$begin = 20;
+			$begin = 23;
 			foreach ($sosial_kategori as $kategori) {
 				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
 			    $jumlah = 0;
@@ -267,19 +273,19 @@ class Profil_individu extends CI_Controller {
 				$begin++;
 
 			}
-			$sheet->setCellValue("W19",$jmlsosial);
-			$sheet->setCellValue("X19",ceil($jmlsosial / 100 * 100) . "%");
-			$excel->getActiveSheet()->getStyle("W19")->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("X19")->applyFromArray($tableborderStyle);
+			$sheet->setCellValue("W22",$jmlsosial);
+			$sheet->setCellValue("X22",ceil($jmlsosial / 100 * 100) . "%");
+			$excel->getActiveSheet()->getStyle("W22")->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("X22")->applyFromArray($tableborderStyle);
 			// belajar
-			$sheet->setCellValue("A23","III.");
-			$sheet->setCellValue("B23","BELAJAR");
-			$sheet->mergeCells("B23:V23");
-			$excel->getActiveSheet()->getStyle('A23')->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle('B23:V23')->applyFromArray($tableborderStyle);
+			$sheet->setCellValue("A26","III.");
+			$sheet->setCellValue("B26","BELAJAR");
+			$sheet->mergeCells("B26:V26");
+			$excel->getActiveSheet()->getStyle('A26')->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('B26:V26')->applyFromArray($tableborderStyle);
 			$i = 1;
 			$jmlbelajar = 0;
-			$begin = 24;
+			$begin = 27;
 			foreach ($belajar_kategori as $kategori) {
 				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
 			    $jumlah = 0;
@@ -312,19 +318,19 @@ class Profil_individu extends CI_Controller {
 				$begin++;
 
 			}
-			$sheet->setCellValue("W23",$jmlbelajar);
-			$sheet->setCellValue("X23",ceil($jmlbelajar / 100 * 100) . "%");
-			$excel->getActiveSheet()->getStyle("W23")->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("X23")->applyFromArray($tableborderStyle);
+			$sheet->setCellValue("W26",$jmlbelajar);
+			$sheet->setCellValue("X26",ceil($jmlbelajar / 100 * 100) . "%");
+			$excel->getActiveSheet()->getStyle("W26")->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("X26")->applyFromArray($tableborderStyle);
 			// karir
-			$sheet->setCellValue("A27","IV.");
-			$sheet->setCellValue("B27","KARIR");
-			$sheet->mergeCells("B27:V27");
-			$excel->getActiveSheet()->getStyle('A27')->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle('B27:V27')->applyFromArray($tableborderStyle);
+			$sheet->setCellValue("A30","IV.");
+			$sheet->setCellValue("B30","KARIR");
+			$sheet->mergeCells("B30:V30");
+			$excel->getActiveSheet()->getStyle('A30')->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('B30:V30')->applyFromArray($tableborderStyle);
 			$i = 1;
 			$jmlkarir = 0;
-			$begin = 28;
+			$begin = 31;
 			foreach ($karir_kategori as $kategori) {
 				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],$kategori['id_kategori']);
 			    $jumlah = 0;
@@ -357,13 +363,13 @@ class Profil_individu extends CI_Controller {
 				$begin++;
 
 			}
-			$sheet->setCellValue("W27",$jmlkarir);
-			$sheet->setCellValue("X27",ceil($jmlkarir / 100 * 100) . "%");
-			$excel->getActiveSheet()->getStyle("W27")->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("X27")->applyFromArray($tableborderStyle);
+			$sheet->setCellValue("W30",$jmlkarir);
+			$sheet->setCellValue("X30",ceil($jmlkarir / 100 * 100) . "%");
+			$excel->getActiveSheet()->getStyle("W30")->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("X30")->applyFromArray($tableborderStyle);
 			// essay
 			$i = 0;
-			$begin = 30;
+			$begin = 33;
 			foreach ($soal_essay as $essay) {
 				$get_jawaban = $this->profil->get_jawaban($siswa['id_siswa'],"13");
 				$sheet->setCellValue("A" . $begin,$essay['no_soal']);
@@ -415,13 +421,13 @@ class Profil_individu extends CI_Controller {
 		
 		$excel->getActiveSheet()->setTitle("Profil Individu");
 
-	    $sheet->setCellValue("B38","Mengetahui,");
-	    $sheet->setCellValue("B39","Kepala Sekolah");
-		$sheet->setCellValue("B45",$this->Clsglobal->site_info("kepala_sekolah"));
-		$sheet->setCellValue("M38","Mengetahui,");
-	    $sheet->setCellValue("M39","Guru Pembimbing");
-		$sheet->setCellValue("M45",$this->Clsglobal->site_info("guru_pembimbing"));
-		$excel->getActiveSheet()->getStyle('B38:W45')->applyFromArray(
+	    $sheet->setCellValue("B41","Mengetahui,");
+	    $sheet->setCellValue("B42","Kepala Sekolah");
+		$sheet->setCellValue("B48",$this->Clsglobal->site_info("kepala_sekolah"));
+		$sheet->setCellValue("M41","Mengetahui,");
+	    $sheet->setCellValue("M42","Guru Pembimbing");
+		$sheet->setCellValue("M48",$this->Clsglobal->site_info("guru_pembimbing"));
+		$excel->getActiveSheet()->getStyle('B41:W48')->applyFromArray(
 		    array(
 		        'fill' => array(
 		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -430,18 +436,18 @@ class Profil_individu extends CI_Controller {
 		    )
 		);
 
-		$sheet->setCellValue("A72", "GRAFIK PROFIL INDIVIDUAL");
-		$sheet->setCellValue("A73", strtoupper($siswa['nama_siswa']));
-		$excel->getActiveSheet()->getStyle('A72')->applyFromArray($headerStyle);
-		$excel->getActiveSheet()->getStyle('A73')->applyFromArray($headerStyle);
-		$sheet->mergeCells("A72:X72");
-		$sheet->mergeCells("A73:X73");
+		$sheet->setCellValue("A80", "GRAFIK PROFIL INDIVIDUAL");
+		$sheet->setCellValue("A79", strtoupper($siswa['nama_siswa']));
+		$excel->getActiveSheet()->getStyle('A80')->applyFromArray($headerStyle);
+		$excel->getActiveSheet()->getStyle('A79')->applyFromArray($headerStyle);
+		$sheet->mergeCells("A80:X80");
+		$sheet->mergeCells("A79:X79");
 
 		$objDrawing = new PHPExcel_Worksheet_Drawing();
 		$objDrawing->setName('Chart 1');
 		$objDrawing->setDescription('Chart 1');
 		$objDrawing->setPath("./assets/chart_img/" . $chart1 . ".jpg");
-		$objDrawing->setCoordinates('B75');   
+		$objDrawing->setCoordinates('B82');   
 		$objDrawing->setOffsetX(50); 
 		$objDrawing->setOffsetY(0);    
 		$objDrawing->setWidth(450); 
@@ -452,14 +458,14 @@ class Profil_individu extends CI_Controller {
 		$objDrawing2->setName('Chart 2');
 		$objDrawing2->setDescription('Chart 2');
 		$objDrawing2->setPath("./assets/chart_img/" . $chart2 . ".jpg");
-		$objDrawing2->setCoordinates('B99');   
+		$objDrawing2->setCoordinates('B106');   
 		$objDrawing2->setOffsetX(50); 
 		$objDrawing2->setOffsetY(0);    
 		$objDrawing2->setWidth(450); 
 		$objDrawing2->setHeight(450); 
 		$objDrawing2->setWorksheet($excel->getActiveSheet());
 
-		$excel->getActiveSheet()->getStyle('B75:W97')->applyFromArray(
+		$excel->getActiveSheet()->getStyle('B82:W110')->applyFromArray(
 		    array(
 		        'fill' => array(
 		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -467,7 +473,7 @@ class Profil_individu extends CI_Controller {
 		        )
 		    )
 		);
-		$excel->getActiveSheet()->getStyle('B99:W121')->applyFromArray(
+		$excel->getActiveSheet()->getStyle('B106:W128')->applyFromArray(
 		    array(
 		        'fill' => array(
 		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
