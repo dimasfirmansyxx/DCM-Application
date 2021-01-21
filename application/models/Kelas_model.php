@@ -79,6 +79,9 @@ class Kelas_model extends CI_Model {
 
     public function delete_kelas($id_kelas)
     {
+        $this->db->where("id_kelas",$id_kelas);
+        $this->db->delete("tblsiswa");
+
     	$this->db->where("id_kelas",$id_kelas);
     	$delete = $this->db->delete($this->table);
     	if ( $delete > 0 ) {
