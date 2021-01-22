@@ -417,12 +417,58 @@
 	    }
 	});
 
+	var secChart = document.getElementById('sectionChart').getContext('2d');
+	var sectionChart = new Chart(secChart, {
+	    type: 'bar',
+	    data: {
+	        labels: [
+	        	'PRIBADI (<?= $persenpribadi ?>%)',
+	        	'SOSIAL (<?= $persensosial ?>%)',
+	        	'BELAJAR (<?= $persenbelajar ?>%)',
+	        	'KARIR (<?= $persenkarir ?>%)'
+	        ],
+	        datasets: [{
+	        	label: 'Persentase',
+	            data: [
+		        	'<?= $persenpribadi ?>',
+		        	'<?= $persensosial ?>',
+		        	'<?= $persenbelajar ?>',
+		        	'<?= $persenkarir ?>'
+	            ],
+		        backgroundColor: [
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)'
+				],
+				borderColor: [
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)'
+				],
+	            borderWidth: 1
+	        }],
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true,
+	                    max: 100
+	                }
+	            }]
+	        },
+	    }
+	});
+
 	setTimeout(setSessChart,500);
 	function setSessChart(){
-	    var chart = categoryChart.toBase64Image();
+	    var chart1 = categoryChart.toBase64Image();
+	    var chart2 = sectionChart.toBase64Image();
 	    $.ajax({
 	    	url : "<?= base_url() ?>topik/set_chart_session/",
-	    	data : { chart : chart },
+	    	data : { chart1 : chart1, chart2 : chart2 },
 	    	type : "post",
 	    	dataType : "json",
 	    	success : function(result) {
