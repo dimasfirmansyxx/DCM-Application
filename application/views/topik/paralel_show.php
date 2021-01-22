@@ -340,6 +340,9 @@
 	<div class="col-12">
 		<canvas id="kategoriChart" height="200"></canvas>
 	</div>
+	<div class="col-12">
+		<canvas id="sectionChart" height="200"></canvas>
+	</div>
 </div>
 
 <script>
@@ -409,6 +412,51 @@
 	                }
 	            }]
 	        }
+	    }
+	});
+
+	var secChart = document.getElementById('sectionChart').getContext('2d');
+	var sectionChart = new Chart(secChart, {
+	    type: 'bar',
+	    data: {
+	        labels: [
+	        	'PRIBADI (<?= $persenpribadi ?>%)',
+	        	'SOSIAL (<?= $persensosial ?>%)',
+	        	'BELAJAR (<?= $persenbelajar ?>%)',
+	        	'KARIR (<?= $persenkarir ?>%)'
+	        ],
+	        datasets: [{
+	        	label: 'Persentase Profil Individu',
+	            data: [
+		        	'<?= $persenpribadi ?>',
+		        	'<?= $persensosial ?>',
+		        	'<?= $persenbelajar ?>',
+		        	'<?= $persenkarir ?>'
+	            ],
+		        backgroundColor: [
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)'
+				],
+				borderColor: [
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)',
+					'rgba(255,99,132,1)'
+				],
+	            borderWidth: 1
+	        }],
+	    },
+	    options: {
+	        scales: {
+	            yAxes: [{
+	                ticks: {
+	                    beginAtZero: true,
+	                    max: 100
+	                }
+	            }]
+	        },
 	    }
 	});
 
