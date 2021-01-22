@@ -7,6 +7,11 @@ class Tabulasi_model extends CI_Model {
 		return $this->db->get("tblsoal")->num_rows();
 	}
 
+	public function get_jml_soal()
+	{
+		return $this->db->get("tblsoal")->num_rows() - 3;
+	}
+
 	public function get_jml_siswa($id_kelas = null)
 	{
 		if ( $id_kelas <> null ) {

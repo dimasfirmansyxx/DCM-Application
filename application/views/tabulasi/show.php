@@ -57,35 +57,42 @@
           <td><?= $siswa['nama_siswa'] ?></td>
           <td><?= ucwords($siswa['jenis_kelamin']) ?></td>
           <td><?= $this->kelas->get_kelas($siswa['id_kelas'])['kelas'] ?></td>
-          <?php foreach ($get_jawaban as $jawaban): ?>
-            <?php 
-              $get_soal = $this->soal->get_soal($jawaban['no_soal']);
-              $get_num_soal = $this->tabulasi->num_soal($get_soal['id_kategori']);
-            ?>
+          <?php if ( count($get_jawaban) > 0 ): ?>
+            <?php foreach ($get_jawaban as $jawaban): ?>
+              <?php 
+                $get_soal = $this->soal->get_soal($jawaban['no_soal']);
+                $get_num_soal = $this->tabulasi->num_soal($get_soal['id_kategori']);
+              ?>
 
-            <?php if ( !($get_soal['id_kategori'] == 13) ): ?>
-              <?php if ( $jawaban['remarks'] == "y" ): ?>
-                <td><?= $jawaban['no_soal'] ?></td>
-                <?php $terjawab++ ?>
-              <?php elseif ( $jawaban['remarks'] == "g" ): ?>
-                <td></td>
-              <?php else: ?>
-                <td><?= $jawaban['remarks'] ?></td>
+              <?php if ( !($get_soal['id_kategori'] == 13) ): ?>
+                <?php if ( $jawaban['remarks'] == "y" ): ?>
+                  <td><?= $jawaban['no_soal'] ?></td>
+                  <?php $terjawab++ ?>
+                <?php elseif ( $jawaban['remarks'] == "g" ): ?>
+                  <td></td>
+                <?php else: ?>
+                  <td><?= $jawaban['remarks'] ?></td>
+                <?php endif ?>
+
+                <?php if ( $iteration == $get_num_soal ): ?>
+                  <td class="bg-primary"><?= $terjawab ?></td>
+                  <?php 
+                    $jmltopik[$get_soal['id_kategori']] += $terjawab; 
+                    $iteration = 1; 
+                    $terjawab = 0;
+                  ?>
+                <?php else: ?>
+                  <?php $iteration++ ?>
+                <?php endif ?>
               <?php endif ?>
 
-              <?php if ( $iteration == $get_num_soal ): ?>
-                <td class="bg-primary"><?= $terjawab ?></td>
-                <?php 
-                  $jmltopik[$get_soal['id_kategori']] += $terjawab; 
-                  $iteration = 1; 
-                  $terjawab = 0;
-                ?>
-              <?php else: ?>
-                <?php $iteration++ ?>
-              <?php endif ?>
-            <?php endif ?>
-
-          <?php endforeach ?>
+            <?php endforeach ?>
+          <?php else: ?>
+            <?php $get_jml_soal = $this->tabulasi->get_jml_soal() + 12 ?>
+            <?php for ($i=0; $i < $get_jml_soal; $i++) : ?>
+              <td>&nbsp;</td>
+            <?php endfor ?>
+          <?php endif ?>
         </tr>
       
       <?php endforeach ?>
