@@ -129,11 +129,11 @@
             type : "post",
             dataType : "json",
             success : function(result) {
-              window.location = base_url + "topik/print_kelas/" + result.chart + "/" + kelas;
+              window.location = base_url + "topik/print_kelas/" + result.chart1 + "/" + result.chart2 + "/" + kelas;
             }
           });
         } else {
-            window.location = base_url + "topik/print_kelas/" + result.chart + "/" + kelas + "/" + derajat;
+            window.location = base_url + "topik/print_kelas/" + result.chart1 + "/" + result.chart2 + "/" + kelas + "/" + derajat;
         }
       }
     });
