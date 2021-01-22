@@ -35,8 +35,8 @@
 				<tr class="bg-primary">
 					<td width="50">I.</td>
 					<td colspan="4">PRIBADI</td>
-					<td id="lblpersenpribadi"></td>
-					<td id="lblderajatpribadi"></td>
+					<td id="lblpersenpribadi" align="center"></td>
+					<td id="lblderajatpribadi" align="center"></td>
 				</tr>
 				<?php 
 					$persenpribadi = 0;
@@ -87,13 +87,31 @@
 							<td align="center"><?= $derajat ?></td>
 						</tr>
 					<?php endif ?>
+					<?php $persenpribadi += $persen ?>
 				<?php endforeach ?>
+				<?php 
+					if ( $persenpribadi >= 0 && $persenpribadi < 1 ) {
+						$derajatpribadi = "A";
+					} elseif ( $persenpribadi >= 1 && $persenpribadi < 11 ) {
+						$derajatpribadi = "B";
+					} elseif ( $persenpribadi >= 11 && $persenpribadi < 26 ) {
+						$derajatpribadi = "C";
+					} elseif ( $persenpribadi >= 26 && $persenpribadi < 51 ) {
+						$derajatpribadi = "D";
+					} else {
+						$derajatpribadi = "E";
+					}
+				?>
+				<script>
+					$("#lblpersenpribadi").html("<?= $persenpribadi ?>%")
+					$("#lblderajatpribadi").html("<?= $derajatpribadi ?>")
+				</script>
 
 				<tr class="bg-danger">
 					<td width="50">II.</td>
 					<td colspan="4">SOSIAL</td>
-					<td id="lblpersensosial"></td>
-					<td id="lblderajatsosial"></td>
+					<td id="lblpersensosial" align="center"></td>
+					<td id="lblderajatsosial" align="center"></td>
 				</tr>
 				<?php 
 					$persensosial = 0;
@@ -144,13 +162,31 @@
 							<td align="center"><?= $derajat ?></td>
 						</tr>
 					<?php endif ?>
+					<?php $persensosial += $persen ?>
 				<?php endforeach ?>
+				<?php 
+					if ( $persensosial >= 0 && $persensosial < 1 ) {
+						$derajatsosial = "A";
+					} elseif ( $persensosial >= 1 && $persensosial < 11 ) {
+						$derajatsosial = "B";
+					} elseif ( $persensosial >= 11 && $persensosial < 26 ) {
+						$derajatsosial = "C";
+					} elseif ( $persensosial >= 26 && $persensosial < 51 ) {
+						$derajatsosial = "D";
+					} else {
+						$derajatsosial = "E";
+					}
+				?>
+				<script>
+					$("#lblpersensosial").html("<?= $persensosial ?>%")
+					$("#lblderajatsosial").html("<?= $derajatsosial ?>")
+				</script>
 
 				<tr class="bg-success">
 					<td width="50">III.</td>
 					<td colspan="4">BELAJAR</td>
-					<td id="lblpersenbelajar"></td>
-					<td id="lblderajatbelajar"></td>
+					<td id="lblpersenbelajar" align="center"></td>
+					<td id="lblderajatbelajar" align="center"></td>
 				</tr>
 				<?php 
 					$persenbelajar = 0;
@@ -201,13 +237,31 @@
 							<td align="center"><?= $derajat ?></td>
 						</tr>
 					<?php endif ?>
+					<?php $persenbelajar += $persen ?>
 				<?php endforeach ?>
+				<?php 
+					if ( $persenbelajar >= 0 && $persenbelajar < 1 ) {
+						$derajatbelajar = "A";
+					} elseif ( $persenbelajar >= 1 && $persenbelajar < 11 ) {
+						$derajatbelajar = "B";
+					} elseif ( $persenbelajar >= 11 && $persenbelajar < 26 ) {
+						$derajatbelajar = "C";
+					} elseif ( $persenbelajar >= 26 && $persenbelajar < 51 ) {
+						$derajatbelajar = "D";
+					} else {
+						$derajatbelajar = "E";
+					}
+				?>
+				<script>
+					$("#lblpersenbelajar").html("<?= $persenbelajar ?>%")
+					$("#lblderajatbelajar").html("<?= $derajatbelajar ?>")
+				</script>
 
 				<tr class="bg-warning">
 					<td width="50">IV.</td>
 					<td colspan="4">KARIR</td>
-					<td id="lblpersenkarir"></td>
-					<td id="lblderajatkarir"></td>
+					<td id="lblpersenkarir" align="center"></td>
+					<td id="lblderajatkarir" align="center"></td>
 				</tr>
 				<?php 
 					$persenkarir = 0;
@@ -258,7 +312,25 @@
 							<td align="center"><?= $derajat ?></td>
 						</tr>
 					<?php endif ?>
+					<?php $persenkarir += $persen ?>
 				<?php endforeach ?>
+				<?php 
+					if ( $persenkarir >= 0 && $persenkarir < 1 ) {
+						$derajatkarir = "A";
+					} elseif ( $persenkarir >= 1 && $persenkarir < 11 ) {
+						$derajatkarir = "B";
+					} elseif ( $persenkarir >= 11 && $persenkarir < 26 ) {
+						$derajatkarir = "C";
+					} elseif ( $persenkarir >= 26 && $persenkarir < 51 ) {
+						$derajatkarir = "D";
+					} else {
+						$derajatkarir = "E";
+					}
+				?>
+				<script>
+					$("#lblpersenkarir").html("<?= $persenkarir ?>%")
+					$("#lblderajatkarir").html("<?= $derajatkarir ?>")
+				</script>
 				
 			</tbody>
 		</table>
