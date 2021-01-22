@@ -101,11 +101,11 @@
           type : "post",
           dataType : "json",
           success : function(result) {
-            window.location = base_url + "topik/print_paralel/" + result.chart;
+            window.location = base_url + "topik/print_paralel/" + result.chart1 + "/" + result.chart2;
           }
         });
       } else {
-          window.location = base_url + "topik/print_paralel/" + result.chart + "/" + derajat;
+          window.location = base_url + "topik/print_paralel/" + result.chart1 + "/" + result.chart2 + "/" + derajat;
       }
     });
 

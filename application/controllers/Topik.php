@@ -27,27 +27,37 @@ class Topik extends CI_Controller {
 
 	public function set_chart_session()
 	{
-		$chart = $_POST['chart'];
+		$chart1 = $_POST['chart1'];
+		$chart2 = $_POST['chart2'];
 
-		$_SESSION["chart_profil"] = $chart;
+		$_SESSION["chart_profil"] = [$chart1, $chart2];
 	}
 
 	public function upload_chart()
 	{
-		$chart = $_SESSION["chart_profil"];
+		$chart1 = $_SESSION["chart_profil"][0];
+		$chart2 = $_SESSION["chart_profil"][1];
 
-		$chartimg = $chart;
-		$chartimg = str_replace('data:image/png;base64,', '', $chartimg);
-		$chartimg = str_replace(' ', '+', $chartimg);
-		$chartimg = base64_decode($chartimg);
-		$chartimg_name = uniqid();
-		$chartimg_path = './assets/chart_img/'.$chartimg_name.'.jpg';
-		file_put_contents($chartimg_path, $chartimg); 
+		$chart1img = $chart1;
+		$chart1img = str_replace('data:image/png;base64,', '', $chart1img);
+		$chart1img = str_replace(' ', '+', $chart1img);
+		$chart1img = base64_decode($chart1img);
+		$chart1img_name = uniqid();
+		$chart1img_path = './assets/chart_img/'.$chart1img_name.'.jpg';
+		file_put_contents($chart1img_path, $chart1img); 
 
-		$encrypt = base64_encode($chartimg_path);
+		$chart2img = $chart2;
+		$chart2img = str_replace('data:image/png;base64,', '', $chart2img);
+		$chart2img = str_replace(' ', '+', $chart2img);
+		$chart2img = base64_decode($chart2img);
+		$chart2img_name = uniqid();
+		$chart2img_path = './assets/chart_img/'.$chart2img_name.'.jpg';
+		file_put_contents($chart2img_path, $chart2img);
+
+		$encrypt = base64_encode($chart1img_path);
 		$decrypt = base64_decode($encrypt);
 
-		echo json_encode(["chart" => $chartimg_name]);
+		echo json_encode(["chart1" => $chart1img_name, "chart2" => $chart2img_name]);
 	}
 
 	public function paralel($param = null, $sortir = null)
@@ -72,7 +82,7 @@ class Topik extends CI_Controller {
 		}
 	}
 
-	public function print_paralel($chart = null, $sortir = null)
+	public function print_paralel($chart1 = null, $chart2 = null, $sortir = null)
 	{
 		$get_kategori = $this->kategori->get_all_kategori();
 		$pribadi_kategori = $this->profil->get_kategori(1,5);
@@ -146,10 +156,16 @@ class Topik extends CI_Controller {
 			// PRIBADI
 			$sheet->setCellValue("A" . $begin,"I.");
 			$sheet->setCellValue("B" . $begin,"PRIBADI");
-			$sheet->mergeCells("B".$begin.":G".$begin);
+			$sheet->mergeCells("B".$begin.":E".$begin);
 			$excel->getActiveSheet()->getStyle('A'.$begin)->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("B".$begin.":G".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("B".$begin.":E".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('F'.$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('G'.$begin)->applyFromArray($tableborderStyle);
+			$coordinateHeader = $begin;
+
 			$begin++;
+			$persenpribadi = 0;
+			$derajatpribadi;
 			$iteration = 1;
 			foreach ($pribadi_kategori as $kategori) {
 				$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
@@ -215,14 +231,38 @@ class Topik extends CI_Controller {
 					$excel->getActiveSheet()->getStyle('G' . $begin)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 				}
 				$begin++;
+				$persenpribadi += $persen;
 			}
+			if ( $persenpribadi >= 0 && $persenpribadi < 1 ) {
+				$derajatpribadi = "A";
+			} elseif ( $persenpribadi >= 1 && $persenpribadi < 11 ) {
+				$derajatpribadi = "B";
+			} elseif ( $persenpribadi >= 11 && $persenpribadi < 26 ) {
+				$derajatpribadi = "C";
+			} elseif ( $persenpribadi >= 26 && $persenpribadi < 51 ) {
+				$derajatpribadi = "D";
+			} else {
+				$derajatpribadi = "E";
+			}
+			$sheet->setCellValue("F" . $coordinateHeader,$persenpribadi . "%");
+			$sheet->setCellValue("G" . $coordinateHeader,$derajatpribadi);
+			$excel->getActiveSheet()->getStyle('F' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$excel->getActiveSheet()->getStyle('G' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
 			// SOSIAL
 			$sheet->setCellValue("A" . $begin,"II.");
 			$sheet->setCellValue("B" . $begin,"SOSIAL");
-			$sheet->mergeCells("B".$begin.":G".$begin);
+			$sheet->mergeCells("B".$begin.":E".$begin);
 			$excel->getActiveSheet()->getStyle('A'.$begin)->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("B".$begin.":G".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("B".$begin.":E".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('F'.$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('G'.$begin)->applyFromArray($tableborderStyle);
+			$coordinateHeader = $begin;
+
 			$begin++;
+			$persensosial = 0;
+			$derajatsosial;
 			$iteration = 1;
 			foreach ($sosial_kategori as $kategori) {
 				$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
@@ -288,14 +328,38 @@ class Topik extends CI_Controller {
 					$excel->getActiveSheet()->getStyle('G' . $begin)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 				}
 				$begin++;
+				$persensosial += $persen;
 			}
+			if ( $persensosial >= 0 && $persensosial < 1 ) {
+				$derajatsosial = "A";
+			} elseif ( $persensosial >= 1 && $persensosial < 11 ) {
+				$derajatsosial = "B";
+			} elseif ( $persensosial >= 11 && $persensosial < 26 ) {
+				$derajatsosial = "C";
+			} elseif ( $persensosial >= 26 && $persensosial < 51 ) {
+				$derajatsosial = "D";
+			} else {
+				$derajatsosial = "E";
+			}
+			$sheet->setCellValue("F" . $coordinateHeader,$persensosial . "%");
+			$sheet->setCellValue("G" . $coordinateHeader,$derajatsosial);
+			$excel->getActiveSheet()->getStyle('F' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$excel->getActiveSheet()->getStyle('G' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
 			// BELAJAR
 			$sheet->setCellValue("A" . $begin,"III.");
 			$sheet->setCellValue("B" . $begin,"BELAJAR");
-			$sheet->mergeCells("B".$begin.":G".$begin);
+			$sheet->mergeCells("B".$begin.":E".$begin);
 			$excel->getActiveSheet()->getStyle('A'.$begin)->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("B".$begin.":G".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("B".$begin.":E".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('F'.$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('G'.$begin)->applyFromArray($tableborderStyle);
+			$coordinateHeader = $begin;
+
 			$begin++;
+			$persenbelajar = 0;
+			$derajatbelajar;
 			$iteration = 1;
 			foreach ($belajar_kategori as $kategori) {
 				$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
@@ -361,14 +425,38 @@ class Topik extends CI_Controller {
 					$excel->getActiveSheet()->getStyle('G' . $begin)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 				}
 				$begin++;
+				$persenbelajar += $persen;
 			}
+			if ( $persenbelajar >= 0 && $persenbelajar < 1 ) {
+				$derajatbelajar = "A";
+			} elseif ( $persenbelajar >= 1 && $persenbelajar < 11 ) {
+				$derajatbelajar = "B";
+			} elseif ( $persenbelajar >= 11 && $persenbelajar < 26 ) {
+				$derajatbelajar = "C";
+			} elseif ( $persenbelajar >= 26 && $persenbelajar < 51 ) {
+				$derajatbelajar = "D";
+			} else {
+				$derajatbelajar = "E";
+			}
+			$sheet->setCellValue("F" . $coordinateHeader,$persenbelajar . "%");
+			$sheet->setCellValue("G" . $coordinateHeader,$derajatbelajar);
+			$excel->getActiveSheet()->getStyle('F' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$excel->getActiveSheet()->getStyle('G' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
 			// KARIR
 			$sheet->setCellValue("A" . $begin,"IV.");
 			$sheet->setCellValue("B" . $begin,"KARIR");
-			$sheet->mergeCells("B".$begin.":G".$begin);
+			$sheet->mergeCells("B".$begin.":E".$begin);
 			$excel->getActiveSheet()->getStyle('A'.$begin)->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("B".$begin.":G".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("B".$begin.":E".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('F'.$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('G'.$begin)->applyFromArray($tableborderStyle);
+			$coordinateHeader = $begin;
+
 			$begin++;
+			$persenkarir = 0;
+			$derajatkarir;
 			$iteration = 1;
 			foreach ($karir_kategori as $kategori) {
 				$jml = $this->tabulasi->get_score_paralel($kategori['id_kategori']);
@@ -434,30 +522,24 @@ class Topik extends CI_Controller {
 					$excel->getActiveSheet()->getStyle('G' . $begin)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 				}
 				$begin++;
+				$persenkarir += $persen;
 			}
+			if ( $persenkarir >= 0 && $persenkarir < 1 ) {
+				$derajatkarir = "A";
+			} elseif ( $persenkarir >= 1 && $persenkarir < 11 ) {
+				$derajatkarir = "B";
+			} elseif ( $persenkarir >= 11 && $persenkarir < 26 ) {
+				$derajatkarir = "C";
+			} elseif ( $persenkarir >= 26 && $persenkarir < 51 ) {
+				$derajatkarir = "D";
+			} else {
+				$derajatkarir = "E";
+			}
+			$sheet->setCellValue("F" . $coordinateHeader,$persenkarir . "%");
+			$sheet->setCellValue("G" . $coordinateHeader,$derajatkarir);
+			$excel->getActiveSheet()->getStyle('F' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$excel->getActiveSheet()->getStyle('G' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-
-		// CHART
-		$begin++;
-		$objDrawing = new PHPExcel_Worksheet_Drawing();
-		$objDrawing->setName('Chart');
-		$objDrawing->setDescription('Chart');
-		$objDrawing->setPath("./assets/chart_img/" . $chart . ".jpg");
-		$objDrawing->setCoordinates('A' . $begin);   
-		$objDrawing->setOffsetX(0); 
-		$objDrawing->setOffsetY(0);    
-		$objDrawing->setWidth(400); 
-		$objDrawing->setHeight(400); 
-		$objDrawing->setWorksheet($excel->getActiveSheet());
-		$excel->getActiveSheet()->getStyle("A" . $begin .":G" . ($begin + 20))->applyFromArray(
-		    array(
-		        'fill' => array(
-		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
-		            'color' => array('rgb' => 'FFFFFF')
-		        )
-		    )
-		);
-		$begin = $begin + 20;
 
 		// SET WIDTH OF COLUMN
 		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(4);
@@ -480,6 +562,66 @@ class Topik extends CI_Controller {
 		$sheet->setCellValue("F" . $headsignature,"Mengetahui,");
 	    $sheet->setCellValue("F" . $subheadsignature,"Guru Pembimbing");
 		$sheet->setCellValue("F" . $namesignature,$this->Clsglobal->site_info("guru_pembimbing"));
+
+
+		// CHART
+		$sheet->setCellValue("A55", "GRAFIK ANALISIS TOPIK MASALAH");
+		$sheet->setCellValue("A56", "KELAS PARALEL");
+		// HEADER STYLE
+		$headerStyle = [
+			'font' => ['bold' => true, 'size' => '16'],
+			'alignment' => [
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+		        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+			],
+
+		];
+		$excel->getActiveSheet()->getStyle('A55')->applyFromArray($headerStyle);
+		$excel->getActiveSheet()->getStyle('A56')->applyFromArray($headerStyle);
+		$sheet->mergeCells("A55:G55");
+		$sheet->mergeCells("A56:G56");
+
+		$begin = 57;
+		$begin++;
+		$objDrawing = new PHPExcel_Worksheet_Drawing();
+		$objDrawing->setName('Chart');
+		$objDrawing->setDescription('Chart');
+		$objDrawing->setPath("./assets/chart_img/" . $chart1 . ".jpg");
+		$objDrawing->setCoordinates('A' . $begin);   
+		$objDrawing->setOffsetX(0); 
+		$objDrawing->setOffsetY(0);    
+		$objDrawing->setWidth(400); 
+		$objDrawing->setHeight(400); 
+		$objDrawing->setWorksheet($excel->getActiveSheet());
+		$excel->getActiveSheet()->getStyle("A" . $begin .":G" . ($begin + 20))->applyFromArray(
+		    array(
+		        'fill' => array(
+		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+		            'color' => array('rgb' => 'FFFFFF')
+		        )
+		    )
+		);
+
+		$begin += 21;
+		$objDrawing = new PHPExcel_Worksheet_Drawing();
+		$objDrawing->setName('Chart');
+		$objDrawing->setDescription('Chart');
+		$objDrawing->setPath("./assets/chart_img/" . $chart2 . ".jpg");
+		$objDrawing->setCoordinates('A' . $begin);   
+		$objDrawing->setOffsetX(0); 
+		$objDrawing->setOffsetY(0);    
+		$objDrawing->setWidth(400); 
+		$objDrawing->setHeight(400); 
+		$objDrawing->setWorksheet($excel->getActiveSheet());
+		$excel->getActiveSheet()->getStyle("A" . $begin .":G" . ($begin + 20))->applyFromArray(
+		    array(
+		        'fill' => array(
+		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+		            'color' => array('rgb' => 'FFFFFF')
+		        )
+		    )
+		);
+
 
 		$sheet->getPageSetup()->setFitToWidth(1);    
 	    $sheet->getPageSetup()->setFitToHeight(0);

@@ -426,7 +426,7 @@
 	        	'KARIR (<?= $persenkarir ?>%)'
 	        ],
 	        datasets: [{
-	        	label: 'Persentase Profil Individu',
+	        	label: 'Persentase',
 	            data: [
 		        	'<?= $persenpribadi ?>',
 		        	'<?= $persensosial ?>',
@@ -462,10 +462,11 @@
 
 	setTimeout(setSessChart,500);
 	function setSessChart(){
-	    var chart = categoryChart.toBase64Image();
+	    var chart1 = categoryChart.toBase64Image();
+	    var chart2 = sectionChart.toBase64Image();
 	    $.ajax({
 	    	url : "<?= base_url() ?>topik/set_chart_session/",
-	    	data : { chart : chart },
+	    	data : { chart1 : chart1, chart2 : chart2 },
 	    	type : "post",
 	    	dataType : "json",
 	    	success : function(result) {
