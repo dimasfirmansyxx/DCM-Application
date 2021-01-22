@@ -662,7 +662,7 @@ class Topik extends CI_Controller {
 		}
 	}
 
-	public function print_kelas($chart = null, $id_kelas = null, $sortir = null)
+	public function print_kelas($chart1 = null, $chart2 = null, $id_kelas = null, $sortir = null)
 	{
 		$get_kategori = $this->kategori->get_all_kategori();
 		$pribadi_kategori = $this->profil->get_kategori(1,5);
@@ -718,35 +718,41 @@ class Topik extends CI_Controller {
         	],
         ];
 		// head tabble
-		$sheet->setCellValue("A8","No.");
-		$sheet->setCellValue("B8","Topik");
-		$sheet->setCellValue("C8","Nm");
-		$sheet->setCellValue("D8","N");
-		$sheet->setCellValue("E8","N x M");
-		$sheet->setCellValue("F8","(Nm : N x M) x 100%");
-		$sheet->setCellValue("G8","Derajat");
+		$sheet->setCellValue("A7","No.");
+		$sheet->setCellValue("B7","Topik");
+		$sheet->setCellValue("C7","Nm");
+		$sheet->setCellValue("D7","N");
+		$sheet->setCellValue("E7","N x M");
+		$sheet->setCellValue("F7","(Nm : N x M) x 100%");
+		$sheet->setCellValue("G7","Derajat");
 		// head style
-		$excel->getActiveSheet()->getStyle('A8')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('B8')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('C8')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('D8')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('E8')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('F8')->applyFromArray($tableborderStyle);
-		$excel->getActiveSheet()->getStyle('G8')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('A7')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('B7')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('C7')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('D7')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('E7')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('F7')->applyFromArray($tableborderStyle);
+		$excel->getActiveSheet()->getStyle('G7')->applyFromArray($tableborderStyle);
 		// data
-		$begin = 9;
+		$begin = 8;
 			// PRIBADI
 			$sheet->setCellValue("A" . $begin,"I.");
 			$sheet->setCellValue("B" . $begin,"PRIBADI");
-			$sheet->mergeCells("B".$begin.":G".$begin);
+			$sheet->mergeCells("B".$begin.":E".$begin);
 			$excel->getActiveSheet()->getStyle('A'.$begin)->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("B".$begin.":G".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("B".$begin.":E".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('F'.$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('G'.$begin)->applyFromArray($tableborderStyle);
+			$coordinateHeader = $begin;
+
 			$begin++;
+			$persenpribadi = 0;
+			$derajatpribadi;
 			$iteration = 1;
 			foreach ($pribadi_kategori as $kategori) {
 				$jml = $this->tabulasi->get_score_kelas($kategori['id_kategori'],$id_kelas);
 				$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
-				$jmlsiswa = $this->tabulasi->get_jml_siswa($id_kelas);
+				$jmlsiswa = $this->tabulasi->get_jml_siswa();
 
 				$n_m = $jmlsoal * $jmlsiswa;
 				$persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100);
@@ -807,19 +813,43 @@ class Topik extends CI_Controller {
 					$excel->getActiveSheet()->getStyle('G' . $begin)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 				}
 				$begin++;
+				$persenpribadi += $persen;
 			}
+			if ( $persenpribadi >= 0 && $persenpribadi < 1 ) {
+				$derajatpribadi = "A";
+			} elseif ( $persenpribadi >= 1 && $persenpribadi < 11 ) {
+				$derajatpribadi = "B";
+			} elseif ( $persenpribadi >= 11 && $persenpribadi < 26 ) {
+				$derajatpribadi = "C";
+			} elseif ( $persenpribadi >= 26 && $persenpribadi < 51 ) {
+				$derajatpribadi = "D";
+			} else {
+				$derajatpribadi = "E";
+			}
+			$sheet->setCellValue("F" . $coordinateHeader,$persenpribadi . "%");
+			$sheet->setCellValue("G" . $coordinateHeader,$derajatpribadi);
+			$excel->getActiveSheet()->getStyle('F' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$excel->getActiveSheet()->getStyle('G' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
 			// SOSIAL
 			$sheet->setCellValue("A" . $begin,"II.");
 			$sheet->setCellValue("B" . $begin,"SOSIAL");
-			$sheet->mergeCells("B".$begin.":G".$begin);
+			$sheet->mergeCells("B".$begin.":E".$begin);
 			$excel->getActiveSheet()->getStyle('A'.$begin)->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("B".$begin.":G".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("B".$begin.":E".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('F'.$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('G'.$begin)->applyFromArray($tableborderStyle);
+			$coordinateHeader = $begin;
+
 			$begin++;
+			$persensosial = 0;
+			$derajatsosial;
 			$iteration = 1;
 			foreach ($sosial_kategori as $kategori) {
 				$jml = $this->tabulasi->get_score_kelas($kategori['id_kategori'],$id_kelas);
 				$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
-				$jmlsiswa = $this->tabulasi->get_jml_siswa($id_kelas);
+				$jmlsiswa = $this->tabulasi->get_jml_siswa();
 
 				$n_m = $jmlsoal * $jmlsiswa;
 				$persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100);
@@ -880,19 +910,43 @@ class Topik extends CI_Controller {
 					$excel->getActiveSheet()->getStyle('G' . $begin)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 				}
 				$begin++;
+				$persensosial += $persen;
 			}
+			if ( $persensosial >= 0 && $persensosial < 1 ) {
+				$derajatsosial = "A";
+			} elseif ( $persensosial >= 1 && $persensosial < 11 ) {
+				$derajatsosial = "B";
+			} elseif ( $persensosial >= 11 && $persensosial < 26 ) {
+				$derajatsosial = "C";
+			} elseif ( $persensosial >= 26 && $persensosial < 51 ) {
+				$derajatsosial = "D";
+			} else {
+				$derajatsosial = "E";
+			}
+			$sheet->setCellValue("F" . $coordinateHeader,$persensosial . "%");
+			$sheet->setCellValue("G" . $coordinateHeader,$derajatsosial);
+			$excel->getActiveSheet()->getStyle('F' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$excel->getActiveSheet()->getStyle('G' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
 			// BELAJAR
 			$sheet->setCellValue("A" . $begin,"III.");
 			$sheet->setCellValue("B" . $begin,"BELAJAR");
-			$sheet->mergeCells("B".$begin.":G".$begin);
+			$sheet->mergeCells("B".$begin.":E".$begin);
 			$excel->getActiveSheet()->getStyle('A'.$begin)->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("B".$begin.":G".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("B".$begin.":E".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('F'.$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('G'.$begin)->applyFromArray($tableborderStyle);
+			$coordinateHeader = $begin;
+
 			$begin++;
+			$persenbelajar = 0;
+			$derajatbelajar;
 			$iteration = 1;
 			foreach ($belajar_kategori as $kategori) {
 				$jml = $this->tabulasi->get_score_kelas($kategori['id_kategori'],$id_kelas);
 				$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
-				$jmlsiswa = $this->tabulasi->get_jml_siswa($id_kelas);
+				$jmlsiswa = $this->tabulasi->get_jml_siswa();
 
 				$n_m = $jmlsoal * $jmlsiswa;
 				$persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100);
@@ -953,19 +1007,43 @@ class Topik extends CI_Controller {
 					$excel->getActiveSheet()->getStyle('G' . $begin)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 				}
 				$begin++;
+				$persenbelajar += $persen;
 			}
+			if ( $persenbelajar >= 0 && $persenbelajar < 1 ) {
+				$derajatbelajar = "A";
+			} elseif ( $persenbelajar >= 1 && $persenbelajar < 11 ) {
+				$derajatbelajar = "B";
+			} elseif ( $persenbelajar >= 11 && $persenbelajar < 26 ) {
+				$derajatbelajar = "C";
+			} elseif ( $persenbelajar >= 26 && $persenbelajar < 51 ) {
+				$derajatbelajar = "D";
+			} else {
+				$derajatbelajar = "E";
+			}
+			$sheet->setCellValue("F" . $coordinateHeader,$persenbelajar . "%");
+			$sheet->setCellValue("G" . $coordinateHeader,$derajatbelajar);
+			$excel->getActiveSheet()->getStyle('F' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$excel->getActiveSheet()->getStyle('G' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
 			// KARIR
 			$sheet->setCellValue("A" . $begin,"IV.");
 			$sheet->setCellValue("B" . $begin,"KARIR");
-			$sheet->mergeCells("B".$begin.":G".$begin);
+			$sheet->mergeCells("B".$begin.":E".$begin);
 			$excel->getActiveSheet()->getStyle('A'.$begin)->applyFromArray($tableborderStyle);
-			$excel->getActiveSheet()->getStyle("B".$begin.":G".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle("B".$begin.":E".$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('F'.$begin)->applyFromArray($tableborderStyle);
+			$excel->getActiveSheet()->getStyle('G'.$begin)->applyFromArray($tableborderStyle);
+			$coordinateHeader = $begin;
+
 			$begin++;
+			$persenkarir = 0;
+			$derajatkarir;
 			$iteration = 1;
 			foreach ($karir_kategori as $kategori) {
 				$jml = $this->tabulasi->get_score_kelas($kategori['id_kategori'],$id_kelas);
 				$jmlsoal = $this->tabulasi->num_soal($kategori['id_kategori']);
-				$jmlsiswa = $this->tabulasi->get_jml_siswa($id_kelas);
+				$jmlsiswa = $this->tabulasi->get_jml_siswa();
 
 				$n_m = $jmlsoal * $jmlsiswa;
 				$persen = ceil($jml / ($jmlsoal * $jmlsiswa) * 100);
@@ -1026,15 +1104,71 @@ class Topik extends CI_Controller {
 					$excel->getActiveSheet()->getStyle('G' . $begin)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 				}
 				$begin++;
+				$persenkarir += $persen;
 			}
+			if ( $persenkarir >= 0 && $persenkarir < 1 ) {
+				$derajatkarir = "A";
+			} elseif ( $persenkarir >= 1 && $persenkarir < 11 ) {
+				$derajatkarir = "B";
+			} elseif ( $persenkarir >= 11 && $persenkarir < 26 ) {
+				$derajatkarir = "C";
+			} elseif ( $persenkarir >= 26 && $persenkarir < 51 ) {
+				$derajatkarir = "D";
+			} else {
+				$derajatkarir = "E";
+			}
+			$sheet->setCellValue("F" . $coordinateHeader,$persenkarir . "%");
+			$sheet->setCellValue("G" . $coordinateHeader,$derajatkarir);
+			$excel->getActiveSheet()->getStyle('F' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$excel->getActiveSheet()->getStyle('G' . $coordinateHeader)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
+		// SET WIDTH OF COLUMN
+		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(4);
+		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(38);
+		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(6);
+		$excel->getActiveSheet()->getColumnDimension('D')->setWidth(6);
+		$excel->getActiveSheet()->getColumnDimension('E')->setWidth(6);
+		$excel->getActiveSheet()->getColumnDimension('F')->setWidth(18);
+		$excel->getActiveSheet()->getColumnDimension('G')->setWidth(7);
+
+		
+		$excel->getActiveSheet()->setTitle("Analisis Topik Paralel");
+
+	    $headsignature = $begin + 2;
+		$subheadsignature = $headsignature + 1;
+		$namesignature = $subheadsignature + 6;
+	    $sheet->setCellValue("B" . $headsignature,"Mengetahui,");
+	    $sheet->setCellValue("B" . $subheadsignature,"Kepala Sekolah");
+		$sheet->setCellValue("B" . $namesignature,$this->Clsglobal->site_info("kepala_sekolah"));
+		$sheet->setCellValue("F" . $headsignature,"Mengetahui,");
+	    $sheet->setCellValue("F" . $subheadsignature,"Guru Pembimbing");
+		$sheet->setCellValue("F" . $namesignature,$this->Clsglobal->site_info("guru_pembimbing"));
 
 
 		// CHART
+		$sheet->setCellValue("A55", "GRAFIK ANALISIS TOPIK MASALAH");
+		$sheet->setCellValue("A56", "KELAS PARALEL");
+		// HEADER STYLE
+		$headerStyle = [
+			'font' => ['bold' => true, 'size' => '16'],
+			'alignment' => [
+				'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+		        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER
+			],
+
+		];
+		$excel->getActiveSheet()->getStyle('A55')->applyFromArray($headerStyle);
+		$excel->getActiveSheet()->getStyle('A56')->applyFromArray($headerStyle);
+		$sheet->mergeCells("A55:G55");
+		$sheet->mergeCells("A56:G56");
+
+		$begin = 57;
 		$begin++;
 		$objDrawing = new PHPExcel_Worksheet_Drawing();
 		$objDrawing->setName('Chart');
 		$objDrawing->setDescription('Chart');
-		$objDrawing->setPath("./assets/chart_img/" . $chart . ".jpg");
+		$objDrawing->setPath("./assets/chart_img/" . $chart1 . ".jpg");
 		$objDrawing->setCoordinates('A' . $begin);   
 		$objDrawing->setOffsetX(0); 
 		$objDrawing->setOffsetY(0);    
@@ -1049,29 +1183,27 @@ class Topik extends CI_Controller {
 		        )
 		    )
 		);
-		$begin = $begin + 20;
 
-		// SET WIDTH OF COLUMN
-		$excel->getActiveSheet()->getColumnDimension('A')->setWidth(4);
-		$excel->getActiveSheet()->getColumnDimension('B')->setWidth(38);
-		$excel->getActiveSheet()->getColumnDimension('C')->setWidth(6);
-		$excel->getActiveSheet()->getColumnDimension('D')->setWidth(6);
-		$excel->getActiveSheet()->getColumnDimension('E')->setWidth(6);
-		$excel->getActiveSheet()->getColumnDimension('F')->setWidth(18);
-		$excel->getActiveSheet()->getColumnDimension('G')->setWidth(7);
+		$begin += 21;
+		$objDrawing = new PHPExcel_Worksheet_Drawing();
+		$objDrawing->setName('Chart');
+		$objDrawing->setDescription('Chart');
+		$objDrawing->setPath("./assets/chart_img/" . $chart2 . ".jpg");
+		$objDrawing->setCoordinates('A' . $begin);   
+		$objDrawing->setOffsetX(0); 
+		$objDrawing->setOffsetY(0);    
+		$objDrawing->setWidth(400); 
+		$objDrawing->setHeight(400); 
+		$objDrawing->setWorksheet($excel->getActiveSheet());
+		$excel->getActiveSheet()->getStyle("A" . $begin .":G" . ($begin + 20))->applyFromArray(
+		    array(
+		        'fill' => array(
+		            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+		            'color' => array('rgb' => 'FFFFFF')
+		        )
+		    )
+		);
 
-		
-		$excel->getActiveSheet()->setTitle("Analisis Topik Perkelas");
-
-	    $headsignature = $begin + 2;
-		$subheadsignature = $headsignature + 1;
-		$namesignature = $subheadsignature + 6;
-	    $sheet->setCellValue("B" . $headsignature,"Mengetahui,");
-	    $sheet->setCellValue("B" . $subheadsignature,"Kepala Sekolah");
-		$sheet->setCellValue("B" . $namesignature,$this->Clsglobal->site_info("kepala_sekolah"));
-		$sheet->setCellValue("F" . $headsignature,"Mengetahui,");
-	    $sheet->setCellValue("F" . $subheadsignature,"Guru Pembimbing");
-		$sheet->setCellValue("F" . $namesignature,$this->Clsglobal->site_info("guru_pembimbing"));
 
 		$sheet->getPageSetup()->setFitToWidth(1);    
 	    $sheet->getPageSetup()->setFitToHeight(0);
