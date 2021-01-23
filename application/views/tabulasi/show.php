@@ -51,6 +51,7 @@
           $get_jawaban = $this->tabulasi->get_jawaban($siswa['id_siswa']);
           $iteration = 1;
           $terjawab = 0;
+          unset($sisa_kosong);
         ?>
         <tr>
           <td><?= $siswa['no_urut'] ?></td>
@@ -62,24 +63,30 @@
               <?php 
                 $get_soal = $this->soal->get_soal($jawaban['no_soal']);
                 $get_num_soal = $this->tabulasi->num_soal($get_soal['id_kategori']);
+                if ( !isset($sisa_kosong) ) {
+                  $sisa_kosong = $get_num_soal;
+                }
               ?>
 
               <?php if ( !($get_soal['id_kategori'] == 13) ): ?>
                 <?php if ( $jawaban['remarks'] == "y" ): ?>
                   <td><?= $jawaban['no_soal'] ?></td>
-                  <?php $terjawab++ ?>
-                <?php elseif ( $jawaban['remarks'] == "g" ): ?>
-                  <td></td>
-                <?php else: ?>
-                  <td><?= $jawaban['remarks'] ?></td>
+                  <?php 
+                    $terjawab++;
+                    $sisa_kosong--;
+                  ?>
                 <?php endif ?>
 
                 <?php if ( $iteration == $get_num_soal ): ?>
+                  <?php for($i = 0;$i < $sisa_kosong; $i++ ): ?>
+                    <td></td>
+                  <?php endfor ?>
                   <td class="bg-primary"><?= $terjawab ?></td>
                   <?php 
                     $jmltopik[$get_soal['id_kategori']] += $terjawab; 
                     $iteration = 1; 
                     $terjawab = 0;
+                    unset($sisa_kosong);
                   ?>
                 <?php else: ?>
                   <?php $iteration++ ?>
@@ -87,11 +94,6 @@
               <?php endif ?>
 
             <?php endforeach ?>
-          <?php else: ?>
-            <?php $get_jml_soal = $this->tabulasi->get_jml_soal() + 12 ?>
-            <?php for ($i=0; $i < $get_jml_soal; $i++) : ?>
-              <td>&nbsp;</td>
-            <?php endfor ?>
           <?php endif ?>
         </tr>
       
