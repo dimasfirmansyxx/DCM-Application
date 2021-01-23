@@ -24,14 +24,16 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="<?= base_url() ?>panduan" class="nav-link">
-            <i class="nav-icon fas fa-book"></i>
-            <p>
-              Panduan Aplikasi
-            </p>
-          </a>
-        </li>
+        <?php if ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "admin" ): ?>
+          <li class="nav-item">
+            <a href="<?= base_url() ?>panduan" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Panduan Aplikasi
+              </p>
+            </a>
+          </li>
+        <?php endif ?>
 
         <?php if ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "siswa" ): ?>
 
