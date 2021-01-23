@@ -94,6 +94,20 @@
               <?php endif ?>
 
             <?php endforeach ?>
+          <?php else: ?>
+            <?php 
+              $get_jml_soal = $this->tabulasi->get_jml_soal();
+              $iteration = 1;
+            ?>
+            <?php for ($i=0; $i < $get_jml_soal; $i++) : ?>
+              <td></td>
+              <?php if ( $iteration == 20 ): ?>
+                <td class="bg-primary">0</td>
+                <?php $iteration = 1 ?>
+              <?php else: ?>
+                <?php $iteration += 1 ?>
+              <?php endif ?>
+            <?php endfor ?>
           <?php endif ?>
         </tr>
       
