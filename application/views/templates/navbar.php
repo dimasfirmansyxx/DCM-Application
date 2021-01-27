@@ -20,7 +20,11 @@
           <a href="<?= base_url() ?>beranda" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
-              Dasbor
+              <?php if ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "admin" ): ?>
+                Dasbor
+              <?php else: ?>
+                Panduan Aplikasi
+              <?php endif ?>
             </p>
           </a>
         </li>
