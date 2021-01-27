@@ -78,6 +78,34 @@ class Clsglobal extends CI_Model {
 
 	}
 
+	public function upload_single($key,$directory,$allow_extension,$file_name = "random")
+	{
+		if ( $_FILES[$key]['error'] == 4 ) {
+			return "";
+		} else {
+			$name = $_FILES[$key]['name'];
+			$tmp = $_FILES[$key]['tmp_name'];
+			$explodename = explode(".", $name);
+			$extension = strtolower(end($explodename));
+
+			if ( in_array($extension, $allow_extension) ) {
+				if ( $file_name == "random" ) {
+					$newName = date("YmdHis") . "." . $extension;
+				} else {
+					$newName = $file_name;
+				}
+
+				$dir = "./assets/" . $directory . "/";
+				move_uploaded_file($tmp, $dir . $newName);
+
+				return $newName;
+			} else {
+				return 5;
+			}
+		}
+
+	}
+
 	public function check_file_extension($key,$allow_extension)
 	{
 		if ( $_FILES[$key]['error'] == 4 ) {

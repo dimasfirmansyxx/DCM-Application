@@ -193,7 +193,7 @@ class Siswa extends CI_Controller {
 
 	public function import_siswa_from_excel()
 	{
-		$filename = $this->Clsglobal->upload_files("excelfiles","excel_files",["xlsx"])[0];
+		$filename = $this->Clsglobal->upload_single("excelfiles","excel_files",["xlsx"]);
 		if ( $filename == 5 ) {
 			echo 5;
 		} else {
