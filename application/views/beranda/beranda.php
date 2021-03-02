@@ -3,7 +3,11 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Dasbor</h1>
+          <?php if ( $this->Clsglobal->user_info($this->session->user_id)["privilege"] == "siswa" ): ?>
+            <h1 class="m-0 text-dark">Panduan Aplikasi</h1>
+          <?php else: ?>
+            <h1 class="m-0 text-dark">Dasbor</h1>
+          <?php endif ?>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
